@@ -1,0 +1,1021 @@
+\documentclass[10.5pt]{config}
+% 本实验报告采用 署名-相同方式共享 4.0 国际许可协议 (CC BY-SA 4.0)
+\setlength{\parskip}{\baselineskip} % 设置段落间距为一个基本行距
+\major{生物科学}
+\name{蒋贤迪}
+\partner{} % 签名栏
+% \title{}
+\stuid{3240105782}
+\date{2025.11.5}
+\lab{生物实验中心-312}
+\course{生态学基础及实验}
+\instructor{胡亮亮}
+\grades{}
+\expname{校园植被温室气体通量的观测} % 实验名字
+\exptype{观测} % 实验类型
+
+
+\usepackage{amsmath} % 用于数学公式
+\usepackage[table]{xcolor} % 用于设置单元格颜色
+\usepackage{multicol}
+\usepackage{booktabs} % 用于更好的表格线条
+\usepackage{graphicx}  % 插入图片
+\usepackage{subcaption} % 子图环境
+\usepackage{siunitx}
+\usepackage{mhchem} % 用于 \ce{} 化学式命令
+\usepackage{enumitem}
+\usepackage{graphicx} % 用于插入图片
+\usepackage{booktabs} % 用于加载三线表功能
+\usepackage{multirow} % 用于多行合并
+\usepackage{siunitx}
+\usepackage{makecell} % 用于表格单元格内换行
+\usepackage{array}    % 增强表格功能
+\usepackage{caption}    % 用于 \caption
+\usepackage{ctex}
+\usepackage{subcaption}
+\usepackage{tcolorbox}   % 用于创建彩色的方框
+\usepackage{xcolor}      % tcolorbox 依赖此包定义颜色
+\begin{document}
+
+
+% \maketitlepage % 封面
+% \maketoc % 目录
+\makeheader % 首页头部
+
+
+\section{实验目的和要求}
+
+\subsection{实验目的：}
+
+\begin{itemize}
+    \item 了解温室气体通量和全球增温潜势的概念
+    \item 了解静态箱法的工作原理
+    \item 掌握静态箱-气相色谱法观测温室气体通量的方法
+\end{itemize}
+
+\subsection{实验要求：}
+
+\begin{enumerate}
+    \item 计算3种GHG通量
+    \item 分析GHG通量构成
+    \item 比较2个位点的GHG通量差异，分析其可能的原因
+\end{enumerate}
+
+\section{实验内容和原理}
+
+\subsection{温室气体 (Greenhouse Gas)}
+
+\begin{minipage}[t]{0.50\textwidth}
+    温室气体 (GHG) 指大气中能吸收和释放热红外辐射能的气体 。
+    \begin{itemize}[leftmargin=*]
+        \item 它们维持地表平均气温约为 $\SI{15}{\celsius}$ (若无GHG，则约为 $\SI{-18}{\celsius}$) 。
+        \item 过量的GHG将导致全球增温 。
+        \item 主要温室气体包括：水蒸气 ($H_2O$)、\textbf{二氧化碳 ($CO_2$)}、\textbf{甲烷 ($CH_4$)}、\textbf{氧化亚氮 ($N_2O$)}等 。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=1.0\textwidth]{理论图/The greenhouse effect-P1946.png}
+    \captionof{figure}{The greenhouse effect\\(Ecology The Economy of Nature 9th Figure 2.1)}
+\end{minipage}
+
+\subsection{全球增温/变暖 (Global Warming)}
+
+\begin{minipage}[t]{0.5\textwidth}
+    全球增温是由于温室气体排放持续增长导致的现象 。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{温控目标}: 《巴黎协定》共识为：将升温控制在工业化前 $\SI{2}{\celsius}$ 以内，力争 $\SI{1.5}{\celsius}$ 。
+        \item \textbf{现状}: 据IPCC报告，目前全球气温已比工业化前提高约 $\SI{1.0}{\celsius}$ 。若按当前速度，预计在 2030-2052 年间达到 $\SI{1.5}{\celsius}$ 。
+        \item \textbf{气候临界点}: 地球关键系统正逼近或跨越不可逆的临界阈值 。例如，2024年全球平均气温高出约 $\SI{1.4}{\celsius}$，已触发温水珊瑚礁系统性崩溃（其阈值为 $\SI{1.2}{\celsius}$）。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=\textwidth]{理论图/Global warming over time-P164.png}
+    \captionof{figure}{Global warming over time\\(Ecology The Economy of Nature 9th Figure 22.19)}
+\end{minipage}
+
+\subsection{温室气体对增温贡献的差异}
+
+\begin{minipage}[t]{0.5\textwidth}
+    不同的气体和气溶胶对气候变化的物理驱动力不同 。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{增温效应}: $CO_2$、$CH_4$ 和 $N_2O$ 是最主要的增温贡献者 。
+        \item \textbf{降温效应}: 某些气溶胶，如二氧化硫 ($SO_2$) 和有机碳，具有降温效应 。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+\vspace{0em}
+    \centering
+    \includegraphics[width=\textwidth]{理论图/contribution-chart.png}
+    \captionof{figure}{气候变化物理驱动因子的贡献 (IPCC, 2021) }
+\end{minipage}
+
+\subsection{全球增温潜势 (Global Warming Potential, GWP)}
+
+\begin{minipage}[t]{0.55\textwidth}
+    GWP 是用于衡量温室气体增温能力的相对指标 。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{定义}: 气体在一定时间积分范围内与相同质量二氧化碳相比而得到的相对辐射影响值
+        \item \textbf{示例 (100年 GWP)}: $CO_2$ 的 GWP 定义为 1。甲烷 ($CH_4$) 约为 28，氧化亚氮 ($N_2O$) 约为 265 。
+        \item \textbf{寿命}: 不同气体的 GWP 值与其在大气中的存留时间（寿命）密切相关 。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.9\textwidth]{理论图/ghg-lifespan.png}
+    \captionof{figure}{温室气体在大气中的存留时间}
+\end{minipage}
+
+\subsection{二氧化碳质量当量 ($CO_2$ equivalent)}
+
+$CO_2$ 当量是 GWP 的实际应用，用于将不同温室气体的排放量统一折算为 $CO_2$ 的排放量 。
+\begin{equation*}
+    CO_{2}eq = \text{mass}_{GHG} \times \text{GWP}_{GHG} \quad \text{}
+\end{equation*}
+
+\begin{itemize}
+    \item $CO_2\text{eq}$: 所求结果，即“二氧化碳当量”
+    \item $\text{mass}_{\text{GHG}}$: 这是实际排放的某种GHG的质量（例如，1吨甲烷）
+    \item $\text{GWP}_{\text{GHG}}$: 这是该GHG气体的GWP（例如，甲烷的GWP为28）
+\end{itemize}
+
+\subsection{温室气体通量 (GHG Flux)}
+
+\begin{minipage}[t]{0.6\textwidth}
+    温室气体通量是指在特定表面（如下垫面），单位面积和单位时间内温室气体的净释放或吸收量 。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{源 (Source)}: 呈净释放的下垫面 。
+        \item \textbf{汇 (Sink)}: 呈净吸收的下垫面 。
+        \item \textbf{大气浓度变化} 可表示为 ：
+              \begin{equation*}
+                  \Delta_{\text{atmosphere}} = \Sigma \text{Source} - \Sigma \text{Sink}
+              \end{equation*}
+    \end{itemize}
+    在大气和下垫面之间，每时每刻都发生着气体交换，且生物扮演着重要角色
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0.5em}
+    \centering
+    \includegraphics[width=\textwidth]{理论图/carbon-cycle-flux.png}
+    \captionof{figure}{陆地和海洋生态系统的碳通量示意 }
+\end{minipage}
+
+
+\subsection{碳通量 (Carbon Flux)}
+
+\begin{minipage}[t]{0.55\textwidth}
+    碳通量特指 $CO_2$ 的交换，通常使用 $NEE$ (生态系统净交换) 来描述 。
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{NEE (Net Ecosystem Exchange)}: 生态系统净碳排放（正值）或吸收（负值）通量 。
+        \item \textbf{GEP (Gross Ecosystem Production)}: 生态系统总生产力，即光合作用同化的总碳量。
+        \item \textbf{ER (Ecosystem Respiration)}: 生态系统呼吸，所有呼吸作用排放的总碳量。
+    \end{itemize}
+    三者关系为 ：
+    \begin{equation*}
+        NEE = GEP + ER
+        \label{碳通量}
+    \end{equation*}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0.5em}
+    \centering
+    \includegraphics[width=0.7\textwidth]{理论图/nee-components.png}
+    \captionof{figure}{生态系统碳通量组分 (GEP, ER, NEE) }
+\end{minipage}
+
+\begin{minipage}[t]{0.5\textwidth}
+\begin{itemize}
+    \item 狭义：仅考虑$CO_2$
+    \item 广义：考虑$CO_2$，$CH_4$和$N_2O$
+\end{itemize}
+右图中，各字母含义为：
+\begin{itemize}
+    \item A、B、C分别代表光照条件下的$CO_2$，$CH_4$和$N_2O$的气体通量
+    \item D、E、F分别代表黑暗条件下的$CO_2$，$CH_4$和$N_2O$的气体通量
+\end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0.5em}
+    \centering
+    \includegraphics[width=\textwidth]{理论图/image.png}
+    \captionof{figure}{计算示意图}
+\end{minipage}
+
+\begin{minipage}[t]{0.5\textwidth}
+右图源自实验课课件的20页，清晰展示了该公式所代表的含义：
+\begin{enumerate}
+    \item 符号：
+    \begin{itemize}
+        \item $GEP$：与光合作用相关，负值代表其让环境减少了100的$CO_2\text{eq}$。
+        \item $ER$ ：与呼吸作用相关，正值代表其让环境增加了80的$CO_2\text{eq}$。
+        \item $NEE$：前两者之和，负值代表在两者综合作用下，其让环境减少了20的$CO_2\text{eq}$，总体呈现“汇”的特征
+    \end{itemize}
+    \item 广义：$ER(80)$ 不是只看 $CO_2$，而是 $CO_2$、$CH_4$ 和 $N_2O$ 三种气体通量的$CO_2$ 当量总和
+\end{enumerate}
+
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=\textwidth]{数据及结果/公示.png}
+    \captionof{figure}{公式示意图}
+    \label{公示讲解}
+\end{minipage}
+
+\subsection{温室气体通量的观测方法}
+
+% --- 开始 2x2 布局 (两列) ---
+
+% --- 第 1 列 (涡度相关法) ---
+\begin{minipage}[t]{0.45\textwidth}
+    
+    % --- 第 1 排 (文字) ---
+    \textbf{涡度相关法 (Eddy Covariance)}
+    
+    \begin{itemize}[leftmargin=*]
+        \item 是一种通过三维风速、气体浓度和水分脉动的观测来获取二氧化碳、热量和水分的通量的方法
+        \item 优点：连续观测，适合大尺度
+        \item 缺点：易受天气影响，不便携
+    \end{itemize}
+
+    \bigskip % 在文字和图片之间增加垂直间距
+    
+    % --- 第 2 排 (图片) ---
+    \centering
+    % 注意：宽度现在应基于 \linewidth (当前列的宽度) 
+    % 而不是 \textwidth (整个页面的宽度)
+    \includegraphics[width=0.51\linewidth]{理论图/Eddy Covariance.png}
+    \captionof{figure}{涡度相关法示意图}
+    
+\end{minipage}%
+\hfill % 在两列之间添加弹性空白
+% --- 第 2 列 (静态箱法) ---
+\begin{minipage}[t]{0.48\textwidth}
+    
+    % --- 第 1 排 (文字) ---
+    \textbf{静态箱法 (Static chamber)}
+    
+    \begin{itemize}[leftmargin=*]
+        \item 是一种通过密闭箱体罩住土壤或水体表面，测量箱内温室气体浓度随时间变化来计算排放通量的技术
+        \item 优点：测定结果稳定，便携，适合小尺度
+        \item 缺点：观测频率低
+    \end{itemize}
+    
+    \bigskip % 在文字和图片之间增加垂直间距
+
+    % --- 第 2 排 (图片) ---
+    \centering
+    \includegraphics[width=0.7\linewidth]{理论图/Static chamber.png}
+    \captionof{figure}{静态箱法示意图}
+
+\end{minipage}
+% --- 结束 2x2 布局 ---
+
+\newpage
+
+\subsection{静态箱法-回归法}
+
+气体通量可以通过静态箱内单位时间气体浓度的变化计算得到。
+
+\begin{minipage}[t]{0.4\textwidth}
+    
+    % --- 通量计算公式 ---
+    \begin{equation*}
+        F = \rho \times \frac{\SI{273}{\celsius}}{(\SI{273}{\celsius} + T)} \times H \times \frac{dC}{dt}
+    \end{equation*}
+    
+    \bigskip % 在公式和定义之间增加间距
+
+    % --- 红色定义框 ---
+    % 使用 tcolorbox 模拟幻灯片中的红色方框
+    \begin{tcolorbox}[
+        colframe=red!75!black, % 边框颜色
+        colback=white,         % 背景颜色
+        sharp corners          % 使用直角
+    ]
+    \begin{itemize}[leftmargin=*, labelwidth=1.5em, align=left]
+        \item[F:] 气体通量 (\si{\milli\gram\per\meter\squared\per\minute})
+        
+        \item[$\rho$:] 在 $\SI{0}{\celsius}$ 和1个大气压下气体的密度 (\si{\milli\gram\per\meter\cubed})
+        
+        \item[H:] 静态箱箱体高度 (\si{\meter})
+        
+        \item[$\frac{dC}{dt}$:] 气体体积浓度的变化速率 ($\text{ppm/min}$)
+        
+        \item[T:] 箱体内温度的平均值 ($\si{\celsius}$)
+    \end{itemize}
+    \end{tcolorbox}
+    
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.55\textwidth}
+\vspace{0.5em}
+    \centering
+    % 请将 "path/to/your/graph.png" 替换为
+    % 您在幻灯片中使用的 "静态箱内甲烷浓度" 图表的实际文件路径。
+    \includegraphics[width=\textwidth]{理论图/静态箱内甲烷浓度.png}
+\end{minipage}
+
+
+
+\section{实验材料与设备}
+
+\textbf{气体收集：} 
+
+% --- 开始两栏布局 ---
+\begin{multicols}{2}
+\begin{itemize}[leftmargin=*]
+    \item 亚克力板透明圆柱罩 (内径 \SI{29.5}{\centi\meter}, 高 \SI{30}{\centi\meter}) 
+    \item 针筒、针头 
+    \item 塑料管 
+    \item 三通阀 
+    \item 温度计 
+    \item 集气袋 
+    \item 充电式小风扇 
+\end{itemize}
+\end{multicols}
+% --- 结束两栏布局 ---
+
+\textbf{气体测定：}Agilent 8860 GC 气相色谱仪
+
+\section{操作方法和实验步骤}
+
+\subsection{观测点选择：}
+
+\begin{itemize}
+    \item 两组选择同一地点，对同一地点的2个条件不同位点进行观测
+    \item 位点的差异可以体现在水分、植被、光照等方面，差异越大越好
+    \item 不能是近期修剪过的草坪
+\end{itemize}
+
+\subsection{气体采集：}
+
+要求对所选位点分别进行两轮（光+暗）温室气体通量的观测
+
+% 使用 enumerate 环境来保持步骤的编号
+\begin{enumerate}
+
+    % --- 第 1 排：第1轮采气 (光) + 光照图 ---
+    \item 
+    \begin{minipage}[t]{0.6\textwidth}
+        \textbf{第1轮采气 (光)} 
+        \begin{itemize}[leftmargin=*]
+            \item 有光合作用, 可测定 NEE 
+            \item 罩上静态箱
+            \item 打开风扇, 等待 \textbf{30秒} 
+            \item 连续抽取3个 \SI{20}{\milli\litre} 气体样本 
+            \item 抽气间隔3分钟 
+        \end{itemize}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.35\textwidth}
+        \vspace{0.5em} 
+        \centering
+        \includegraphics[width=0.9\textwidth]{理论图/光照.png}
+        \captionof{figure}{第1轮采气(光)示意}
+    \end{minipage}
+
+    \bigskip % 增加第一排和第二排之间的垂直间距
+\vspace{5em}
+    % --- 第 2 排：打开静态箱 ---
+    \item 打开静态箱, 恢复气体流通30秒以上, 令采样区微环境恢复至与其周围一致 。
+
+    \bigskip % 增加第二排和第三排之间的垂直间距
+\vspace{5em}
+    % --- 第 3 排：第2轮采气 (暗) + 黑暗图 ---
+    \item 
+    \begin{minipage}[t]{0.6\textwidth}
+        \textbf{第2轮采气 (暗)} 
+        \begin{itemize}[leftmargin=*]
+            \item 无光合作用, 可测定 ER
+            \item 罩上静态箱和遮光罩
+            \item 打开风扇, 等待 \textbf{30秒}
+            \item 连续抽取3个 \SI{20}{\milli\litre} 气体样本 
+            \item 抽气间隔3分钟
+        \end{itemize}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}[t]{0.35\textwidth}
+        \vspace{0.5em} 
+        \centering
+        \includegraphics[width=0.9\textwidth]{理论图/黑暗.png}
+        \captionof{figure}{第2轮采气(暗)示意}
+    \end{minipage}
+
+\end{enumerate}
+
+\newpage
+
+\subsection{辅助操作}
+
+\begin{minipage}[t]{0.3\textwidth}
+    \centering
+    \textbf{辅助信息记录}
+    \par\medskip % \par 结束居中，\medskip 增加间距
+    
+    % 使用 enumitem 宏包的 leftmargin=* 来减少列表的缩进
+    \begin{enumerate}[leftmargin=*]
+        \item 记录采样时间、位点、天气状况 (晴天/阴天/小雨) 
+        \item 测定环境气温
+        \item 测定罩子有效高度 
+        \item 记录抽气时罩内气温 
+    \end{enumerate}
+\end{minipage}% <--- 这个 % 号非常重要，防止换行
+\hfill \vline \hfill % <--- 在第1栏和第2栏之间添加竖线和弹性空白
+\begin{minipage}[t]{0.3\textwidth}
+    \centering
+    \textbf{植被生物量取样}
+    \par\medskip
+    
+    \begin{enumerate}[leftmargin=*]
+        \item 在罩子范围内, 划定1个 $\SI{10}{\centi\meter} \times \SI{10}{\centi\meter}$ 样方 
+        \item 剪下样方内植物的所有地上部分, 放入信封, $\SI{65}{\celsius}$ 烘干。 
+    \end{enumerate}
+\end{minipage}% <--- 这个 % 号也非常重要
+\hfill \vline \hfill % <--- 在第2栏和第3栏之间添加竖线和弹性空白
+\begin{minipage}[t]{0.3\textwidth}
+    \centering
+    \textbf{土壤理化性质测定}
+    \par\medskip
+    
+    % 仿照前两栏，使用 enumerate 保持格式统一
+
+\hspace{2em}使用土壤速测仪, 测定土壤含水量、土温、盐分含量、N、P、K 
+
+    
+    \bigskip % 在列表和图片之间加一点间距
+    
+    % 图像路径 "理论图/器材.png"
+    \includegraphics[width=0.8\linewidth]{理论图/器材.png}
+\end{minipage}
+
+\section{实验数据记录与处理}
+
+在本次实验中，我们第六组选择湖边作为采样点，而隔壁第七组选择林下作为采样点。
+
+\subsection{土壤及其环境条件}
+
+通过使用土壤速测仪，我们组得以了解观测地点的土壤条件，并记录下观测点的环境条件，如下表所示：
+
+\begin{table}[h]
+    \centering
+    \caption{土壤条件}
+    % 我为您使用了新的标签，以免与旧表格冲突
+    \label{tab:soil-conditions-compact} 
+    
+    % "l" = 左对齐 (前两列文本)
+    % "r" = 右对齐 (所有数据列)
+    % 总共 2 + 2 + 3 + 3 = 10 列
+    \begin{tabular}{cccccccccc} 
+        \toprule
+        
+        % --- 第1行表头 (高级) ---
+        
+        % 新增第1列: 样本编号 (跨2行)
+        \multirow{2}{*}{小组编号} & 
+        
+        % 第2列: 采样点 (跨2行)
+        \multirow{2}{*}{采样地点} &
+        
+        % 第3-4列: 坐标
+        \multicolumn{2}{c}{坐标} & 
+        
+        % 第5-7列: 土壤
+        \multicolumn{3}{c}{土壤} &
+        
+        % 第8-10列: 元素含量
+        \multicolumn{3}{c}{元素含量/$\text{mg}\cdot\text{kg}^{-1}$} \\
+        
+        
+        % --- 中间分隔线 (列索引已全部+1) ---
+        \cmidrule(lr){3-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+        
+        % --- 第2行表头 (低级) ---
+        
+        % 前两列被 \multirow 占用, 所以跳过两列 ( & & )
+        & & E & N & 水分/\% & 温度/℃ & 盐分/$\text{mS}\cdot\text{cm}^{-1}$ & 氮 & 磷 & 钾 \\
+        
+        \midrule
+        
+        % --- 数据行 1: 湖边 ---
+        % 新增 "site1"
+        第六组 & 湖边 & 12011.051 & 2945.129 & 36.92 & 22.6 & 0.94 & 85.1 & 78.0 & 207.6 \\
+        
+        % --- 数据行 2: 林下 ---
+        % 新增 "site2" (推断)
+        第七组 & 林下 & 12011.051 & 2945.129 & 18.65 & 21.5 & 0.01 & 1.3 & 1.2 & 3.2 \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\vspace{2em}
+
+% --- 采样环境表格 ---
+\begin{table}[h]
+    \centering
+    \caption{采样环境}
+    \label{tab:sampling-environment}
+    
+    % l = 左对齐 (前4列)
+    % r = 右对齐 (后3列, 数值)
+    \begin{tabular}{cccccc} 
+        \toprule
+        % --- 表头：已按您的要求拆分第一列 ---
+        小组编号 &  采样时间 & 采样地点 & 天气 & 环境温度T/℃ &  静态箱有效高度H/cm \\
+        \midrule
+        
+        % --- 第1行数据 ---
+        % 按照您的要求，使用 "Site 1" 和 "第六组"
+        % \makecell{...\\...} 用于在单元格内换行
+        第六组 & 
+        15:04-15:27 & 
+        南华园东北侧草坪湖边& 
+        多云 & 21.0 & 30.5 \\
+        
+        % --- 第2行数据 ---
+        % 按照您的要求，使用 "Site 2" 和 "第七组"
+        第七组 & 
+        15:00-15:25 & 
+        南华园东北侧草坪湖边& 
+        多云 & 20.0 & 29.5 \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+% --- 表格结束 ---
+
+
+\newpage
+
+\subsection{气体测定}
+
+利用气相色谱仪，对两组的各6袋集气体袋进行气体测定，得到图\ref{fig:附录}中的结果（第七组数据略），整理得到如表\ref{tab:gc-concentration}所示结果：
+
+\begin{table}[h]
+    \centering % 使表格居中
+    
+    \caption{气相色谱测定气体浓度} 
+    \label{tab:gc-concentration} % 添加标签，方便在正文中交叉引用
+    
+    % l = 左对齐 (前三列文本), c = 居中 (后六列数据)
+    \begin{tabular}{ccccccccc}
+        \toprule
+        % \multirow{2}{*}{...} 创建一个跨2行、垂直居中的单元格
+        % --- 第1行表头 (已添加 "样本编号") ---
+        \multirow{2}{*}{小组编号} & \multirow{2}{*}{采样地点} & \multirow{2}{*}{样本编号} & \multicolumn{3}{c}{光照} & \multicolumn{3}{c}{黑暗} \\
+        
+        % \cmidrule 的列索引已更新 (3->4, 5->6, 6->7, 8->9)
+        \cmidrule(lr){4-6} \cmidrule(lr){7-9}
+        % --- 第2行表头 (已添加一个 & 占位符) ---
+        & & & $CH_4$/PPM & $CO_2$/PPM & $N_2O$/PPB & $CH_4$/PPM & $CO_2$/PPM & $N_2O$/PPB \\
+        \midrule
+        
+        % --- 采样点 1 (真实数据，已按新顺序排列) ---
+        \multirow{3}{*}{第六组} & \multirow{3}{*}{湖边} 
+        % 光照1 / 黑暗1 数据 (已添加 "Site 1")
+        & 1 & 3.549 & 523.057 & 400.818 & 3.396 & 568.389 & 405.270 \\
+        % 光照2 / 黑暗2 数据 (已添加 "Site 2")
+        & & 2 & 3.745 & 637.149 & 402.464 & 3.419 & 738.266 & 403.210 \\
+        % 光照3 / 黑暗3 数据 (已添加 "Site 3")
+        & & 3 & 3.808 & 643.500 & 404.828 & 3.405 & 781.817 & 405.549 \\
+        
+        \midrule % 在两个采样点之间添加分隔线
+        
+        % --- 采样点 2 (已填入新数据，并按新顺序排列) ---
+        \multirow{3}{*}{第七组} & \multirow{3}{*}{林下} 
+        % 光照1 / 黑暗1 数据 (已添加 "Site 1")
+        & 1 & 2.992 & 1031.090 & 456.187 & 3.026 & 845.386 & 431.379 \\
+        % 光照2 / 黑暗2 数据 (已添加 "Site 2")
+        & & 2 & 3.150 & 1577.312 & 577.360 & 3.006 & 1225.362 & 499.879 \\
+        % 光照3 / 黑暗3 数据 (已添加 "Site 3")
+        & & 3 & 2.917 & 2307.142 & 760.577 & 2.978 & 1670.855 & 601.479 \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+% --- 表格结束 ---
+
+
+
+
+
+
+
+
+\subsection{线性拟合}
+
+为了求出气体通量，我们需要测出$\frac{dC}{dt}$，即气体体积浓度的变化速率（ppm/min）。因此，我们需要对特定环境特定光照条件下，对每一个气体浓度数据点进行线性拟合，绘制出C-t的线性拟合图。
+
+我运用python工具，对每一组数据进行了线性拟合（见图\ref{fig:group6_fits_with_subcaptions}和图\ref{fig:group7_fits_with_subcaptions}），为了方便展示，我在正文里仅插入合并版的线性拟合图，详细且清晰的图由附录提供。同时，为了清晰展示不同气体的差异，每种气体的拟合直线颜色都不同。具体表现为：
+
+% --- 开始两栏布局 ---
+\begin{multicols}{3}
+\begin{itemize}[leftmargin=*]
+    \item 红色~←→~$CH_4$
+    \item 蓝色~←→~$CO_2$
+    \item 黄色~←→~$N_2O$
+\end{itemize}
+\end{multicols}
+% --- 结束两栏布局 ---
+
+线性拟合图如下所示，其中左图为光照条件，右图为黑暗条件
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{拟合图/第六组-三线图.png}
+    \caption{第六组-三气体拟合直线图}
+    \label{fig:第六组-三气体拟合直线图}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{拟合图/第七组-三线图.png}
+    \caption{第七组-三气体拟合直线图}
+    \label{fig:第七组-三气体拟合直线图}
+\end{figure}
+
+之后，将每一条直线拟合所得的斜率汇总，作为计算气体通量时要用到的$\frac{dC}{dt}$。由于所得的$N_2O$的气体浓度单位为ppb，与需要计算气体通量的浓度单位ppm/min有差异。故该表在列出时对单位一并统一为ppn/min，结果如下表所示：
+
+\begin{table}[htbp]
+    \centering
+    \caption{12组气体浓度变化的拟合斜率 (dC/dt，单位：PPM/min)}
+    \label{tab:dcdt-slopes-final}
+    
+    % ll = 两个左对齐文本列
+    % rrrrrr = 六个右对齐数值列
+    \begin{tabular}{llrrrrrr}
+        \toprule
+        % --- 二级表头 ---
+        
+        % --- 【关键修改】---
+        % 第1行: \multirow 更改为 2, 删除了 dC/dt 标题行
+        \multirow{2}{*}{小组编号} & \multirow{2}{*}{采样点} & \multicolumn{3}{c}{光照} & \multicolumn{3}{c}{黑暗} \\
+        \cmidrule(lr){3-5} \cmidrule(lr){6-8} % 绘制部分分隔线
+        
+        % 第2行: 气体类型
+        % (前两列被 \multirow 占用)
+        & & \multicolumn{1}{c}{$CO_2$} & \multicolumn{1}{c}{$CH_4$} & \multicolumn{1}{c}{$N_2O$} & \multicolumn{1}{c}{$CO_2$} & \multicolumn{1}{c}{$CH_4$} & \multicolumn{1}{c}{$N_2O$} \\
+        
+        \midrule
+        
+        % --- 数据行 1: 第六组 (数据已按 CO2, CH4, N2O 顺序) ---
+        第六组 & 湖边 & 20.0738 & 0.0432 & $6.683 \times 10^{-4}$ & 35.5713 & 0.0015 & $4.650 \times 10^{-5}$ \\
+        
+        % --- 数据行 2: 第七组 (数据已按 CO2, CH4, N2O 顺序) ---
+        第七组 & 林下 & 212.6753 & -0.0125 & 0.0507 & 137.5782 & -0.0080 & 0.0284 \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{气体密度$\rho$的计算}
+
+在标准温度和压力（STP，即 $0\,^\circ\mathrm{C}$ 和 $1\,\text{atm}$）下，1 摩尔理想气体的体积为 
+$V_m = 22.414\,\text{L/mol}$。气体的密度 $\rho$ 可由其摩尔质量 $M$ 计算：
+\[
+\rho = \frac{M}{V_m} \times 10^6 \quad \text{[单位：mg·m}^{-3}\text{]}
+\]
+其中 $M$ 的单位为 g/mol，因子 $10^6$ 用于将 g/L 转换为 mg·m$^{-3}$。经计算，得到表\ref{tab:gas-densities-mg-m3}所示结果
+
+\begin{table}[h]
+    \centering
+    \caption{各气体在 STP 下的密度}
+    \label{tab:gas-densities-mg-m3}
+    \begin{tabular}{lccc}
+        \toprule
+        气体 &  $M$ (g/mol) & $\rho$ (g/L) & $\rho$ (mg·m$^{-3}$) \\
+        \midrule
+        $CH_4$  & 16.04 & 0.716 & $7.16 \times 10^{5}$ \\
+        $CO2$ & 44.01 & 1.964 & $1.96 \times 10^{6}$ \\
+        $N_2O$  & 44.02 & 1.964 & $1.96 \times 10^{6}$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{计算气体通量}
+
+由实验原理知，可由式子\ref{F}计算得到气体通量
+
+    \begin{equation*}
+        F = \rho \times \frac{\SI{273}{\celsius}}{(\SI{273}{\celsius} + T)} \times H \times \frac{dC}{dt}
+        \label{F}
+    \end{equation*}
+
+现在，我们可由表\ref{tab:sampling-environment}得知每一组气体的温度$T$与静态箱有效高度$H$，也可由表\ref{tab:dcdt-slopes-final}得知每一组气体的体积浓度变化速率$\frac{dC}{dt}$，也可由\ref{tab:gas-densities-mg-m3}得到每一种气体的气体密度。经计算，得到如下表格：
+
+\begin{table}[htbp]
+    \centering
+    % 我已将单位添加到标题中，因为表格布局中没有空间
+    \caption{12组数据的气体通量 (F) 计算结果 (单位: mg m$^{-2}$ min$^{-1}$)}
+    \label{tab:flux-results}
+    
+    % ll = 两个左对齐文本列
+    % rrrrrr = 六个右对齐数值列
+    \begin{tabular}{llrrrrrr}
+        \toprule
+        % --- 二级表头 (参照 image_2961ee.png 布局) ---
+        
+        % 第1行: 
+        \multirow{2}{*}{小组编号} & \multirow{2}{*}{采样点} & \multicolumn{3}{c}{光照} & \multicolumn{3}{c}{黑暗} \\
+        \cmidrule(lr){3-5} \cmidrule(lr){6-8} % 绘制部分分隔线
+        
+        % 第2行: 气体类型
+        % (前两列被 \multirow 占用)
+        & & \multicolumn{1}{c}{$CO_2$} & \multicolumn{1}{c}{$CH_4$} & \multicolumn{1}{c}{$N_2O$} & \multicolumn{1}{c}{$CO_2$} & \multicolumn{1}{c}{$CH_4$} & \multicolumn{1}{c}{$N_2O$} \\
+        
+        \midrule
+        
+        % --- 数据行 1: 第六组 (已转换为科学计数法) ---
+        第六组 & 湖边 & 
+        11.14 & $8.76 \times 10^{-3}$ & $3.71 \times 10^{-4}$ & 
+        19.75 & $3.04 \times 10^{-4}$ & $2.58 \times 10^{-5}$ \\
+        
+        第七组 & 林下 & 
+        114.58 & $-2.46 \times 10^{-3}$ & $2.73 \times 10^{-2}$ & 
+        74.12 & $-1.57 \times 10^{-3}$ & $1.53 \times 10^{-2}$ \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+% --- 表格结束 ---
+
+\subsection{碳通量计算}
+
+由理论部分第7点可知,我们可以根据式子\ref{碳通量}来计算出NEE、GEP与ER，具体公式为：
+
+$$NEE=GEP+ER$$
+
+其中：
+\begin{itemize}
+    \item 黑暗条件下，光合作用停止，此时GEP=0，所测气体通量$F_\text{黑暗}$即为ER（生态系统呼吸）
+    \item 光照条件下，存在光合作用，此时GEP≠0，所测气体通量$F_\text{光照}$即为NEE（生态系统净交换）
+    \item 由上式可知，可通过式子的变式$GEP=NEE-ER$，来求出GEP（生态系统总生产力）
+\end{itemize}
+
+接下来分狭义和广义来分别计算。
+
+\subsubsection{\textbf{狭义上：}}
+仅考虑$CO_2$（单位：$\text{mg m}^{-2} \text{min}^{-1}$）
+    
+    根据表\ref{tab:flux-results}中的$CO_2$气体通量 (F) 数据，代入上述关系式：
+    
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{第六组 (湖边)}:
+            \begin{itemize}
+                \item $ER = F_\text{CO2-黑暗} = 19.75$
+                \item $NEE = F_\text{CO2-光照} = 11.14$
+                \item $GEP = NEE - ER = (11.14) - (19.75) = -8.61$
+            \end{itemize}
+            
+        \item \textbf{第七组 (林下)}:
+                与湖边计算过程类似，略
+    \end{itemize}
+    
+\subsubsection{\textbf{广义上：}}
+考虑 $CO_2$、$CH_4$ 和 $N_2O$（单位：$\text{mg·m}^{-2} \text{min}^{-1}$）
+    
+    广义计算需将 $CH_4$ 和 $N_2O$ 的通量 (F) 按照其全球增温潜势 (GWP) 换算为 $CO_2$ 当量（$F_{eq}$），再进行加和。根据讲义 ，GWP值取 $GWP_{CH4} = 28$，$GWP_{N2O} = 265$。
+    
+    \begin{equation*}
+        F_{eq} = F_{CO2} + (F_{CH4} \times 28) + (F_{N2O} \times 265)
+    \end{equation*}
+    
+    将表\ref{tab:flux-results}中的所有通量数据代入此式，得到 $F_{\text{eq-光照}}$ 和 $F_{\text{eq-黑暗}}$，再计算 $NEE_{eq}$、$ER_{eq}$ 和 $GEP_{eq}$：
+
+    \begin{itemize}[leftmargin=*]
+        \item \textbf{第六组 (湖边)}:
+            \begin{itemize}
+                \item $F_{\text{eq-光照}} = (11.14) + (8.76 \times 10^{-3} \times 28) + (3.71 \times 10^{-4} \times 265) = 11.17$
+                \item $F_{\text{eq-黑暗}} = (19.75) + (3.04 \times 10^{-4} \times 28) + (2.58 \times 10^{-5} \times 265) = 19.76$
+            \end{itemize}
+            \begin{itemize}
+                \item $ER_{eq} = F_{\text{eq-黑暗}} = 19.76$
+                \item $NEE_{eq} = F_{\text{eq-光照}} = 11.17$
+                \item $GEP_{eq} = NEE_{eq} - ER_{eq} = (11.17) - (19.76) = -8.59$
+            \end{itemize}
+            
+        \item \textbf{第七组 (林下)}:
+            与湖边计算过程类似，略
+    \end{itemize}
+
+将上述计算得到的数据整理，可得下表结果
+
+% --- 系统 GHG 通量分析表 ---
+\begin{table}[htbp]
+    \centering
+    % \caption 仿照您的示例图，并添加了单位
+    \caption{系统 GHG 通量分析 (单位: $\text{mg m}^{-2} \text{min}^{-1}$)}
+    \label{tab:ghg-analysis}
+    
+    % l = 左对齐 (采样点)
+    % r = 右对齐 (6列数据)
+    \begin{tabular}{cccccccc}
+        \toprule
+        % --- 多级表头 (已删除括号) ---
+        \multirow{2}{*}{小组编号} &\multirow{2}{*}{采样点} & \multicolumn{3}{c}{狭义} & \multicolumn{3}{c}{广义} \\
+        \cmidrule(lr){3-5} \cmidrule(lr){6-8} % 在第2-4列 和 5-7列 下绘制短横线
+        & & NEE & GEP & ER & NEE & GEP & ER \\
+        \midrule
+        
+        % --- 数据行 1: 湖边 ---
+        第六组 & 湖边 & 
+        11.14 & -8.61 & 19.75 & 
+        11.17 & -8.59 & 19.76 \\
+        
+        % --- 数据行 2: 林下 ---
+        第七组 & 林下 & 
+        114.58 & 40.46 & 74.12 & 
+        121.82 & 43.64 & 78.18 \\
+        
+        \bottomrule
+    \end{tabular}
+\end{table}
+% --- 表格结束 ---
+
+\section{实验结果与分析}
+
+
+\subsection{实验结果}
+
+在“五、实验数据记录与处理”中，为了逻辑的连贯性，我已写出部分实验结果。其中，各组气体通量由表\ref{tab:flux-results}所示，而最终的GHG通量如表\ref{tab:ghg-analysis}所示。为了直观对比，我选择以柱状图的形式来展现数据。
+
+气体通量柱形图如图\ref{fig:气体通量柱形图}所示，该柱状图以表\ref{tab:flux-results}中数据为依据，对比了各个气体在不同环境下，有无光照的气体通量对比。其中，颜色代表气体类型，沿用了之前的表示方法。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.75\linewidth]{数据及结果/气体通量柱形图.png}
+    \caption{气体通量柱形图}
+    \label{fig:气体通量柱形图}
+\end{figure}
+
+系统GHG通量组成，及其两组的对比如图\ref{fig:ghg-comparison}所示。为了和前面的气体颜色有所区分，本次使用的颜色为暖色的绿、橙、紫。其中，对应关系如下：
+
+% --- 开始两栏布局 ---
+\begin{multicols}{3}
+\begin{itemize}[leftmargin=*]
+    \item 绿色~←→~$NEE$
+    \item 橙色~←→~$GEP$
+    \item 紫色~←→~$ER$
+\end{itemize}
+\end{multicols}
+% --- 结束两栏布局 ---
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{数据及结果/第六组GHG.png}
+        \caption{湖边 GHG 通量}
+        \label{fig:group6-ghg}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{数据及结果/第七组GHG.png}
+        \caption{林下 GHG 通量}
+        \label{fig:group7-ghg}
+    \end{subfigure}
+    \caption{不同环境下系统 GHG 通量对比}
+    \label{fig:ghg-comparison}
+\end{figure}
+
+\subsection{分析}
+
+\subsubsection*{\textbf{分析点一：3种GHG通量：}}
+
+根据图\ref{fig:气体通量柱形图}，我们可以进行简单分析：
+
+\begin{enumerate}
+    \item $CO_2$:
+    \begin{itemize}
+        \item 湖边环境中：
+        \begin{itemize}
+            \item 通量均为正值。这表明该地点在观测时始终在净释放$CO_2$，属于“源（source）”。
+            \item 黑暗通量大于光照通量，即$F_{Dark}>F_{Light}$，代表光照减少了$CO_2$的净排放。这是因为光照条件下植物进行光合作用。吸收了一部分$CO_2$，使得净排放降低。
+        \end{itemize}
+        \item 林下环境中：
+        \begin{itemize}
+            \item 通量均为正值。这表明该地点在观测时始终在净释放$CO_2$，属于“源（source）”。
+            \item 黑暗通量小于光照通量，即$F_{Dark}<F_{Light}$，代表光照反而增加了$CO_2$的净排放。这可能是因为隔壁组在测量时有操作失误，亦或者林下植被的光合作用十分微弱，光照对该地点植被和微生物的呼吸作用的促进作用更加显著。
+        \end{itemize}
+    \end{itemize}
+\item $CH_4$:
+    \begin{itemize}
+        \item 湖边环境中：
+        \begin{itemize}
+            \item 通量均为正值。这表明该地点在观测时始终在净释放$CH_4$，属于“源（source）”。
+            \item 光照通量大于黑暗通量，即$F_{Light}>F_{Dark}$。这表明光照条件增加了$CH_4$的净排放。这可能是因为光照带来的温度升高，促进了土壤中产甲烷菌生产$CH_4$的活动。
+        \end{itemize}
+        \item 林下环境中：
+        \begin{itemize}
+            \item 通量均为负值。这表明该地点在观测时始终在净吸收$CH_4$，属于“汇（sink）”。
+            \item 光照通量比黑暗通量更负，即$F_{Light}<F_{Dark}$。这代表光照反而增加了$CH_4$的净吸收。这可能是因为光照或其带来的升温，抑制了产甲烷菌生产$CH_4$的活动。
+        \end{itemize}
+    \end{itemize}
+    
+    \item $N_2O$:
+    \begin{itemize}
+        \item 湖边和林下环境中：
+        \begin{itemize}
+            \item 通量均为正值。这表明该地点在观测时始终在净释放$N_2O$，两地均属于“源（source）”。
+            \item 光照通量大于黑暗通量，即$F_{Light}>F_{Dark}$。这表明光照均增加了两地的$N_2O$的净排放。
+        \end{itemize}
+        \item 对比分析：
+        \begin{itemize}
+            \item 两个地点的$N_2O$通量均呈现$F_{Light}>F_{Dark}$的趋势。这可能是因为硝化反应和反硝化反应主要由微生物驱动，而微生物的活性受温度影响显著。光照条件带来了更高的土壤温度，从而加速了微生物的代谢和$N_2O$的释放速率。
+            \item 其中，林下的$N_2O$通量显著高于湖边的，这可能是因为林下有更丰富的氮含量，同时也有更多的可发生硝化反应的微生物。
+        \end{itemize}
+        \end{itemize}
+\end{enumerate}
+
+\subsubsection*{\textbf{分析点二：GHG通量构成：}}
+
+根据实验原理部分对图\ref{公示讲解}的讲解部分，我们可以根据GHG通量构成进行简单的分析：
+
+\begin{enumerate}
+    \item \textbf{第六组（湖边）通量 (图 \ref{fig:group6-ghg})} % 假设您的图表标签是 fig:group6_ghg
+
+    \begin{itemize}[leftmargin=*]
+        \item 构成：
+        \begin{itemize}
+            \item ER>0，代表其通过呼吸作用产生了一定量的$CO_2\text{eq}$
+            \item GEP<0，代表其通过光合作用固定了一定量的$CO_2\text{eq}$
+            \item NEE=GEP+ER>0，代表其呼吸作用>光合作用，即呼吸作用释放$CO_2\text{eq}$量>光合作用固定的$CO_2\text{eq}$量，净释放了一定量的$CO_2\text{eq}$，总体表现为“源（source）”
+        \end{itemize}
+        \item 狭义与广义：
+        “狭义”和“广义”的两组柱子在数值上几乎没有差别。这表明在“湖边”地点，总GHG通量主要由 $CO_2$ 决定，$CH_4$ 和 $N_2O$ 对总温室效应的贡献微乎其微。
+    \end{itemize}
+
+    \item \textbf{第七组（林下）通量构成 (图 \ref{fig:group7-ghg})} % 假设您的图表标签是 fig:group7_ghg
+
+    \begin{itemize}[leftmargin=*]
+        \item 构成：
+        \begin{itemize}
+            \item $ER>0$，代表其通过呼吸作用产生了一定量的$CO_2\text{eq}$。
+            \item $GEP>0$，这与理论模型相悖。这表明光照条件下的$CO_2\text{eq}$净排放甚至高于黑暗条件下的净排放。
+            \item $NEE>0$，代表该地点是$CO_2\text{eq}$的源。其数值大于$ER$，也证实了光照条件进一步促进了总体的净排放。
+        \end{itemize}
+        \item 狭义与广义：
+        “广义”的$NEE$和$ER$柱子在数值上均明显高于“狭义”的柱子。这表明在“林下”地点，$CH_4$ 和 $N_2O$ 的排放对总温室效应有一定的贡献，一定程度上增强了该地点排放的$CO_2\text{eq}$量。
+    \end{itemize}
+
+\end{enumerate}
+
+\subsubsection*{\textbf{分析点三：GHG通量对比：}}
+
+    由刚刚的分析可知，第七组在测量时可能有较大的误差，使得GEP>0。这也是两组数据最大的区别。而在其他方面，主要是$CH_4$和$N_2O$对$CO_2\text{eq}$的贡献不同
+    并且，我们第六组所得的数据中，广义与狭义的差别没有第七组的大，同时林下地点所测得的ER也显著大于湖边地点。我认为这很可能跟树下方的菌丝网络和众多种类的细菌有关。这些真菌形成的菌丝网络和细菌往往在树下可以获得足够的营养，因此数量众多，总呼吸作用强，同时也可以生产$CH_4$和$N_2O$，因而造就了两组的其他差异。
+\newpage
+
+\section{附录}
+
+\subsection{采样具体地点}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{附录/地图.png}
+    \caption{采集气体的地点}
+    \label{fig:sampling-maps} % 添加一个标签, 方便在正文中引用
+\end{figure}
+
+\subsection{线性拟合图}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\linewidth]{拟合图/第六组.png}
+    \caption{第六组（湖边）气体浓度随时间变化的线性拟合图。}
+    \label{fig:group6_fits_with_subcaptions} % 添加一个总标签
+\end{figure}
+\clearpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{拟合图/第七组.png}
+    \caption{第七组（林下）气体浓度随时间变化的线性拟合图。}
+    \label{fig:group7_fits_with_subcaptions} % 添加一个总标签
+\end{figure}
+
+\subsection{气相色谱仪分析结果（第六组）}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{image.png}
+    \caption{第六组（湖边）原始数据。上排为光照条件，下排为黑暗条件。}
+    \label{fig:附录}
+\end{figure}
+
+\end{document}

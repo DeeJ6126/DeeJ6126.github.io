@@ -1,0 +1,830 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="description" content="通过投骰子、扑克牌和老虎机三个项目学习 R 对象、函数与程序逻辑。"><link rel="canonical" href="https://deej6126.github.io/courses/r/"><link rel="icon" href="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3e%3crect%20width='64'%20height='64'%20fill='%23f6f7f5'/%3e%3crect%20x='10'%20y='10'%20width='44'%20height='44'%20fill='%231265f3'/%3e%3cpath%20d='M22%2020h10c9%200%2014%204%2014%2012s-5%2012-14%2012H22V20zm9%2018c5%200%208-2%208-6s-3-6-8-6h-2v12h2z'%20fill='%23fff'/%3e%3c/svg%3e" type="image/svg+xml"><link rel="preload" href="/img/motion/bird-flight.png" as="image" type="image/png"><title>R 语言入门与实践 | Dee&#39;s Blog</title><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="swap"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.Sx5bM3k1.js"></script><script>
+      (function () {
+        try {
+          var key = 'dee:motion-intro-seen';
+          if (sessionStorage.getItem(key)) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var root = document.documentElement;
+          root.classList.add('is-intro-playing');
+          window.setTimeout(function () {
+            if (!window.__deeMotionIntroDone) root.classList.remove('is-intro-playing');
+          }, 4000);
+        } catch (e) { /* 存储不可用等场景直接放弃开场 */ }
+      })();
+    </script><link rel="stylesheet" href="/_astro/SiteLayout.C8Wz-1DV.css"><link rel="stylesheet" href="/_astro/_slug_.DgDdetas.css"><style>.cover-zoology{background:#e9f3ff}.cover-zoology i:first-child{border:2px solid var(--ink);width:48%;height:58%;top:17%;left:10%;transform:rotate(-8deg)}.cover-zoology i:nth-child(2){background:var(--lime);border-radius:50%;width:23%;height:23%;top:12%;right:13%}.cover-zoology i:nth-child(3){background:var(--blue);width:42%;height:12%;bottom:14%;right:18%}.cover-zoology strong{color:var(--ink);font-size:34px;position:absolute;bottom:21%;left:15%}.hero-zoology .hero-geometry{background:#dff4ff}.hero-zoology .hero-geometry i:first-child{background:var(--blue)}.hero-zoology .hero-geometry i:nth-child(2){background:var(--lime)}.cover-botany{background:#eef8ed}.cover-botany i:first-child{background:var(--blue);width:22%;height:62%;top:12%;left:13%;transform:rotate(18deg)}.cover-botany i:nth-child(2){background:var(--lime);border-radius:50%;width:34%;height:34%;top:17%;left:36%}.cover-botany i:nth-child(3){border:2px solid var(--ink);width:37%;height:28%;bottom:12%;right:10%}.cover-molecular{background:#172d62}.cover-molecular i:first-child,.cover-molecular i:nth-child(2){border:2px solid #fff;width:70%;height:16%;left:14%;transform:rotate(-13deg)}.cover-molecular i:first-child{top:24%}.cover-molecular i:nth-child(2){top:49%}.cover-molecular i:nth-child(3){background:var(--cyan);width:17%;height:17%;top:12%;right:11%}.cover-microbiology{background:#e8f5ff}.cover-microbiology i{border-radius:50%}.cover-microbiology i:first-child{background:var(--blue);width:42%;height:42%;top:18%;left:12%}.cover-microbiology i:nth-child(2){background:var(--lime);width:20%;height:20%;top:13%;right:16%}.cover-microbiology i:nth-child(3){border:2px solid var(--ink);width:31%;height:31%;bottom:15%;right:12%}.cover-botany strong,.cover-molecular strong,.cover-microbiology strong{font-size:32px;position:absolute;bottom:9%;left:12%}.cover-botany strong,.cover-microbiology strong{color:var(--ink)}.hero-botany .hero-geometry{background:#e8f6e8}.hero-botany .hero-geometry i:first-child{background:var(--lime)}.hero-molecular .hero-geometry{background:#172d62}.hero-molecular .hero-geometry i:first-child{background:var(--cyan)}.hero-molecular .hero-geometry i:nth-child(3){border-color:#fff}.hero-molecular .hero-geometry strong{color:#fff}.hero-microbiology .hero-geometry{background:#dff5ff}.hero-microbiology .hero-geometry i:first-child{background:var(--blue)}
+</style></head><body data-motion-page="courses" data-cursor-trail-enabled="true"><header class="site-header"><a class="site-brand" href="/" data-motion="section" data-motion-target-page="courses">DEE'S BLOG</a><nav aria-label="主导航"><a class="active" href="/" data-motion="section" data-motion-target-page="courses" data-motion-page-link="courses">课程</a><a href="/projects/" data-motion="section" data-motion-target-page="projects" data-motion-page-link="projects">项目</a><a href="/about/" data-motion="section" data-motion-target-page="about" data-motion-page-link="about">关于</a></nav><div class="header-action"></div></header><aside class="detail-rail" aria-label="课程页面目录"><a class="back-link" href="/" aria-label="返回课程列表" data-motion="section" data-motion-target-page="courses">←</a><div class="rail-course"><span>BIOINFORMATICS</span><strong>R 语言入门与实践</strong></div><nav><a class="active" href="#课程感想">课程感想</a><a class href="#课程笔记">课程笔记<small>03</small></a></nav></aside><main class="detail-shell"><header class="course-hero hero-image"><div class="hero-copy"><span class="eyebrow">BIOINFORMATICS / COURSE</span><h1>R 语言入门与实践</h1><p>通过投骰子、扑克牌和老虎机三个项目学习 R 对象、函数与程序逻辑。</p></div><div class="hero-geometry has-cover" aria-hidden="true" data-motion-target="course-detail"><img src="/img/course-covers/r.png" alt=""></div></header><section class="detail-section reflection-section" id="课程感想" data-detail-section><header class="section-heading"><span>01</span><div><p>SECTION</p><h2>课程感想</h2></div></header><div class="reflection-copy prose"></div></section><section class="detail-section notes-section" id="课程笔记" data-detail-section><header class="section-heading"><span>02</span><div><p>NOTES & MATERIALS</p><h2>课程笔记</h2></div></header><div class="note-list"><details class="note-item" data-note-item open><summary><span class="note-index">01</span><strong>项目1：投骰子</strong><span class="note-format">MARKDOWN</span><span class="note-toggle" aria-hidden="true">＋</span></summary><div class="note-reader"><div class="reader-toolbar"><span>MARKDOWN DOCUMENT</span><div><a href="/downloads/notes/r/project-1-dice.md" download>下载 Markdown</a></div></div><article class="markdown-reader prose"><h1 id="r基础">R基础</h1>
+<h2 id="11-用户界面">1.1 用户界面</h2>
+<p><strong>控制台</strong></p>
+<ul>
+<li>运行结果前面的数字，如”[1]“，代表输出结果顺序</li>
+<li>冒号运算符(:)表示返回两个整数值之间的所有整数</li>
+</ul>
+<p>在命令行里运行得到的结果不会保存在计算机内存里，如果要多次使用，需要保存起来。该操作在R中称作 <strong>创建一个R对象(object)</strong></p>
+<h2 id="12-对象">1.2 对象</h2>
+<p>在R中存储额度数据就是一个<strong>R对象</strong></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">die</span></span></code></pre>
+<p><strong>R命名</strong></p>
+<ul>
+<li>
+<p>不能以数字开头</p>
+</li>
+<li>
+<p>不能有特殊符号</p>
+</li>
+<li>
+<p>区分大小写</p>
+</li>
+</ul>
+<p>如果想查看试用了哪些R对象，可以使用</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">ls()</span></span></code></pre>
+<p>运算方面</p>
+<ul>
+<li>die作为一个向量，R 使用 <strong>元素方式执行</strong></li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">-</span><span style="color:#7B3FA1"> 1</span></span></code></pre>
+<ul>
+<li>如果运算中涉及多个向量，则 R 会将向量排成以后并执行一系列单独运算。</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">*</span><span style="color:#172E61"> die</span></span></code></pre>
+<ul>
+<li>如果两个向量长度不相等，R会在短向量上重复，直到长度与长向量一致，再执行运算。该行为称作 <strong>向量循环</strong></li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> :</span><span style="color:#7B3FA1"> 4</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold"> :</span><span style="color:#7B3FA1"> 4</span><span style="color:#172E61"> </span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic"># 本质是die + [1,2,3,4,1,2]</span></span></code></pre>
+<p><strong>矩阵乘法</strong></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">%*%</span><span style="color:#172E61"> die </span><span style="color:#7B8493;font-style:italic"># 1+4+9+16+25+36</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">%o%</span><span style="color:#172E61"> die</span></span></code></pre>
+<p>为了让这个骰子掷起来，可以编写一个 <strong>函数 function</strong></p>
+<h2 id="13-函数">1.3 函数</h2>
+<p>传递到函数的数据称作 <strong>参数argument</strong>，可以使用一些简单函数，例如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">round(</span><span style="color:#7B3FA1">3.14</span><span style="color:#172E61">) </span><span style="color:#7B8493;font-style:italic"># 四舍五入</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">factorial(</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">) </span><span style="color:#7B8493;font-style:italic"># 阶乘</span></span></code></pre>
+<p>为了掷骰子，可以使用sample函数，共2参数：</p>
+<ul>
+<li>
+<p>向量x + 数字size</p>
+</li>
+<li>
+<p>代表从 x 中抽取 size 个元素</p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">sample(x </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 1</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">sample(x </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> replace </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> TRUE</span><span style="color:#172E61">) </span><span style="color:#7B8493;font-style:italic"># 表示可放回抽样</span></span></code></pre>
+<p><strong>注意点</strong></p>
+<ul>
+<li>
+<p>在给函数的参数赋值的时候，要用 <code>=</code> 而不是 <code>&#x3C;-</code></p>
+</li>
+<li>
+<p>一般来说，可以省略R函数第一个参数的名称，如sample(die, size = 1)</p>
+</li>
+</ul>
+<p>如果不清楚函数的参数，可以使用</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">args(round)</span></span></code></pre>
+<p>其中，<code>digits = 0</code> 代表该参数具有默认值，即默认保留0位小数</p>
+<h2 id="14-自定义函数">1.4 自定义函数</h2>
+<p>若要模拟掷骰子2次后得到的和，可以使用自定义函数<code>roll()</code> 实现下面的过程</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span></span>
+<span class="line"><span style="color:#172E61">dice </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> sample(die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> replace </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> TRUE</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">sum(dice)</span></span></code></pre>
+<p>R函数包含三部分</p>
+<ul>
+<li>
+<p>函数名</p>
+</li>
+<li>
+<p>程序主题</p>
+</li>
+<li>
+<p>参数集合</p>
+</li>
+</ul>
+<p>具体需要调用<code>function()</code>函数，并在后面加大括号。function的作用是将大括号的所有代码构建出一个函数，并能在小括号中放参数，并能够设定默认值</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">roll </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">( </span><span style="color:#7B8493;font-style:italic"># roll 为函数名</span></span>
+<span class="line"><span style="color:#172E61">    bones </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span><span style="color:#7B8493;font-style:italic"> # 小括号：参数集合</span></span>
+<span class="line"><span style="color:#172E61">    ){</span></span>
+<span class="line"><span style="color:#172E61">  die </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> bones</span></span>
+<span class="line"><span style="color:#172E61">  dice </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> sample(die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> replace </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> TRUE</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">  sum(dice)</span></span>
+<span class="line"><span style="color:#172E61">} </span><span style="color:#7B8493;font-style:italic"># 大括号：程序主体</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">roll()</span></span></code></pre>
+<h1 id="2-r包">2. R包</h1>
+<p>可以使用<code>install.packages()</code> 命令快捷下载包</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">install.packages(</span><span style="color:#176B4D;font-weight:bold">"ggplot2"</span><span style="color:#172E61">)</span></span></code></pre>
+<p>安装之后，包内函数并非立即可用，只是把R包装在了硬盘上。如果需要使用，则要命令<code>library()</code> 来加载包。</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#1D4F91;font-weight:bold">library</span><span style="color:#172E61">(</span><span style="color:#176B4D;font-weight:bold">"ggplot2"</span><span style="color:#172E61">)</span></span></code></pre>
+<p>每个包只需要安装一次，但在新的R会话中，需要重新用<code>library</code> 加载一次。</p>
+<p>如果想创建数值向量，可以使用<code>c()</code>代表<strong>连接concatenate</strong></p>
+<p>如果要使用ggplot，需要将所有数据放在数据框里，靠列名来使用。这样图和数据绑定，后续加图层、映射等都挺方便，经典结构如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">ggplot(</span></span>
+<span class="line"><span style="color:#172E61">  iris</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B8493;font-style:italic"> # 画布</span></span>
+<span class="line"><span style="color:#172E61">  aes(  </span><span style="color:#7B8493;font-style:italic"># 坐标映射</span></span>
+<span class="line"><span style="color:#172E61">    x </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> Sepal.Length</span><span style="color:#1D4F91;font-weight:bold">,</span></span>
+<span class="line"><span style="color:#172E61">    y </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> Sepal.Width</span><span style="color:#1D4F91;font-weight:bold">,</span></span>
+<span class="line"><span style="color:#172E61">    color </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> Species </span><span style="color:#7B8493;font-style:italic"># 按物种名着色</span></span>
+<span class="line"><span style="color:#172E61">    )</span></span>
+<span class="line"><span style="color:#172E61">  ) </span><span style="color:#1D4F91;font-weight:bold">+</span></span>
+<span class="line"><span style="color:#172E61">  geom_point(size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 1</span><span style="color:#172E61">) </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B8493;font-style:italic"> # 散点图，大小为2</span></span>
+<span class="line"><span style="color:#172E61">  labs(title </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "鸢尾花数据"</span><span style="color:#172E61">) </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B8493;font-style:italic"> # 标题</span></span>
+<span class="line"><span style="color:#172E61">  theme_classic() </span><span style="color:#7B8493;font-style:italic"># 白底主题</span></span></code></pre></article></div></details><details class="note-item" data-note-item><summary><span class="note-index">02</span><strong>项目2：扑克牌</strong><span class="note-format">MARKDOWN</span><span class="note-toggle" aria-hidden="true">＋</span></summary><div class="note-reader"><div class="reader-toolbar"><span>MARKDOWN DOCUMENT</span><div><a href="/downloads/notes/r/project-2-cards.md" download>下载 Markdown</a></div></div><article class="markdown-reader prose"><p>目标：设计扑克牌模拟系统，可以自动洗牌和发牌，且可以记住发牌结果</p>
+<ul>
+<li>
+<p>第三章：创建一副牌</p>
+</li>
+<li>
+<p>第四章：编写发牌洗牌的函数</p>
+</li>
+<li>
+<p>第五章：改变点数系统</p>
+</li>
+</ul>
+<h1 id="3-r对象">3. R对象</h1>
+<h2 id="31-原子型向量-atomic-vector">3.1 原子型向量 atomic vector</h2>
+<p>在R中，最简单的对象类型叫做原子型向量，也是最简单的包含数据的向量，是构成其他对象类型的基本元素。R中绝大多数数据结构都是由原子型向量构成的。</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">4</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">5</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">6</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">is.vector(die)</span></span></code></pre>
+<blockquote>
+<p>可以通过<code>is.vector()</code> 测试某个对象是否为原子型向量</p>
+</blockquote>
+<p>也可以生成只包含一个值的原子型向量，其长度为1</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">five </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 5</span></span>
+<span class="line"><span style="color:#172E61">is.vector(five)</span></span>
+<span class="line"><span style="color:#172E61">length(five)</span></span>
+<span class="line"><span style="color:#172E61">length(die)</span></span></code></pre>
+<blockquote>
+<p><code>length()</code>函数可以返回原子型向量的长度</p>
+</blockquote>
+<p>原子型向量将其值存储在一维向量中，且只能是一种类型的数据。可以使用不同类型的原子型向量存储不同类型的数据，如</p>
+<ul>
+<li>
+<p>双整形 double</p>
+</li>
+<li>
+<p>整形 integer</p>
+</li>
+<li>
+<p>字符型 character</p>
+</li>
+<li>
+<p>逻辑型 logical</p>
+</li>
+<li>
+<p>复数类型 complex</p>
+</li>
+<li>
+<p>原始类型 raw</p>
+</li>
+</ul>
+<p>若要存储不同类型的数据，可以使用简单的R规范，如<code>int</code> 的数字后加<code>L</code> ，<code>character</code> 两边有<code>""</code>。</p>
+<p>如果想生成包含多个元素的原子型向量，也可以用<code>c()</code> 包起来</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">int </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1L</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 5L</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">text </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "heart"</span><span style="color:#172E61">)</span></span></code></pre>
+<p>若要知道自己的对象是什么格式，可以使用<code>typeof()</code> 函数</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">typeof(die)</span></span></code></pre>
+<h3 id="311-双整型double">3.1.1 双整型double</h3>
+<p>存储普通的数值型数据，可正可负，可大可小，可整可分，且为默认数值格式。</p>
+<p>有一些函数将双整型称作 <strong>数值型numeric</strong></p>
+<h3 id="312-整型int">3.1.2 整型int</h3>
+<p>存储整型的数据，无小数点成分。如果要设置整型，需要在数值后加<code>L</code>，否则默认是double</p>
+<p>int最大的好处是可以避免<strong>浮点误差floating-point：</strong></p>
+<ul>
+<li>
+<p>计算机会分配64byte的内存来表示double对象</p>
+</li>
+<li>
+<p>但有些不能用64个0或1表达，如<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>2</mn></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.04em;vertical-align:-0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9072em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">2</span></span></span><span style="top:-2.8672em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"></path></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1328em;"><span></span></span></span></span></span></span></span></span>，因此必须四舍五入</p>
+</li>
+<li>
+<p>所以很多double大约精确到小数点后16位，如下</p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">sqrt(</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">^</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold"> -</span><span style="color:#7B3FA1"> 2</span></span></code></pre>
+<h3 id="313-字符型-char">3.1.3 字符型 char</h3>
+<p>存储一段文本，需要由<code>""</code>包裹。其中字符型向量的单个元素称作 <strong>字符串string</strong></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">char </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"Hello"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "123"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "!@#"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">char</span></span>
+<span class="line"><span style="color:#172E61">typeof(char)</span></span></code></pre>
+<h3 id="314-逻辑型">3.1.4 逻辑型</h3>
+<p>用来存储 <code>TRUE</code> 和 <code>FALSE</code>，或 <code>T</code> 和 <code>F</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#7B3FA1">3</span><span style="color:#1D4F91;font-weight:bold"> ></span><span style="color:#7B3FA1"> 4</span></span>
+<span class="line"><span style="color:#172E61">typeof(</span><span style="color:#7B3FA1">3</span><span style="color:#1D4F91;font-weight:bold"> ></span><span style="color:#7B3FA1"> 4</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">typeof(F)</span></span></code></pre>
+<h3 id="315-复数类型和原始类型">3.1.5 复数类型和原始类型</h3>
+<p>复数类型即用来存储复数</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">comp </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> +</span><span style="color:#7B3FA1"> 1i</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold"> +</span><span style="color:#7B3FA1"> 2i</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">typeof(comp)</span></span>
+<span class="line"><span style="color:#172E61">typeof(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> +</span><span style="color:#7B3FA1"> 0i</span><span style="color:#172E61">)</span></span></code></pre>
+<p>原始类型向量即用来存储数据的原始字节。可以使用<code>raw(n)</code> 来生成长度为n的空原始类型向量</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">raw(</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">typeof(raw(</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">))</span></span></code></pre>
+<h3 id="316-生成扑克牌">3.1.6 生成扑克牌</h3>
+<p>以黑桃(spades)A +黑桃 K + 黑桃Q + 黑桃J + 黑桃10为例</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">hand </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"Ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "King"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "Queen"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "Jack"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "10"</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">hand</span></span></code></pre>
+<p>为了更加复杂，可以构建一个二维的表格型数据，并包含花色信息。因此，需要赋予他 <strong>属性attribute</strong> 和 <strong>类class</strong></p>
+<h2 id="32-属性">3.2 属性</h2>
+<p>属性是附加给原子型向量的额外信息，可以理解为对象的 <strong>元数据metadata</strong> ，可以将与该对象有关的信息以便捷的形式存起来并附加给该对象。</p>
+<p>可以使用<code>attributes()</code> 函数查看对象包含哪些属性信息。如果没有，则为<code>NULL</code></p>
+<p>原子型常见的三种属性：</p>
+<ul>
+<li>
+<p>名称 name</p>
+</li>
+<li>
+<p>维度 dim</p>
+</li>
+<li>
+<p>类 class</p>
+</li>
+</ul>
+<h3 id="321-名称属性">3.2.1 名称属性</h3>
+<p>每种属性都有各自的辅助函数，将相应属性附加给R对象，也可以查询对象的属性是什么，如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">names(die)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">names(die) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"one"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"two"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"three"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"four"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"five"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"six"</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">names(die)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">attributes(die)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">die</span></span></code></pre>
+<p>由于名称属性对实际值无影响，所以即使改变元素取值，属性也不会变</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B3FA1"> 1</span></span></code></pre>
+<p>如果要修改，只需要将新的名称赋给<code>names</code>函数即可</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">names(die) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"01"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"02"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"03"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"04"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"05"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"06"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">die</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">names(die) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> NULL</span></span>
+<span class="line"><span style="color:#172E61">die</span></span></code></pre>
+<h3 id="322-维度属性">3.2.2 维度属性</h3>
+<p>原子型向量可以转换成 n 维 <strong>数组array</strong>，可以使用 <code>dim()</code>函数来赋予维度属性。</p>
+<p>如果把向量的<code>dim</code> 属性设定为<code>n</code> ，则R会将元素重排列到<code>n</code>维</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">dim(die) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">) </span><span style="color:#7B8493;font-style:italic"># 2行3列</span></span>
+<span class="line"><span style="color:#172E61">die</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">dim(die) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">) </span><span style="color:#7B8493;font-style:italic"># 1行2列3切片</span></span>
+<span class="line"><span style="color:#172E61">die</span></span></code></pre>
+<p>分配维度属性时，R将第一个值赋给行数，第二个值赋给列数。</p>
+<p>通常来说，R以列为优先，例如先固定第一行，然后填入第一列，满了再到第二列。如果想改变，则可以使用辅助函数 <code>matrix()</code> 或 <code>array()</code></p>
+<h2 id="33-矩阵matrix">3.3 矩阵matrix</h2>
+<p>矩阵将数值存储在二维数组，若要生成一个矩阵，需要</p>
+<ul>
+<li>
+<p>将原子型向量交给函数<code>matrix()</code></p>
+</li>
+<li>
+<p>使用参数 <code>nrow</code> 定义矩阵行数，也可以使用 <code>ncol</code> 定义矩阵列数</p>
+</li>
+<li>
+<p>设置参数 <code>byrow = TRUE</code> 来以行优先，而非默认的以列优先</p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">m </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> matrix(die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> nrow </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> byrow </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> TRUE</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">m</span></span></code></pre>
+<h2 id="34-数组array">3.4 数组array</h2>
+<p><code>array()</code> 函数用来生成n维数组，其功能与<code>dim()</code>类似，不如<code>matrix()</code>那么灵活。其第一个参数为原子型向量，第二个参数用来表示维度信息，称为<code>dim</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">ar </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> array(c(</span><span style="color:#7B3FA1">11</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">14</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 21</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">24</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 31</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">34</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> dim </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 3</span><span style="color:#172E61">)) </span><span style="color:#7B8493;font-style:italic"># 2行2列3切片</span></span>
+<span class="line"><span style="color:#172E61">ar</span></span></code></pre>
+<h2 id="35-类class">3.5 类class</h2>
+<p>类是原子型向量的特例，如矩阵die是特殊的double向量，每一个元素都是double，但因为重排列有了新的结构。改变die维度时，R就添加了class属性，描述die的新格式。其相比于类型type这种底层格式，更代表这个数据的 <strong>用法</strong></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">class(c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">))</span></span>
+<span class="line"><span style="color:#172E61">class(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">class(</span><span style="color:#176B4D;font-weight:bold">"Hello"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">class(m)</span></span>
+<span class="line"><span style="color:#172E61">class(ar)</span></span></code></pre>
+<p>可以使用<code>class()</code>函数设置class属性，但不推荐这么做</p>
+<h3 id="351-日期和时间">3.5.1 日期和时间</h3>
+<p>R用一个特殊的类来表示日期和时间</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">now </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> Sys.time()</span></span>
+<span class="line"><span style="color:#172E61">now</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">typeof(now)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">class(now)</span></span></code></pre>
+<ul>
+<li>
+<p>虽然看着有英文字符，但是类型是double</p>
+</li>
+<li>
+<p>有 <code>POSIXct</code> 和 <code>POSIXt</code> 两个类</p>
+</li>
+</ul>
+<p>可以通过 <code>unclass()</code>函数移除<code>class</code>属性，以查看其本质数字。也可以对其本质数字重新赋予类以恢复表象</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">unclass(now)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">mil </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> unclass(now)</span></span>
+<span class="line"><span style="color:#172E61">mil</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">class(mil) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"POSIXct"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "POSIXt"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">mil</span></span></code></pre>
+<h3 id="352-因子factor">3.5.2 因子factor</h3>
+<p>因子在R中用来存储<strong>分类</strong>信息，只能取特定的值，而这些值可能有特殊的顺序规定。这些特性适合记录某项研究中研究对象满足的不同处理水平或其他类型的<strong>分类变量</strong></p>
+<p>以性别为例</p>
+<ul>
+<li>
+<p>向<code>factor()</code>传递一个原子型向量即可生成因子，如<code>c("male", "female", "female", "male")</code></p>
+</li>
+<li>
+<p>R会将向量中的值编码成一串整数值，再将编码的结果存储在 <code>int</code> 向量中，如<code>(2, 1, 1, 2)</code></p>
+</li>
+<li>
+<p>R会将 <code>level</code> 属性和 <code>class</code> 属性添加到 <code>int</code> 向量中</p>
+<ul>
+<li>
+<p><code>level</code> 包含显示因子值的一组标签，可以理解为<code>int</code>的表象</p>
+<ul>
+<li>
+<p><code>1</code>的<code>level</code>为<code>female</code></p>
+</li>
+<li>
+<p><code>2</code>的<code>level</code>为<code>male</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>class</code> 属性包含类——<code>factor</code></p>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">gender </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> factor(c(</span><span style="color:#176B4D;font-weight:bold">"male"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "female"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "female"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "male"</span><span style="color:#172E61">))</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">gender</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">unclass(gender)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">typeof(gender) </span><span style="color:#7B8493;font-style:italic"># factor是数值型</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">attributes(gender)</span></span></code></pre>
+<h2 id="36-强制转换">3.6 强制转换</h2>
+<p>有的时候，R会强制转换元素的类型</p>
+<ul>
+<li>尤其是一个原子型向量里包含不同类型的元素时</li>
+</ul>
+<p><img alt="" loading="lazy" decoding="async" width="2044" height="1091" src="/_astro/clipboard-287696749.CzpbDa6Q_180vlC.webp" srcset=""></p>
+<ul>
+<li>
+<p>如果对逻辑型向量进行运算，也会强制转换成<code>0/1</code></p>
+</li>
+<li>
+<p>也可以明确转换的类型，如</p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">as.character(</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">as.logical(</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">as.numeric(</span><span style="color:#7B3FA1">FALSE</span><span style="color:#172E61">)</span></span></code></pre>
+<h2 id="37-列表list">3.7 列表list</h2>
+<p>列表将数据组织在一维集合中，但是可以容许不同类型的数据（甚至可以套娃）</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">list(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "R"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> list(T</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> F))</span></span></code></pre>
+<p>其中，<code>[[2]][1]</code>表示该内容来自第二个元素的第一个子元素。</p>
+<h2 id="38-数据框-data-frame">3.8 数据框 data frame</h2>
+<p>df是列表的二维版本，将向量组织在一个二维表格中，每个向量都是其中一列。列与列直接数据类型可以不同，但列的每个元素数据类型必须相同</p>
+<p><img alt="" loading="lazy" decoding="async" width="2037" height="863" src="/_astro/clipboard-1926685022.CWuXm4bl_Zwiwbu.webp" srcset=""></p>
+<p>如果想手动创建数据框，需要使用 <code>data.frame</code> 函数</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">df </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> data.frame(</span></span>
+<span class="line"><span style="color:#172E61">  face </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"two"</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span></span>
+<span class="line"><span style="color:#172E61">  suit </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"clubs"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"clubs"</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span></span>
+<span class="line"><span style="color:#172E61">  value </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">)</span></span></code></pre>
+<blockquote>
+<p>其实<code>c()</code> 和<code>list()</code>也可以自定义名称，会被存在names属性中</p>
+</blockquote>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">list(face </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> suit </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "clubs"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> value </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 1</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">c(face </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> suit </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "clubs"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> value </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "1"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">names(c(face </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "ace"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> suit </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "clubs"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> value </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "1"</span><span style="color:#172E61">))</span></span></code></pre>
+<p>数据框的本质是 <strong>具有<code>data.frame</code>类的列表</strong>，可以使用<code>str()</code>函数查看列表里哪些对象组织在一起</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">typeof(df)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">class(df)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">str(df)</span></span>
+<span class="line"></span></code></pre>
+<p>如果数据太大，往往不应该手搓，而是加载数据</p>
+<h2 id="39-加载数据">3.9 加载数据</h2>
+<p>以<code>deck.csv</code>为例，在右上角的<code>Environment</code>中点击<code>Import Dataset</code> 以导入数据，并使用<code>head()</code>和<code>tail()</code>查看首尾内容，也可以传递第二个参数以了解前/后几行：</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> read.csv(</span><span style="color:#176B4D;font-weight:bold">"data/deck.csv"</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">head(deck)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">tail(deck</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">)</span></span></code></pre>
+<h2 id="310-保存数据">3.10 保存数据</h2>
+<p>使用 <code>write.csv</code> 命令以保存csv文件，且有三个必须参数：</p>
+<ul>
+<li>
+<p>数据框的名称</p>
+</li>
+<li>
+<p>保存的文件名</p>
+</li>
+<li>
+<p>是否要在开头添加一列数字，以表示行号</p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">write.csv(deck</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> file </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#176B4D;font-weight:bold"> "data/card.csv"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> row.names </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> F)</span></span></code></pre>
+<h2 id="311-小结">3.11 小结</h2>
+<p>在R中可以将数据保存为5中不同的对象，其中数据框可以存储 <strong>表格型数据tabular data</strong>，也最常见</p>
+<p><img alt="" loading="lazy" decoding="async" width="2043" height="1434" src="/_astro/clipboard-1586906408.BZhAVotU_qy8Gu.webp" srcset=""></p>
+<h1 id="4-r的记号体系">4. R的记号体系</h1>
+<p>通过 R 的记号体系来实现R对象中值的选取</p>
+<h2 id="41-值的选取">4.1 值的选取</h2>
+<p>以数据框为例，若要提取值，应当写出数据框的名称，后紧跟一个中括号。其中两个索引参数，一个行，一个列。对于R来说，有六种常见索引</p>
+<ul>
+<li>
+<p>正整数</p>
+</li>
+<li>
+<p>负整数</p>
+</li>
+<li>
+<p>零</p>
+</li>
+<li>
+<p>空格</p>
+</li>
+<li>
+<p>逻辑值</p>
+</li>
+<li>
+<p>名称</p>
+</li>
+</ul>
+<h3 id="411-正整数索引">4.1.1 正整数索引</h3>
+<p>类似于线性代数中的ij记号，若提取多个值，则用正整数向量代替单一整数即可。<strong>注意：索引从1开始</strong></p>
+<p><img alt="" loading="lazy" decoding="async" width="2036" height="958" src="/_astro/clipboard-847489642.iUaUOxGi_Z9GWGu.webp" srcset=""></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">head(deck)</span></span>
+<span class="line"><span style="color:#172E61">deck[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">]</span></span>
+<span class="line"><span style="color:#172E61">deck[</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">)]</span></span></code></pre>
+<p>如果有重复的值，那么则会提取多次</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">)]</span></span></code></pre>
+<p>如果从数据框中提取 2+ 列的数据，则R返回数据框；但如果只提取一列，则R返回向量，可以使用<code>drop = F</code>来矫正</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">class(deck[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">])</span></span>
+<span class="line"><span style="color:#172E61">class(deck[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">])</span></span>
+<span class="line"><span style="color:#172E61">class(deck[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">drop </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> F])</span></span></code></pre>
+<h3 id="412-负整数索引">4.1.2 负整数索引</h3>
+<p>与正整数的“选取”相反，负整数是“剔除”。通常适用于选取数据框里大部分的行/列的情况</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[</span><span style="color:#1D4F91;font-weight:bold">-</span><span style="color:#172E61">(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">51</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">]</span></span></code></pre>
+<h3 id="413-零索引">4.1.3 零索引</h3>
+<p>不会提取任何信息，返回一个空对象，没多大用</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">]</span></span>
+<span class="line"><span style="color:#172E61">class(deck[</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#172E61">])</span></span></code></pre>
+<h3 id="414-空格索引">4.1.4 空格索引</h3>
+<p>即表示提取该维度的所有元素，可以提取所有行/列</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[ </span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">]</span></span></code></pre>
+<h3 id="415-逻辑值索引">4.1.5 逻辑值索引</h3>
+<p>匹配索引值为 <code>T</code> 的位置</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">c(T</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">T</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">F)]</span></span></code></pre>
+<h3 id="416-名称索引">4.1.6 名称索引</h3>
+<p>如果有<code>name</code>属性，就可以通过名称提取，常用于提取列</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck[ </span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"value"</span><span style="color:#172E61">]</span></span></code></pre>
+<h2 id="42-发牌--洗牌">4.2 发牌 + 洗牌</h2>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">shuffle </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">(){</span></span>
+<span class="line"><span style="color:#172E61">  random </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> sample(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">52</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 52</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">  deck_r </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> deck[random</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> ]</span></span>
+<span class="line"><span style="color:#172E61">  deck_r[</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> ]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">}</span></span>
+<span class="line"><span style="color:#172E61">shuffle()</span></span></code></pre>
+<h2 id="44----">4.4 $ + [[ ]]</h2>
+<p>R中，可以使用<code>$</code>来提取<strong>数据框</strong>的值，例如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">value</span></span></code></pre>
+<p>并且， <code>deck$value</code> 还是个向量，因此可以套上很多适用于向量的函数</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">class(deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">value)</span></span>
+<span class="line"><span style="color:#172E61">sum(deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">value)</span></span></code></pre>
+<p>如果想提取<strong>列表</strong>中的元素，且元素有<code>name</code>属性，同样可以使用<code>$</code>来提取。但是，与普通方法不同的是：</p>
+<ul>
+<li>
+<p>常规方法提取的是一个<strong>列表</strong>对象，即使只有一个值</p>
+</li>
+<li>
+<p>使用<code>$</code>时，R会原封不动提取元素，得到<strong>向量</strong></p>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">lst </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> list(number </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">)</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> logical </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> T</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> string </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"a"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"b"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"c"</span><span style="color:#172E61">))</span></span>
+<span class="line"><span style="color:#172E61">lst</span></span>
+<span class="line"><span style="color:#172E61">lst[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">]</span></span>
+<span class="line"><span style="color:#172E61">class(lst[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">])</span></span>
+<span class="line"><span style="color:#172E61">sum(lst[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">])</span></span></code></pre>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">lst</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">number</span></span>
+<span class="line"><span style="color:#172E61">class(lst</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">number)</span></span>
+<span class="line"><span style="color:#172E61">sum(lst</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">number)</span></span></code></pre>
+<p>除了使用名称以外，还可以使用 <code>[[ ]]</code> 代替 <code>[ ]</code> 提取子集。前者返回<strong>向量</strong>，后者返回<strong>列表</strong></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">class(lst[[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">]])        </span><span style="color:#7B8493;font-style:italic"># 向量</span></span>
+<span class="line"><span style="color:#172E61">class(lst[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">])          </span><span style="color:#7B8493;font-style:italic"># 列表</span></span>
+<span class="line"><span style="color:#172E61">class(lst[[</span><span style="color:#176B4D;font-weight:bold">"number"</span><span style="color:#172E61">]]) </span><span style="color:#7B8493;font-style:italic"># 向量</span></span>
+<span class="line"><span style="color:#172E61">class(lst[</span><span style="color:#176B4D;font-weight:bold">"number"</span><span style="color:#172E61">])   </span><span style="color:#7B8493;font-style:italic"># 列表</span></span></code></pre>
+<p>列表就像火车，每个元素都是车厢。</p>
+<ul>
+<li>
+<p>使用 <code>[ ]</code> 时只会提取车厢，并配上新的火车头成为新的列表</p>
+</li>
+<li>
+<p>使用 <code>$</code> 和 <code>[[ ]]</code> 时会只留下车厢并返回其中的内容，为向量</p>
+</li>
+</ul>
+<p><img alt="" loading="lazy" decoding="async" width="2042" height="1131" src="/_astro/clipboard-2987164896.0h06jv6-_2v5NIc.webp" srcset=""></p>
+<h1 id="5-对象改值">5. 对象改值</h1>
+<h2 id="51-就地改值">5.1 就地改值</h2>
+<p>即使用赋值号 <code>&#x3C;-</code> 更改原始对象内部的值</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">vec </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">0</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">vec[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 2</span><span style="color:#7B8493;font-style:italic">  # 改一个值</span></span>
+<span class="line"><span style="color:#172E61">vec[</span><span style="color:#7B3FA1">2</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">4</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 3</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">5</span><span style="color:#7B8493;font-style:italic"> # 改多个值</span></span>
+<span class="line"><span style="color:#172E61">vec[</span><span style="color:#7B3FA1">5</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> vec[</span><span style="color:#7B3FA1">5</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B3FA1"> 1</span><span style="color:#7B8493;font-style:italic"> # 原基础加值</span></span>
+<span class="line"><span style="color:#172E61">vec[</span><span style="color:#7B3FA1">7</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 7</span><span style="color:#7B8493;font-style:italic"> # 增加新值</span></span>
+<span class="line"><span style="color:#172E61">vec</span></span></code></pre>
+<p>因此，可以为数据集添加新变量</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">new </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">52</span></span>
+<span class="line"><span style="color:#172E61">deck</span></span>
+<span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">new </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> NULL</span></span>
+<span class="line"><span style="color:#172E61">deck</span></span></code></pre>
+<h2 id="52-逻辑值取子集">5.2 逻辑值取子集</h2>
+<p>一种精确提取和替换 R 对象中值的方法</p>
+<h3 id="521-逻辑测试">5.2.1 逻辑测试</h3>
+<p>R 提供了其中逻辑运算符</p>
+<ul>
+<li>
+<p><code>></code>, <code>>=</code>, <code>&#x3C;</code>, <code>&#x3C;=</code>, <code>==</code>, <code>!=</code></p>
+</li>
+<li>
+<p><code>%in%</code> ：测试左边的值是否在右边的对象之中</p>
+<ul>
+<li>
+<p>如 <code>a %in% c(a, b, c)</code>，判断<code>c(a, b, c)</code>中是否包含<code>a</code></p>
+</li>
+<li>
+<p>若左边是向量，则依次判断向量的值是否出现在右边的对象中</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> ></span><span style="color:#7B3FA1"> 2</span></span>
+<span class="line"><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> ></span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold"> %in%</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">) </span><span style="color:#1D4F91;font-weight:bold">%in%</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">)</span></span></code></pre>
+<p>如果想快速提取出 <code>ace</code> ，则可以先判断哪些是 <code>ace</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">face </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "ace"</span></span></code></pre>
+<p>因此，可以批量选中<code>deck</code>里<code>face = "ace"</code>的牌的<code>value</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">value[deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">face </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "ace"</span><span style="color:#172E61">]</span></span></code></pre>
+<p>逻辑值取子集可以快速定位、提取并修改数据集的值，即使未知其位置信息</p>
+<h3 id="522-布尔运算符">5.2.2 布尔运算符</h3>
+<p>布尔运算符是类似于 与<code>&#x26;</code> 和 或<code>|</code> 的运算符，可以<strong>整合多个逻辑测试的结果</strong>，并输出成 <code>T</code> 或 <code>F</code>。现有六种布尔运算符：</p>
+<p><img alt="" loading="lazy" decoding="async" width="2138" height="644" src="/_astro/clipboard-378637920.DZtfsQxJ_1TGMcf.webp" srcset=""></p>
+<p>因此，可以通过布尔运算符以定义 黑桃Q：同时满足 黑桃 + Q</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">face </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "queen"</span><span style="color:#1D4F91;font-weight:bold"> &#x26;</span><span style="color:#172E61"> deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">suit </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "spades"</span></span>
+<span class="line"><span style="color:#172E61">queen_of_spades </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">face </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "queen"</span><span style="color:#1D4F91;font-weight:bold"> &#x26;</span><span style="color:#172E61"> deck</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">suit </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "spades"</span><span style="color:#7B8493;font-style:italic">  # 存储结果</span></span>
+<span class="line"><span style="color:#172E61">deck[queen_of_spades</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> ]</span></span></code></pre>
+<h2 id="53-信息缺失">5.3. 信息缺失</h2>
+<p>R中的特殊字符 <code>NA</code> 代表 <strong>不可用 not available</strong>，不能当做0处理</p>
+<h3 id="531-narm">5.3.1 na.rm</h3>
+<p>该函数可以移除remove对象中的NA值</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">c </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">NA</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">9</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">mean(c)</span></span>
+<span class="line"><span style="color:#172E61">mean(c</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">na.rm </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> T)</span></span></code></pre>
+<h3 id="532-isna">5.3.2 is.na</h3>
+<p>由于NA并不清楚其具体值，所以其实 <code>NA == NA</code> 会返回 <code>NA</code> ，而不是<code>T</code>。为了确保能定位NA，可以使用<code>is.na</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">is.na(</span><span style="color:#7B3FA1">NA</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">is.na(c)</span></span></code></pre>
+<h2 id="54-小结">5.4 小结</h2>
+<p>当数据量很大时，提取和修改数据往往很难，因此可以使用<strong>逻辑值取子集</strong>的方法来快速实现：</p>
+<ul>
+<li>
+<p>先试用<strong>逻辑运算符和布尔运算符</strong>创建逻辑测试</p>
+</li>
+<li>
+<p>将其作为中括号的索引值以提取</p>
+</li>
+<li>
+<p>提取后即可修改</p>
+</li>
+</ul></article></div></details><details class="note-item" data-note-item><summary><span class="note-index">03</span><strong>项目3：老虎机</strong><span class="note-format">MARKDOWN</span><span class="note-toggle" aria-hidden="true">＋</span></summary><div class="note-reader"><div class="reader-toolbar"><span>MARKDOWN DOCUMENT</span><div><a href="/downloads/notes/r/project-3-slots.md" download>下载 Markdown</a></div></div><article class="markdown-reader prose"><h1 id="7-程序">7. 程序</h1>
+<p>希望写出一个 <code>play()</code> 函数，可以抽出3个图标并给出点数</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">get_symbols </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">() {</span></span>
+<span class="line"><span style="color:#172E61">  wheel </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"DD"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "7"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BBB"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BB"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "B"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "C"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "0"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">  sample(wheel</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> size </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 3</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> replace </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> TRUE</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">   </span></span>
+<span class="line"><span style="color:#172E61">         prob </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0.03</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.03</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.06</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.1</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.25</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.01</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 0.52</span><span style="color:#172E61">))</span></span>
+<span class="line"><span style="color:#172E61">}</span></span></code></pre>
+<h2 id="71-策略">7.1 策略</h2>
+<p>通常，可以通过三步来简化任务</p>
+<ul>
+<li>
+<p>分解成简单任务</p>
+</li>
+<li>
+<p>使用实例</p>
+</li>
+<li>
+<p>通俗语言描述方案并写代码</p>
+</li>
+</ul>
+<p>通常，R程序可以分解成2种子任务</p>
+<ul>
+<li>
+<p>有序步骤</p>
+</li>
+<li>
+<p>同类情况</p>
+</li>
+</ul>
+<h3 id="711-有序步骤">7.1.1 有序步骤</h3>
+<p>即细分为有序的步骤，如<code>play()</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">play </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">(){</span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">  # 1. 生成符号组合</span></span>
+<span class="line"><span style="color:#172E61">  symbols </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> get_symbols()</span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">  # 2. 显示符号组合</span></span>
+<span class="line"><span style="color:#172E61">  print(symbols)</span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">  # 3. 算分</span></span>
+<span class="line"><span style="color:#172E61">  score(symbols)</span></span>
+<span class="line"><span style="color:#172E61">}</span></span></code></pre>
+<h3 id="712-同类情况">7.1.2 同类情况</h3>
+<p>识别出该任务有几种类似特性的情况，如 <code>score()</code> 函数，需要根据 <code>symbles</code> 的不同情况，选择不同算法</p>
+<h2 id="72-if-语句">7.2 if 语句</h2>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">num </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> -</span><span style="color:#7B3FA1">2</span></span>
+<span class="line"><span style="color:#1D4F91;font-weight:bold">if</span><span style="color:#172E61">(num </span><span style="color:#1D4F91;font-weight:bold">&#x3C;</span><span style="color:#7B3FA1"> 0</span><span style="color:#172E61">){</span></span>
+<span class="line"><span style="color:#172E61">  num </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> num </span><span style="color:#1D4F91;font-weight:bold">*</span><span style="color:#1D4F91;font-weight:bold"> -</span><span style="color:#7B3FA1">1</span></span>
+<span class="line"><span style="color:#172E61">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">num</span></span></code></pre>
+<p>如果 <code>( )</code> 内是向量形式的 <code>T / F</code> ，则只会使用第一个元素。</p>
+<h2 id="else语句">else语句</h2>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">a </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1</span></span>
+<span class="line"><span style="color:#172E61">b </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#1D4F91;font-weight:bold">if</span><span style="color:#172E61">(a </span><span style="color:#1D4F91;font-weight:bold">></span><span style="color:#172E61"> b){</span></span>
+<span class="line"><span style="color:#172E61">  print(</span><span style="color:#176B4D;font-weight:bold">"a"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">} </span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#1D4F91;font-weight:bold"> if</span><span style="color:#172E61">(a </span><span style="color:#1D4F91;font-weight:bold">&#x3C;</span><span style="color:#172E61"> b){</span></span>
+<span class="line"><span style="color:#172E61">  print(</span><span style="color:#176B4D;font-weight:bold">"b"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">} </span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#172E61">{</span></span>
+<span class="line"><span style="color:#172E61">  print(</span><span style="color:#176B4D;font-weight:bold">"Tie"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">}</span></span></code></pre>
+<p>因此，可以将 <code>score( )</code> 函数拆分成多个子任务：</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#1D4F91;font-weight:bold">if</span><span style="color:#172E61">(</span><span style="color:#7B8493;font-style:italic">#情形1：三个符号相同)①{  </span></span>
+<span class="line"><span style="color:#172E61">  prize </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B8493;font-style:italic"> #查找对应的中奖金额②  </span></span>
+<span class="line"><span style="color:#172E61">  } </span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#1D4F91;font-weight:bold"> if</span><span style="color:#172E61">(</span><span style="color:#7B8493;font-style:italic">#情形2:全是杠){  </span></span>
+<span class="line"><span style="color:#172E61">    prize </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B8493;font-style:italic"> # 分配5美元奖金  </span></span>
+<span class="line"><span style="color:#172E61">      } </span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#172E61"> {  </span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">        #计算樱桃的数量⑤  </span></span>
+<span class="line"><span style="color:#172E61">        prize </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B8493;font-style:italic"> # 计算中奖金额  </span></span>
+<span class="line"><span style="color:#172E61">      }  </span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">  #计算钻石的数量⑦  </span></span>
+<span class="line"><span style="color:#7B8493;font-style:italic">  #在需要的情况下，把奖金翻倍⑧</span></span></code></pre>
+<h2 id="74-查找表">7.4 查找表</h2>
+<p>如果<code>symbles</code>三者相同的话，需要建一个大的if树，为了简化，可以用类似于取子集的方式即创建一个向量来反映映射关系。该向量将符号存储为名称，金额存储为元素值，并将名称和元素值一一对应</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">payouts </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"DD"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 100</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "7"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 80</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BBB"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 40</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BB"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 25</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">   </span></span>
+<span class="line"><span style="color:#176B4D;font-weight:bold">             "B"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 10</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "C"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 10</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "0"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 0</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">payouts[</span><span style="color:#176B4D;font-weight:bold">"DD"</span><span style="color:#172E61">]</span></span>
+<span class="line"><span style="color:#172E61">unname(payouts[</span><span style="color:#176B4D;font-weight:bold">"DD"</span><span style="color:#172E61">])</span></span></code></pre>
+<p>最终，得到<code>score()</code></p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">score </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">(symbols){</span></span>
+<span class="line"><span style="color:#172E61">  same </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> symbols[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#172E61"> symbols[</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">&#x26;&#x26;</span><span style="color:#172E61"> symbols[</span><span style="color:#7B3FA1">2</span><span style="color:#172E61">] </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#172E61"> symbols[</span><span style="color:#7B3FA1">3</span><span style="color:#172E61">]   </span></span>
+<span class="line"><span style="color:#172E61">  bars </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> symbols </span><span style="color:#1D4F91;font-weight:bold">%in%</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"B"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BB"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BBB"</span><span style="color:#172E61">)   </span></span>
+<span class="line"><span style="color:#1D4F91;font-weight:bold">  if</span><span style="color:#172E61"> (same) {   </span></span>
+<span class="line"><span style="color:#172E61">    payouts </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"DD"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 100</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "7"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 80</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BBB"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 40</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "BB"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 25</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61">   </span></span>
+<span class="line"><span style="color:#176B4D;font-weight:bold">                 "B"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 10</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "C"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 10</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "0"</span><span style="color:#1D4F91;font-weight:bold"> =</span><span style="color:#7B3FA1"> 0</span><span style="color:#172E61">)   </span></span>
+<span class="line"><span style="color:#172E61">    prize</span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> unname(payouts[symbols[</span><span style="color:#7B3FA1">1</span><span style="color:#172E61">]])   </span></span>
+<span class="line"><span style="color:#172E61">  } </span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#1D4F91;font-weight:bold"> if</span><span style="color:#172E61"> (all(bars)) {   </span></span>
+<span class="line"><span style="color:#172E61">    prize </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 5</span><span style="color:#172E61">   </span></span>
+<span class="line"><span style="color:#172E61">  }</span><span style="color:#1D4F91;font-weight:bold">else</span><span style="color:#172E61"> {   </span></span>
+<span class="line"><span style="color:#172E61">    cherries </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> sum(symbols </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "C"</span><span style="color:#172E61">)   </span></span>
+<span class="line"><span style="color:#172E61">    prize </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">0</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#7B3FA1"> 5</span><span style="color:#172E61">)[cherries </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B3FA1"> 1</span><span style="color:#172E61">]   </span></span>
+<span class="line"><span style="color:#172E61">  }   </span></span>
+<span class="line"><span style="color:#172E61">  diamonds </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> sum(symbols </span><span style="color:#1D4F91;font-weight:bold">==</span><span style="color:#176B4D;font-weight:bold"> "DD"</span><span style="color:#172E61">)   </span></span>
+<span class="line"><span style="color:#172E61">  prize </span><span style="color:#1D4F91;font-weight:bold">*</span><span style="color:#7B3FA1"> 2</span><span style="color:#1D4F91;font-weight:bold"> ^</span><span style="color:#172E61"> diamonds</span></span>
+<span class="line"><span style="color:#172E61">}</span></span></code></pre>
+<h1 id="8-s3">8. S3</h1>
+<h2 id="81-s3系统">8.1 S3系统</h2>
+<p>即R自带的类系统，掌管R如何处理具有不同类的对象。一些函数会先查询对象的S3类，再根据其类属性作出相应的响应</p>
+<p>例如，<code>print()</code> 对于一个数值向量，会默认输出数字。但如果添加了 POSIXt 的S3类 <code>POSIXct</code> ，print将显示时间</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">num </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1000000000</span></span>
+<span class="line"><span style="color:#172E61">print(num)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">class(num) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"POSIXct"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "POSIXt"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">print(num)</span></span></code></pre>
+<p>S3 系统有三个组成部分</p>
+<ul>
+<li>
+<p>属性attribute（尤其是class属性）</p>
+</li>
+<li>
+<p>泛型函数generic function</p>
+</li>
+<li>
+<p>方法method</p>
+</li>
+</ul>
+<h2 id="82-属性">8.2 属性</h2>
+<p>属性不影响对象实际取值，但作为某种类型的metadata，可以控制和管理这个对象。如数据框将行名和列名作为属性，还将其类 <code>data.frame</code> 作为属性。同样，可以使用 <code>attribute( )</code> 函数查看属性</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">attributes(deck)</span></span></code></pre>
+<p>R提供了许多辅助函数，以设置和获取常见属性，如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">names(deck)</span></span>
+<span class="line"><span style="color:#172E61">dim(deck)</span></span>
+<span class="line"><span style="color:#172E61">class(deck)</span></span>
+<span class="line"><span style="color:#172E61">row.names(deck)</span></span>
+<span class="line"><span style="color:#172E61">levels(gender)</span></span></code></pre>
+<p>可以使用 <code>attr</code> 函数给对象添加任何属性，也可以查看所有属性，以老虎机一次输出为例</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">one_play </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> play()</span></span>
+<span class="line"><span style="color:#172E61">one_play</span></span>
+<span class="line"><span style="color:#172E61">attributes(one_play)</span></span></code></pre>
+<p><code>attr</code>接受2参数：R对象 + 某属性名称（字符串形式），例如赋予 <code>one_play</code> 一个 <code>symbols</code> 属性</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">attr(one_play</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "symbols"</span><span style="color:#172E61">) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"B"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"0"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"B"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">attributes(one_play)</span></span>
+<span class="line"><span style="color:#172E61">attr(one_play</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold">"symbols"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">one_play</span></span></code></pre>
+<h2 id="83-泛型函数">8.3 泛型函数</h2>
+<p>以 <code>print( )</code> 为例，其是泛型函数，可以在不同的场合完成不同的任务。例如，它可以根据对象的 <code>class</code> 属性，找到对应的输出方法，如之前提过的：</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">num </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 1000000000</span></span>
+<span class="line"><span style="color:#172E61">print(num)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">class(num) </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#176B4D;font-weight:bold">"POSIXct"</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#176B4D;font-weight:bold"> "POSIXt"</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">print(num)</span></span></code></pre>
+<h2 id="84-方法">8.4 方法</h2>
+<p>在调用 <code>print</code> 函数时，它调用了特别的函数 <code>UseMethod</code>：</p>
+<ul>
+<li>
+<p><code>UseMethod</code> 检查提供给 <code>print</code> 函数的第一个参数的class属性</p>
+</li>
+<li>
+<p>将提供的对象交给新函数处理，其专门针对不同class属性以作不同处理</p>
+</li>
+</ul>
+<p>例如，向 <code>print</code> 提供一个 <code>class == POSIXct</code> 的对象时，<code>UseMethod</code> 会将 <code>print</code> 函数所有参数交给 <code>print.POSIXct</code> 函数处理，返回针对该类的结果。<code>factor</code>同理</p>
+<p><code>print.POSIXct</code> 和 <code>print.factor</code> 成为 <code>print</code> 函数的<strong>方法method</strong>，会被<code>UseMethod</code> 调用并处理具有对应class属性的对象</p>
+<p>综上：由泛型函数、方法和基于class的分派方式所构成的系统就是 R 的 S3系统，其起源于 S 语言的第三个版本。而<strong>方法分派</strong>，即为 <code>UseMethod</code> 根据Class（如<code>"factor"</code>），生成Generic Function（如<code>print</code>）的Method（如<code>print.factor</code>）的方式</p>
+<h2 id="85-类class">8.5 类Class</h2>
+<p>创建类的方法：</p>
+<ul>
+<li>
+<p>其名称</p>
+</li>
+<li>
+<p>给对象赋予 class 属性</p>
+</li>
+<li>
+<p>写泛型函数的类方法</p>
+</li>
+</ul>
+<p>不过，编写类方法函数时，常有两个挑战：</p>
+<ul>
+<li>
+<p>R将多个对象组合成向量时，会丢掉对象属性（如class属性）</p>
+</li>
+<li>
+<p>R对某对象取子集时，也会丢掉属性（如class属性）</p>
+</li>
+</ul>
+<h2 id="86-小结">8.6 小结</h2>
+<p>有了S3系统，在R中存储信息不止靠赋值，还可以靠 <strong>赋予class属性</strong>；创建特殊行为不止靠自定义函数，还可以靠 <strong>赋予class属性以选择不同方法。<strong>S3可以称为R的</strong>面向对象编程</strong>系统，该系统通过泛型函数来实现：泛型函数检查并输入对象的class属性，并针对性生成基于class属性的输出结果</p>
+<h1 id="9-循环">9. 循环</h1>
+<h2 id="91-expandgrid">9.1 expand.grid</h2>
+<p>R的<code>expand.grid</code>函数可以快捷写出 n 个向量元素的所有组合，如展示2个骰子的点数组合：</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">die </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">rolls </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> expand.grid(die</span><span style="color:#1D4F91;font-weight:bold">,</span><span style="color:#172E61"> die)</span></span></code></pre>
+<p><code>expand.grid</code> 返回的结果永远是数据框，且可据此轻松算出其他值，如</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">rolls</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">value </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> rolls</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">Var1 </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#172E61"> rolls</span><span style="color:#1D4F91;font-weight:bold">$</span><span style="color:#172E61">Var2</span></span>
+<span class="line"><span style="color:#172E61">head(rolls)</span></span></code></pre>
+<h2 id="93-for循环">9.3 for循环</h2>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#1D4F91;font-weight:bold">for</span><span style="color:#172E61"> (i </span><span style="color:#1D4F91;font-weight:bold">in</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">6</span><span style="color:#172E61">){</span></span>
+<span class="line"><span style="color:#172E61">  print(i)</span></span>
+<span class="line"><span style="color:#172E61">}</span></span></code></pre>
+<p>其实，for循环主要用于将代码运行结果填入向量或列表：</p>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">chars </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> vector(length </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#7B3FA1"> 4</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#172E61">words </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> c(</span><span style="color:#7B3FA1">1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">4</span><span style="color:#172E61">)</span></span>
+<span class="line"><span style="color:#1D4F91;font-weight:bold">for</span><span style="color:#172E61"> (i </span><span style="color:#1D4F91;font-weight:bold">in</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold">:</span><span style="color:#7B3FA1">4</span><span style="color:#172E61">){</span></span>
+<span class="line"><span style="color:#172E61">  chars[i] </span><span style="color:#1D4F91;font-weight:bold">=</span><span style="color:#172E61"> words[i]</span></span>
+<span class="line"><span style="color:#172E61">}</span></span>
+<span class="line"><span style="color:#172E61">chars</span></span></code></pre>
+<h2 id="94-while循环">9.4 While循环</h2>
+<pre class="astro-code latex-listings" style="background-color:#fbfcfe;color:#172e61; overflow-x: auto;" tabindex="0" data-language="r"><code><span class="line"><span style="color:#172E61">plays_till_broke </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#1D4F91;font-weight:bold"> function</span><span style="color:#172E61">(start_with){</span></span>
+<span class="line"><span style="color:#172E61">  cash </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> start_with</span></span>
+<span class="line"><span style="color:#172E61">  n </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#7B3FA1"> 0</span></span>
+<span class="line"><span style="color:#1D4F91;font-weight:bold">  while</span><span style="color:#172E61">(cash </span><span style="color:#1D4F91;font-weight:bold">></span><span style="color:#7B3FA1"> 0</span><span style="color:#172E61">){</span></span>
+<span class="line"><span style="color:#172E61">    cash </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> cash </span><span style="color:#1D4F91;font-weight:bold">-</span><span style="color:#7B3FA1"> 1</span><span style="color:#1D4F91;font-weight:bold"> +</span><span style="color:#172E61"> play()</span></span>
+<span class="line"><span style="color:#172E61">    n </span><span style="color:#1D4F91;font-weight:bold">&#x3C;-</span><span style="color:#172E61"> n </span><span style="color:#1D4F91;font-weight:bold">+</span><span style="color:#7B3FA1"> 1</span></span>
+<span class="line"><span style="color:#172E61">  }</span></span>
+<span class="line"><span style="color:#172E61">  n</span></span>
+<span class="line"><span style="color:#172E61">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#172E61">plays_till_broke(</span><span style="color:#7B3FA1">200</span><span style="color:#172E61">)</span></span></code></pre>
+<h2 id="95-repeat循环">9.5 repeat循环</h2>
+<p>比While更低级，无条件重复循环</p></article></div></details></div></section></main><script type="module">var e=()=>{};async function t(e){if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(e);return}let t=document.createElement(`textarea`);t.value=e,t.style.position=`fixed`,t.style.opacity=`0`,document.body.append(t),t.select();let n=document.execCommand(`copy`);if(t.remove(),!n)throw Error(`Copy command failed`)}function n(){e();let n=[...document.querySelectorAll(`.detail-rail nav a`)],r=[...document.querySelectorAll(`[data-detail-section]`)];if(!n.length||!r.length){e=()=>{};return}let i=[],a=new Set,o=0,s=(e,t,n,r)=>{e?.addEventListener(t,n,r),i.push(()=>e?.removeEventListener(t,n,r))},c=()=>{o=0;let e=document.querySelector(`.site-header`)?.offsetHeight||0,t=scrollY+e+56,i=r[0];for(let e of r)e.offsetTop<=t&&(i=e);n.forEach(e=>e.classList.toggle(`active`,e.hash===`#${i.id}`))},l=()=>{o||=requestAnimationFrame(c)};s(window,`scroll`,l,{passive:!0}),s(window,`resize`,l),s(window,`hashchange`,l),n.forEach(e=>s(e,`click`,()=>{n.forEach(t=>t.classList.toggle(`active`,t===e))})),c(),document.querySelectorAll(`[data-note-item]`).forEach(e=>{s(e,`toggle`,()=>{e.open&&(document.querySelectorAll(`[data-note-item]`).forEach(t=>{t!==e&&(t.open=!1)}),requestAnimationFrame(()=>dispatchEvent(new Event(`scroll`))))})}),document.querySelectorAll(`[data-copy-share]`).forEach(e=>{s(e,`click`,async()=>{let n=e.querySelector(`[data-copy-label]`);try{await t(e.dataset.copyShare),e.classList.add(`copied`),n&&(n.textContent=`已复制`)}catch{n&&(n.textContent=`复制失败`)}let r=setTimeout(()=>{a.delete(r),e.classList.remove(`copied`),n&&(n.textContent=`复制幕布链接`)},1600);a.add(r)})}),e=()=>{o&&cancelAnimationFrame(o),i.forEach(e=>e()),a.forEach(e=>clearTimeout(e)),e=()=>{}}}document.addEventListener(`astro:page-load`,n),document.addEventListener(`astro:before-swap`,()=>e()),n();</script><div data-astro-transition-persist="live2d-mascot" class="live2d-mascot" data-live2d-mascot aria-hidden="true"><canvas data-mascot-canvas width="320" height="420"></canvas><span class="live2d-mascot-bubble" data-mascot-bubble hidden></span></div><script type="module" src="/_astro/Live2DMascot.astro_astro_type_script_index_0_lang.kZPMb61C.js"></script><div data-astro-transition-persist="site-motion-layer" class="motion-layer" data-motion-layer aria-hidden="true" hidden><div class="motion-stage" data-motion-stage></div></div><script type="module" src="/_astro/MotionLayer.astro_astro_type_script_index_0_lang.CTL_2avS.js"></script><canvas data-astro-transition-persist="cursor-trail" class="cursor-trail" data-cursor-trail aria-hidden="true"></canvas><script type="module">if(!window.__deeCursorTrailReady){window.__deeCursorTrailReady=!0;let e=document.querySelector(`[data-cursor-trail]`),t=matchMedia(`(prefers-reduced-motion: reduce)`).matches,n=matchMedia(`(pointer: fine)`).matches;if(e instanceof HTMLCanvasElement&&n&&!t){let t=e.getContext(`2d`),n=[`#eff6ff`,`#bfdbfe`,`#60a5fa`,`#3b82f6`,`#1d4ed8`],r=[],i=innerWidth,a=innerHeight,o=null;class s{constructor(e,t){this.x=e+(Math.random()-.5)*20,this.y=t+(Math.random()-.5)*20,this.size=Math.random()*15+5,this.color=n[Math.floor(Math.random()*n.length)],this.life=1,this.decay=Math.random()*.01+.005,this.vx=(Math.random()-.5)*.5,this.vy=(Math.random()-.5)*.5}update(){this.x+=this.vx,this.y+=this.vy,this.life-=this.decay,this.size>.1&&(this.size-=.1)}draw(){this.life<=0||(t.fillStyle=this.color,t.globalAlpha=this.life,t.fillRect(this.x-this.size/2,this.y-this.size/2,this.size,this.size),t.globalAlpha=1)}}function c(){let n=Math.min(devicePixelRatio||1,2);i=innerWidth,a=innerHeight,e.width=Math.round(i*n),e.height=Math.round(a*n),e.style.width=`${i}px`,e.style.height=`${a}px`,t.setTransform(n,0,0,n,0,0)}addEventListener(`resize`,c),addEventListener(`mousemove`,e=>{if(document.body.dataset.cursorTrailEnabled!==`true`)return;let t={x:e.clientX,y:e.clientY};o||=t;let n=t.x-o.x,i=t.y-o.y,a=Math.min(12,Math.max(1,Math.ceil(Math.hypot(n,i)/14)));for(let e=0;e<a;e+=1){let t=e/a;r.push(new s(o.x+n*t,o.y+i*t))}r.length>180&&r.splice(0,r.length-180),o=t}),c();function l(){if(t.clearRect(0,0,i,a),document.body.dataset.cursorTrailEnabled!==`true`){r.length=0,o=null,requestAnimationFrame(l);return}for(let e=r.length-1;e>=0;--e)r[e].update(),r[e].life<=0&&r.splice(e,1);t.lineWidth=.5;for(let e=0;e<r.length;e+=1){let n=r[e];for(let i=e+1;i<r.length;i+=1){let e=r[i],a=n.x-e.x,o=n.y-e.y,s=a*a+o*o;if(s<6400){let r=(1-Math.sqrt(s)/80)*Math.min(n.life,e.life);t.strokeStyle=`rgba(59, 130, 246, ${r})`,t.beginPath(),t.moveTo(n.x,n.y),t.lineTo(e.x,e.y),t.stroke()}}n.draw()}requestAnimationFrame(l)}l()}}</script><div class="bgm" data-bgm hidden><div class="bgm-panel" role="region" aria-label="音乐控制"><div class="bgm-row bgm-row-main"><select class="bgm-song" data-bgm-song aria-label="选择歌曲"></select><span class="bgm-status" data-bgm-status>加载中…</span></div><div class="bgm-row bgm-row-controls"><button type="button" class="bgm-btn" data-bgm-prev aria-label="上一首">⏮</button><button type="button" class="bgm-btn bgm-btn-play" data-bgm-play aria-label="播放"><span class="btn-play-icon"></span></button><button type="button" class="bgm-btn" data-bgm-next aria-label="下一首">⏭</button><input type="range" class="bgm-volume" min="0" max="1" step="0.01" value="0.5" data-bgm-volume aria-label="音量"></div><div class="bgm-row bgm-row-seek"><input type="range" class="bgm-seek" min="0" max="1000" value="0" step="1" data-bgm-seek aria-label="进度"><span class="bgm-time"><span data-bgm-current>0:00</span> / <span data-bgm-duration>0:00</span></span></div></div><audio data-bgm-audio preload="metadata" loop="false"></audio></div><script type="module">var e=`bgm:index`,t=`bgm:volume`;function n(e){if(!isFinite(e)||e<0)return`0:00`;let t=Math.floor(e/60),n=Math.floor(e%60);return`${t}:${String(n).padStart(2,`0`)}`}async function r(){let r=document.querySelector(`[data-bgm]`);if(!r)return;let i=r.querySelector(`[data-bgm-audio]`),a=r.querySelector(`[data-bgm-song]`),o=r.querySelector(`[data-bgm-seek]`),s=r.querySelector(`[data-bgm-current]`),c=r.querySelector(`[data-bgm-duration]`),l=r.querySelector(`[data-bgm-status]`),u=r.querySelector(`[data-bgm-play]`),d=r.querySelector(`[data-bgm-prev]`),f=r.querySelector(`[data-bgm-next]`),p=r.querySelector(`[data-bgm-volume]`),m=[],h=0;function g(e){l&&(l.textContent=e)}function _(e){r.dataset.playing=e?`true`:`false`,u.setAttribute(`aria-label`,e?`暂停`:`播放`)}try{let e=await fetch(`/music/index.json`,{cache:`no-cache`});if(!e.ok)throw Error(`index.json not available`);let t=await e.json();m=Array.isArray(t.songs)?t.songs:[]}catch{m=[]}if(!m.length){g(`没有可用的音乐文件`),r.hidden=!1;return}for(let e of m){let t=document.createElement(`option`);t.value=e.id,t.textContent=e.title||e.id,a.appendChild(t)}let v=Number(localStorage.getItem(e)||0);h=v>=0&&v<m.length?v:0,a.value=m[h].id;let y=Number(localStorage.getItem(t)||.5);i.volume=Math.max(0,Math.min(1,y)),p.value=String(i.volume);function b(){let e=m[h];e&&(i.src=e.url,i.load(),a.value=e.id,s.textContent=`0:00`,c.textContent=`0:00`,o.value=`0`)}function x(){try{localStorage.setItem(e,String(h)),localStorage.setItem(t,String(i.volume))}catch{}}function S(){return i.play().then(()=>{g(`正在播放`)}).catch(e=>{g(`点击 ▶ 开始播放`)})}function C(){i.pause(),g(`已暂停`)}function w(){i.paused?S():C()}function T(e){if(!m.length)return;let t=(e%m.length+m.length)%m.length;if(t===h&&i.src){S();return}h=t,b(),x(),S()}u.addEventListener(`click`,()=>{w()}),d.addEventListener(`click`,()=>T(h-1)),f.addEventListener(`click`,()=>T(h+1)),a.addEventListener(`change`,()=>{let e=a.value,t=m.findIndex(t=>t.id===e);t>=0&&T(t)}),p.addEventListener(`input`,()=>{i.volume=Number(p.value),x()}),o.addEventListener(`input`,()=>{isFinite(i.duration)&&(i.currentTime=Number(o.value)/1e3*i.duration)}),i.addEventListener(`loadedmetadata`,()=>{c.textContent=n(i.duration)}),i.addEventListener(`timeupdate`,()=>{!isFinite(i.duration)||i.duration<=0||(o.value=String(Math.round(i.currentTime/i.duration*1e3)),s.textContent=n(i.currentTime))}),i.addEventListener(`ended`,()=>{_(!1),o.value=`0`,s.textContent=`0:00`,g(`已结束`)}),i.addEventListener(`pause`,()=>_(!1)),i.addEventListener(`play`,()=>_(!0)),r.hidden=!1,b(),_(!1),g(`点击 ▶ 开始播放`),setTimeout(()=>{i.paused&&i.play().then(()=>{g(`正在播放`)}).catch(()=>{})},100)}document.readyState===`loading`?document.addEventListener(`DOMContentLoaded`,r):r();</script></body></html>

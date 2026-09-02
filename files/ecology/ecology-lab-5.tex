@@ -1,0 +1,752 @@
+\documentclass[10.5pt]{config}
+% 本实验报告采用 署名-相同方式共享 4.0 国际许可协议 (CC BY-SA 4.0)
+\setlength{\parskip}{\baselineskip} % 设置段落间距为一个基本行距
+\major{生物科学}
+\name{蒋贤迪}
+\partner{} % 签名栏
+% \title{}
+\stuid{3240105782}
+\date{2025.12.3}
+\lab{生物实验中心-312}
+\course{生态学基础及实验}
+\instructor{胡亮亮}
+\grades{}
+\expname{植物-丛枝菌根真菌共生的观测} % 实验名字
+\exptype{观测} % 实验类型
+
+
+\usepackage{amsmath} % 用于数学公式
+\usepackage[table]{xcolor} % 用于设置单元格颜色
+\usepackage{booktabs} % 用于更好的表格线条
+\usepackage{mhchem} % 用于 \ce{} 化学式命令
+\usepackage{graphicx} % 用于插入图片
+\usepackage{booktabs} % 用于加载三线表功能
+\usepackage{multirow} % 用于多行合并
+\usepackage{array}    % 增强表格功能
+\usepackage{subcaption}
+\usepackage{makecell} % 添加makecell宏包以支持\makecell命令
+\usepackage{fontspec} % 支持更多字体特性
+\usepackage{xeCJK}    % 更好的中日韩文字支持
+
+\begin{document}
+
+
+% \maketitlepage % 封面
+% \maketoc % 目录
+\makeheader % 首页头部
+
+
+\section{实验目的和要求}
+
+\subsection{实验目的}
+\begin{itemize}
+    \item 了解\textbf{菌根共生}的概念及其生态意义
+    \item 掌握\textbf{丛枝菌根真菌侵染率}的测定方法
+\end{itemize}
+
+\subsection{实验要求}
+\begin{enumerate}
+    \item 描述宿主植物种类、生长状况（可用照片反应）和生境（采样地点描述）；
+    \item 拍摄记录典型的菌丝、丛枝和泡囊结构；
+    \item 计算不同宿主植物根系侵染率、丛枝率和泡囊率；
+    \item 比较分析不同物种之间植物-菌根真菌共生状况的差异；
+    \item \textbf{探讨菌根共生关系与植物根系性状的关系。}
+    \item 地上部和地下部均称重，计算以下指标：
+    \begin{itemize}
+        \item[1.] 根冠比 = 地下部/地上部
+        \item[2.] 比根长 = 根长/根重
+        \item[3.] 根密度 = 根重/根体积
+        \item[4.] 根直径，细根长度占比等
+    \end{itemize}
+\end{enumerate}
+
+\section{实验内容和原理}
+
+\subsection{菌根共生 (Mycorrhizal associations)}
+
+植物根系与真菌之间的共生关系，植物为真菌提供光合作用衍生的碳水化合物和脂质，真菌为植物提供必需的营养物质和水。且少数植物不形成菌根共生，如图\ref{fig:non_mycorrhizal_plants}所示。
+
+% --- 第一组：四种菌根类型 ---
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/丛枝菌根.png}
+        \caption{丛枝菌根}
+        \label{fig:AM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/外生菌根.png}
+        \caption{外生菌根}
+        \label{fig:ECM}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/兰科菌根.png}
+        \caption{兰科菌根}
+        \label{fig:OR}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/杜鹃花类菌根.png}
+        \caption{杜鹃花类菌根}
+        \label{fig:ERM}
+    \end{subfigure}
+    \caption{四种主要的菌根类型}
+    \label{fig:mycorrhiza_types}
+\end{figure}
+
+
+
+% --- 第二组：不形成菌根的植物 ---
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/景天科.png}
+        \caption{景天科}
+        \label{fig:Crassulaceae}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/列当科.png}
+        \caption{列当科}
+        \label{fig:Orobanchaceae}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/十字花科.png}
+        \caption{十字花科}
+        \label{fig:Brassicaceae}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.23\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{理论图/菌根共生/山龙眼科.png}
+        \caption{山龙眼科}
+        \label{fig:Proteaceae}
+    \end{subfigure}
+    \caption{少数不形成菌根共生的植物科属}
+    \label{fig:non_mycorrhizal_plants}
+\end{figure}
+
+\begin{minipage}[t]{0.55\textwidth}
+\subsection{丛枝菌根真菌 (arbuscular mycorrhizal fungi, AMF)}
+    \begin{itemize}
+\item 丛枝菌根真菌侵染植物根细胞后，其菌丝细胞内形成特殊的树状结构，称为丛枝（arbuscule）。
+    
+\item 丛枝是植物和丛枝菌根真菌之间进行营养交换的主要结构，丛枝菌根真菌的命名也由此而来。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.6\linewidth]{理论图/AMF.png}
+    \captionof{figure}{丛枝菌根真菌结构示意图}
+    \label{fig:AMF_structure}
+\end{minipage}
+
+\subsection{AMF和植物的相互作用}
+
+\begin{minipage}[t]{0.55\textwidth}
+    \begin{itemize}
+        \item 菌根真菌的菌丝体既向根周土壤扩展，又与宿主植物组织相通，\textbf{菌丝网络拓展了根表面积和吸收范围，加大植物对养分和水分的吸收}，帮助宿主植物抵御不良的环境条件（例如低肥力、干旱、盐胁迫和重金属环境）。
+        
+        \item \textbf{宿主植物分配大量的植物光合作用产物来支持丛枝菌根真菌的生长}。宿主植物优先分配碳源给表现最好的 AMF；相互奖励机制，宿主植物能够检测、分辨及奖励表现最好的 AMF；对效率低下甚至寄生的 AMF，通过丛枝先期成熟死亡机制进行抑制。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.7\linewidth]{理论图/AMF和植物的相互作用.png}
+    \captionof{figure}{AMF和植物相互作用示意图}
+    \label{fig:AMF_interaction}
+\end{minipage}
+
+\subsection{根系经济学空间理论框架分析}
+
+图 \ref{fig:res_concept} 展示了植物根系策略的两个核心权衡维度：
+
+\begin{figure}[htbp]
+    \centering
+    % --- 左侧：简明文字分析 ---
+    \begin{minipage}[t]{0.55\textwidth}
+        \vspace{0pt} % 顶部对齐
+        \textbf{1. 合作梯度 (横轴)：根系自助型 vs. 菌根协助型}
+        \begin{itemize}
+            \item \textbf{根系自助型 (左)}：依靠\textbf{高比根长 (SRL)}。植物构建大量细长根系，“亲力亲为”探索土壤获取养分 。
+            \item \textbf{菌根协助型 (右)}：依靠\textbf{粗根 (D)}和\textbf{发达皮层 (CF)}。植物保留粗根作为真菌栖息地，将碳源“外包”，利用菌丝获取养分 。
+            \item \textit{规律}：SRL 与 根直径/皮层占比呈负相关（深蓝色箭头）。
+        \end{itemize}
+
+        \textbf{2. 保守梯度 (纵轴)：资源保守型 vs. 资源获取型}
+        \begin{itemize}
+            \item \textbf{资源保守型 (上)}：特征是\textbf{高组织密度 (RTD)}。根系寿命长、防御力强，适应贫瘠环境，回报慢但持久 。
+            \item \textbf{资源获取型 (下)}：特征是\textbf{高氮含量 (N)}。根系代谢快、寿命短，能快速周转获取资源 。
+            \item \textit{规律}：RTD 与 氮含量呈负相关（灰色箭头）。
+        \end{itemize}
+    \end{minipage}%
+    \hfill
+    % --- 右侧：图片 ---
+    \begin{minipage}[t]{0.40\textwidth}
+        \vspace{0pt} % 顶部对齐
+        \centering
+        \includegraphics[width=\linewidth]{理论图/image.png}
+        \caption{根系经济学空间概念框架图}
+        \label{fig:res_concept}
+    \end{minipage}
+\end{figure}
+
+\section{实验材料与设备}
+
+\begin{itemize}
+    \item 量筒、天平、玻璃棒
+    \item 水浴锅、剪刀、镊子、50ml离心管、烧杯
+    \item 显微镜、载玻片、盖玻片
+    \item 氢氧化钾、盐酸、酸性品红、乳酸、丙三醇
+\end{itemize}
+
+\section{操作方法和实验步骤}
+
+\subsection{根的采集和保存}
+每个小组采集 3-4 种不同类型草本植物（禾本科、菊科、十字花科）。每种植物取 3 棵植株，将其根部完整挖出（注意细根的完整性），用自来水清洗干净后放入信封，60$^{\circ}$C 烘干保存。
+
+\subsection{根的解离}
+使用 10\% 氢氧化钾溶液（100g KOH 溶于 1L 水）浸泡，\textbf{70$^{\circ}$C 水浴 4-5 分钟}，过程中不断用玻璃棒搅拌，根段散开后，停止水浴。
+
+用自来水冲洗根段 3 次，加入 3\% 盐酸（30ml 盐酸溶于 1L 水）浸没根段，用玻璃棒不断搅拌约 4 分钟至\textbf{根洗成白色}，倒去盐酸并用自来水冲洗至少 3 次至无盐酸残留。
+
+\subsection{根的染色}
+配置染色液 1L（63ml 水，63ml 丙三醇，0.1g 酸性品红，874ml 乳酸），令根染色 30 分钟。
+
+\subsection{根段的侵染率的测定}
+将根剪成 1cm 的根段，放于载玻片上，用盖玻片将根段压实，进行显微镜观察（10 倍物镜）。
+
+根段如可看到菌根，则记为“有”，反之则“无”。每个物种观察 30 个根段，得出丛枝菌根真菌侵染率：
+
+\begin{equation}
+    \text{侵染率}(\%) = \frac{X}{30} \times 100
+    \label{eq:infection}
+\end{equation}
+其中，$X$ 为具有菌根的载玻片数。
+
+\subsection{AMF结构的观测}
+记录每个根段上是否能够观察到丛枝结构和泡囊结构，计算两者的比例：
+
+\begin{equation}
+    \text{丛枝率}(\%) = \frac{Y}{X} \times 100
+    \label{eq:arbuscule}
+\end{equation}
+其中，$Y$ 为具有丛枝结构的载玻片数，$X$ 为具有菌根的载玻片数。
+
+\begin{equation}
+    \text{泡囊率}(\%) = \frac{Z}{X} \times 100
+    \label{eq:vesicle}
+\end{equation}
+其中，$Z$ 为具有泡囊结构的载玻片数，$X$ 
+
+\paragraph{注意事项}
+
+\begin{itemize}
+    \item 根段要选取\textbf{未木质化的细根}
+    \item \textbf{水浴时间决定了根的解离程度}。若水浴时间太长，解离过于彻底，
+会导致上色太深；若水浴时间太短，解离程度低，上色太浅。均
+不利于区别AMF和根的结构。
+    \item \textbf{盐酸处理时间不可太短}，否则会造成根色偏黄，影响观察。
+\end{itemize}
+
+\newpage
+
+\section{实验数据记录和处理}
+
+\subsection{宿主植物种类、生长状况和生境}
+
+本实验选取了三种具有代表性的草本及木本植物作为宿主，分别为合欢（木本）、香堇菜（草本）和香附子（草本）。其详细分类地位、生境及生长状态描述如表 \ref{tab:plant_info_standalone} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{宿主植物基本信息及采样生境}
+    \label{tab:plant_info_standalone}
+    \renewcommand{\arraystretch}{1.3} % 增加行高，使表格更舒展
+    \setlength{\tabcolsep}{6pt}       % 调整列间距
+    \small
+    \begin{tabular}{cccp{3.5cm}p{5cm}}
+        \toprule
+        \textbf{植物名称} & \textbf{拉丁学名} & \textbf{科} & \textbf{采样生境} & \textbf{生长状态描述} \\
+        \midrule
+        合欢 & \textit{Albizia julibrissin} & 豆科 & 生物实验中心南侧树林 & 落叶乔木（本实验取幼苗）；二回羽状复叶，小叶昼开夜合。 \\
+        香堇菜 & \textit{Viola odorata} & 堇菜科 & 生物实验中心南侧树林 & 多年生草本，具匍匐茎；根状茎较粗；叶基生，圆形或宽卵状心形。 \\
+        香附子 & \textit{Cyperus rotundus} & 莎草科 & 生物实验中心西南侧草地 & 多年生草本，具细长匍匐根状茎和黑褐色块茎；秆锐三棱形，叶基生。 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+植物采样地点的生境状况如图 \ref{fig:habitat} 所示。
+
+\begin{figure}[htbp]
+    \centering
+    % --- 第一张图片 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{生境图/图1.jpg}
+        \caption{生境 1}
+        \label{fig:habitat1}
+    \end{subfigure}
+    \hfill % 自动分配水平间距
+    % --- 第二张图片 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{生境图/图2.jpg}
+        \caption{生境 2}
+        \label{fig:habitat2}
+    \end{subfigure}
+    \hfill % 自动分配水平间距
+    % --- 第三张图片 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{生境图/图3.jpg}
+        \caption{生境 3}
+        \label{fig:habitat3}
+    \end{subfigure}
+    \caption{植物采样生境照片}
+    \label{fig:habitat}
+\end{figure}
+
+\subsection{拍照记录}
+
+\begin{figure}[H]
+    \centering
+    % --- 第一张图：合欢 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/合欢.jpg}
+        \caption{合欢根内菌丝}
+        \label{fig:hyphae_hehuan}
+    \end{subfigure}
+    \hfill % 弹性间距，使图片两端对齐
+    % --- 第二张图：香堇菜 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/香堇菜.jpg}
+        \caption{香堇菜根内菌丝}
+        \label{fig:hyphae_xiangjincai}
+    \end{subfigure}
+    \hfill % 弹性间距
+    % --- 第三张图：香附子 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/香附子.jpg}
+        \caption{香附子根内菌丝}
+        \label{fig:hyphae_xiangfuzi}
+    \end{subfigure}
+    
+    \caption{三种植物根系中观察到的 AMF 菌丝形态显微照片}
+    \label{fig:amf_hyphae_morphology}
+\end{figure}
+
+\newpage
+
+\begin{figure}[h]
+    \centering
+    % --- 第一张放大图：合欢 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/合欢-放大图.jpg}
+        \caption{合欢（局部放大）}
+        \label{fig:hyphae_hehuan_zoom}
+    \end{subfigure}
+    \hfill % 弹性间距
+    % --- 第二张放大图：香堇菜 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/香堇菜-放大图.jpg}
+        \caption{香堇菜（局部放大）}
+        \label{fig:hyphae_xiangjincai_zoom}
+    \end{subfigure}
+    \hfill % 弹性间距
+    % --- 第三张放大图：香附子 ---
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{菌丝图/香附子-放大图.jpg}
+        \caption{香附子（局部放大）}
+        \label{fig:hyphae_xiangfuzi_zoom}
+    \end{subfigure}
+    
+    \caption{三种植物根系 AMF 菌丝结构的局部放大观察}
+    \label{fig:amf_hyphae_zoom}
+\end{figure}
+
+\subsection{实验数据记录与计算}
+
+经观察，三种植物根系菌根侵染结构数据如表\ref{tab:folded_data}所示。其中，X=有无侵染，Y=有无丛枝，Z=有无泡囊；1代表有，0代表无。
+
+\begin{table}[htbp]
+\centering
+\caption{三种植物根系菌根侵染结构观察数据（折叠版）}
+\label{tab:folded_data}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{ccc}
+% --- 表1：合欢 ---
+\begin{tabular}{cccc|cccc}
+\multicolumn{8}{c}{\textbf{合欢}} \\
+\toprule
+\textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} \\
+\midrule
+1 & 1 & 0 & 0 & 16 & 0 & 0 & 0 \\
+2 & 1 & 0 & 0 & 17 & 1 & 0 & 0 \\
+3 & 0 & 0 & 0 & 18 & 0 & 0 & 0 \\
+4 & 0 & 0 & 0 & 19 & 0 & 0 & 0 \\
+5 & 1 & 0 & 0 & 20 & 1 & 0 & 0 \\
+6 & 1 & 0 & 0 & 21 & 1 & 0 & 0 \\
+7 & 1 & 0 & 0 & 22 & 0 & 0 & 0 \\
+8 & 1 & 0 & 0 & 23 & 0 & 0 & 0 \\
+9 & 1 & 0 & 0 & 24 & 1 & 0 & 0 \\
+10 & 0 & 0 & 0 & 25 & 1 & 0 & 0 \\
+11 & 0 & 0 & 0 & 26 & 0 & 0 & 0 \\
+12 & 0 & 0 & 0 & 27 & 0 & 0 & 0 \\
+13 & 0 & 0 & 0 & 28 & 1 & 0 & 0 \\
+14 & 0 & 0 & 0 & 29 & 0 & 0 & 0 \\
+15 & 0 & 0 & 0 & 30 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular} & 
+% --- 表2：香堇菜 ---
+\begin{tabular}{cccc|cccc}
+\multicolumn{8}{c}{\textbf{香堇菜}} \\
+\toprule
+\textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} \\
+\midrule
+1 & 1 & 0 & 0 & 16 & 1 & 0 & 0 \\
+2 & 1 & 0 & 0 & 17 & 0 & 0 & 0 \\
+3 & 1 & 0 & 0 & 18 & 0 & 0 & 0 \\
+4 & 1 & 0 & 0 & 19 & 0 & 0 & 0 \\
+5 & 1 & 0 & 0 & 20 & 1 & 0 & 0 \\
+6 & 0 & 0 & 0 & 21 & 1 & 0 & 0 \\
+7 & 0 & 0 & 0 & 22 & 1 & 0 & 0 \\
+8 & 0 & 0 & 0 & 23 & 1 & 0 & 0 \\
+9 & 1 & 0 & 0 & 24 & 1 & 0 & 0 \\
+10 & 1 & 0 & 0 & 25 & 1 & 0 & 0 \\
+11 & 0 & 0 & 0 & 26 & 1 & 0 & 0 \\
+12 & 1 & 0 & 0 & 27 & 1 & 0 & 0 \\
+13 & 1 & 0 & 0 & 28 & 1 & 0 & 0 \\
+14 & 0 & 0 & 0 & 29 & 1 & 0 & 0 \\
+15 & 1 & 0 & 0 & 30 & 1 & 0 & 0 \\
+\bottomrule
+\end{tabular} & 
+% --- 表3：香附子 ---
+\begin{tabular}{cccc|cccc}
+\multicolumn{8}{c}{\textbf{香附子}} \\
+\toprule
+\textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} & \textbf{No.} & \textbf{X} & \textbf{Y} & \textbf{Z} \\
+\midrule
+1 & 1 & 0 & 0 & 16 & 1 & 0 & 0 \\
+2 & 0 & 0 & 0 & 17 & 1 & 0 & 0 \\
+3 & 0 & 0 & 0 & 18 & 1 & 0 & 0 \\
+4 & 0 & 0 & 0 & 19 & 1 & 0 & 0 \\
+5 & 0 & 0 & 0 & 20 & 1 & 0 & 0 \\
+6 & 0 & 0 & 0 & 21 & 1 & 0 & 0 \\
+7 & 0 & 0 & 0 & 22 & 0 & 0 & 0 \\
+8 & 1 & 0 & 0 & 23 & 1 & 0 & 0 \\
+9 & 1 & 0 & 0 & 24 & 0 & 0 & 0 \\
+10 & 0 & 0 & 0 & 25 & 1 & 0 & 0 \\
+11 & 1 & 0 & 0 & 26 & 0 & 0 & 0 \\
+12 & 1 & 0 & 0 & 27 & 1 & 0 & 0 \\
+13 & 1 & 0 & 0 & 28 & 1 & 0 & 0 \\
+14 & 1 & 0 & 0 & 29 & 1 & 0 & 0 \\
+15 & 1 & 0 & 0 & 30 & 0 & 0 & 0 \\
+\bottomrule
+\end{tabular} \\
+\end{tabular}
+}
+\vspace{0.5em}
+\end{table}
+
+根据实验原理中的式 \ref{eq:infection} $\sim$ \ref{eq:vesicle} 可知各指标的计算方法。
+
+\paragraph{侵染率计算（以合欢为例）}
+
+查原始记录表 \ref{tab:folded_data} 可知，合欢的观察总根段数为 30，其中有侵染的根段数 $X = 13$。代入式 \ref{eq:infection} 计算得：
+$$
+\text{合欢侵染率} = \frac{13}{30} \times 100 \approx 43.33\%
+$$
+
+同理计算其他物种：
+\begin{itemize}
+    \item 香堇菜 ($X=22$)：侵染率 $\approx 73.33\%$
+    \item 香附子 ($X=19$)：侵染率 $\approx 63.33\%$
+\end{itemize}
+
+\paragraph{丛枝率与泡囊率}
+
+在本实验的显微观察中，三种植物的所有根段均未发现丛枝结构 ($Y=0$) 和泡囊结构 ($Z=0$)。根据式 \ref{eq:arbuscule} 和式 \ref{eq:vesicle} 可知：
+$$
+\text{丛枝率} = \frac{0}{X} \times 100 = 0\% \quad ; \quad \text{泡囊率} = \frac{0}{X} \times 100 = 0\%
+$$
+
+三种植物根系的各项指标统计结果如表 \ref{tab:amf_results} 所示。
+
+\begin{table}[htbp]
+    \centering
+    \caption{三种植物根系 AMF 侵染情况统计汇总}
+    \label{tab:amf_results}
+    \renewcommand{\arraystretch}{1.2} % 稍微增加行高以提升可读性
+    \setlength{\tabcolsep}{10pt}      % 调整列间距
+    \begin{tabular}{lccccc}
+        \toprule
+        \textbf{物种} & \makecell[c]{观察根段数 \\ ($N$)} & \makecell[c]{侵染根段数 \\ ($X$)} & \makecell[c]{侵染率 \\ (\%)} & \makecell[c]{丛枝率 \\ (\%)} & \makecell[c]{泡囊率 \\ (\%)} \\
+        \midrule
+        合欢   & 30 & 13 & 43.33 & 0 & 0 \\
+        香堇菜 & 30 & 22 & 73.33 & 0 & 0 \\
+        香附子 & 30 & 19 & 63.33 & 0 & 0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{其他指标}
+
+同时，经过地上部分和地下部分的称重后，得到表\ref{tab:raw_biomass}，如下所示：
+
+\begin{table}[htbp]
+    \centering
+    \caption{三种宿主植物地上部与地下部生物量记录表}
+    \label{tab:raw_biomass}
+    \renewcommand{\arraystretch}{1.2} % 增加行距，提升可读性
+    \setlength{\tabcolsep}{10pt}      % 调整列间距
+    \small                            % 使用小字号
+
+    \begin{tabular}{cccc}
+        \toprule
+        \textbf{植物名称} & \textbf{编号} & \textbf{地下部干重 (g)} & \textbf{地上部干重 (g)} \\
+        \midrule
+        \multirow{3}{*}{香堇菜} & 1 & 0.2445 & 1.1115 \\
+                                & 2 & 0.1247 & 0.8201 \\
+                                & 3 & 0.0535 & 0.2992 \\
+        \midrule
+        \multirow{3}{*}{香附子} & 1 & 0.1603 & 0.5501 \\
+                                & 2 & 0.0293 & 0.3228 \\
+                                & 3 & 0.1899 & 0.8012 \\
+        \midrule
+        \multirow{3}{*}{合欢}   & 1 & 0.9207 & 0.3039 \\
+                                & 2 & 0.0870 & 0.0115 \\
+                                & 3 & 0.0178 & 0.0196 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+根据上表和“植物根系分析”实验中所得的表\ref{tab:raw_data_pca_1}、\ref{tab:raw_data_pca_2}可以计算得出每一个物种根冠比、比根长、根组织密度及平均根直径等指标，取平均后结果如表 \ref{tab:root_traits_final_corrected} 所示。其原始数据见附录表 \ref{tab:sample_metrics_detailed}。
+
+\begin{table}[htbp]
+    \centering
+    \caption{三种宿主植物的生物量及根系功能性状指标（Mean $\pm$ SE）}
+    \label{tab:root_traits_final_corrected}
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{4.5pt}
+    \small
+    \begin{tabular}{lcccccc}
+        \toprule
+        \textbf{植物名称} & \textbf{地上部干重} & \textbf{地下部干重} & \textbf{根冠比} & \textbf{比根长 (SRL)} & \textbf{根组织密度 (RTD)} & \textbf{平均根直径} \\
+         & (g) & (g) & (R/S) & (m/g) & (g/cm$^3$) & (mm) \\
+        \midrule
+        香堇菜 & 0.74 $\pm$ 0.24 & 0.14 $\pm$ 0.06 & 0.18 $\pm$ 0.02 & 15.14 $\pm$ 5.27 & 0.07 $\pm$ 0.01 & 0.68 $\pm$ 0.07 \\
+        香附子 & 0.56 $\pm$ 0.14 & 0.13 $\pm$ 0.05 & 0.21 $\pm$ 0.06 & 46.71 $\pm$ 28.68 & 0.02 $\pm$ 0.01 & 0.91 $\pm$ 0.02 \\
+        合欢   & 0.11 $\pm$ 0.10 & 0.34 $\pm$ 0.29 & 3.83 $\pm$ 1.96 & 29.35 $\pm$ 18.57 & 0.26 $\pm$ 0.11 & 0.52 $\pm$ 0.20 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+用python绘制根系功能特性的箱线图，如图\ref{fig:root_traits_boxplot}所示。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\linewidth]{根系对比.png}
+    \caption{三种宿主植物根系功能性状箱线图}
+    \label{fig:root_traits_boxplot}
+\end{figure}
+
+\subsection{比较分析不同物种之间植物-菌根真菌共生状况的差异}
+
+\subsubsection{统计分析方法}
+利用 R 语言对实验数据进行统计分析。采用 Pearson 卡方检验 (Chi-square test) 分析不同物种间侵染率的整体差异，并计算了侵染率的标准误 (SE) 及 95\% 置信区间 (CI)。显著性水平设为 $\alpha = 0.05$。由于丛枝率和泡囊率均为 0，故未进行相关统计分析。
+
+\subsubsection{结果与分析}
+统计检验结果表明，尽管三种宿主植物的 AMF 侵染率在数值上存在差异（香堇菜 $73.33\%$ > 香附子 $63.33\%$ > 合欢 $43.33\%$），但整体差异未达到统计学显著水平 ($\chi^2 = 5.83, P = 0.054 > 0.05$)。
+
+如图 \ref{fig:stats_plots} 所示：
+\begin{itemize}
+    \item \textbf{数值趋势}：草本植物（香堇菜、香附子）的平均侵染率在数值上高于木本植物（合欢）。这符合一般生态学认知，即草本植物可能更依赖菌根进行养分吸收。
+    \item \textbf{统计显著性}：图中三种植物均标记为字母 “a”，表明它们之间不存在显著差异($P > 0.05$, Bonferroni test)。这可能是由于本实验的样本量相对较小 ($n=30$)，导致统计功效不足以检测出潜在的显著差异。若增加样本量，合欢与香堇菜之间的差异（P=0.11）可能会变得显著。
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    % --- 左图：Mean ± SE ---
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{统计图/plot_SE.png}
+        \caption{平均值 $\pm$ 标准误 (Mean $\pm$ SE)}
+        \label{fig:plot_se}
+    \end{subfigure}
+    \hfill
+    % --- 右图：Mean ± CI ---
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{统计图/plot_CI.png}
+        \caption{平均值 $\pm$ 95\% 置信区间 (Mean $\pm$ 95\% CI)}
+        \label{fig:plot_ci}
+    \end{subfigure}
+    
+    \caption{三种宿主植物根系 AMF 侵染率的统计比较。}
+    \label{fig:stats_plots}
+\end{figure}
+
+\newpage
+
+\subsection{探讨菌根共生关系与植物根系性状的关系}
+
+为了验证植物根系是否存在“资源获取策略”的权衡，我们对测得的根系功能性状（比根长 SRL、根组织密度 RTD、平均直径、根冠比）与菌根侵染率进行了多维统计分析。结合前文图 \ref{fig:res_concept} 所述的根系经济学空间 (Root Economics Space) 理论，我们对结果进行了如下深入解读。
+
+\textbf{相关性分析：核心权衡维度的验证}
+
+利用 Pearson 相关系数构建的热图（图 \ref{fig:heatmap}）量化了各性状间的关联强度，揭示了以下核心规律：
+
+\begin{enumerate}
+    \item \textbf{侵染率与根直径呈正相关 ($r = 0.38$):}尽管相关系数绝对值不大，但正相关趋势符合预期。根系平均直径较粗的植物（如香堇菜）倾向于拥有较高的菌根侵染率。根据图 \ref{fig:res_concept} 的合作梯度理论，粗根的比表面积较小，直接吸收效率受限，因此植物倾向于保留皮层空间供真菌定殖，采取\textbf{“菌根协助型” } 策略，利用菌丝网络扩展养分吸收范围。
+    
+    \item \textbf{侵染率与根冠比呈负相关 ($r = -0.69$):}这是本次分析中负相关性最显著的一组关系。根冠比反映了植物向地下部投入生物量的比例。数据显示，根冠比越高的植物（如合欢），其菌根侵染率反而越低。这暗示了一种资源分配的权衡：当植物投入大量碳源构建庞大的自身根系生物量时，可能会削减对共生真菌的碳回报，从而抑制了菌根的形成。
+    
+    \item \textbf{侵染率与根组织密度 (RTD) 呈负相关 ($r = -0.67$):}高 RTD 代表根系构建成本高、寿命长，属于典型的\textbf{“资源保守型” } 策略（见图 \ref{fig:res_concept} 纵轴）。我们的数据表明，采取高 RTD 策略的植物（如合欢）与菌根真菌的活跃交换较少。这可能是因为长寿命的保守型根系防御能力强，皮层细胞周转慢，不利于需要频繁更新的丛枝结构（Arbuscule）的维持。
+    
+    \item \textbf{比根长 (SRL) 的独立性 ($r = -0.11$):}值得注意的是，在本实验中，侵染率与比根长的相关性极弱。这表明在所选物种中，\textbf{“根系自助型”}（依靠高 SRL）策略与菌根侵染并没有表现出简单的线性替代关系，可能受到物种特异性发育阶段（如合欢幼苗）的干扰。
+\end{enumerate}
+
+\textbf{PCA 分析：物种策略的多维分化}
+
+主成分分析（PCA）进一步在多维空间中揭示了不同物种的生存策略分化（图 \ref{fig:pca}）。第一主成分 (PC1) 解释了 59.5\% 的变异，主要代表了“根系构建成本”维度；第二主成分 (PC2) 解释了 22.6\% 的变异，主要由比根长驱动。
+
+\begin{itemize}
+    \item \textbf{向量几何关系的生态学解读}：
+    \begin{itemize}
+        \item \textbf{协同关系}：红色箭头显示，“侵染率”与“平均直径”的向量方向位于同一象限且夹角较小（< 90$^\circ$），再次印证了\textbf{“菌根协助型”}策略往往伴随着粗根表型。
+        \item \textbf{权衡关系}：“侵染率”向量与“根冠比”、“根组织密度”向量的方向几乎相反（夹角接近 180$^\circ$）。这强有力地证明了植物在\textbf{“投资真菌”}与\textbf{“投资自身生物量/组织密度”}之间存在显著的权衡。
+        \item \textbf{独立关系}：“比根长”向量几乎垂直于“侵染率”向量（夹角接近 90$^\circ$），说明在本研究体系中，根系的粗细变化（SRL）是一个\textbf{相对独立}的变异维度，不直接受控于菌根共生状态。
+    \end{itemize}
+    
+    \item \textbf{物种的策略定位}：
+    \begin{itemize}
+        \item \textbf{合欢（右侧群）}：主要分布在 PC1 正轴方向，特征是\textbf{较高的根冠比和根组织密度}，但侵染率和直径较低。这表明合欢幼苗采取了极端的\textbf{“资源保守型”}策略，优先投资于构建高密度的持久性根系和地下生物量，而非依赖菌根。
+        \item \textbf{香堇菜与香附子（左侧群）}：两者在 PC1 轴上的分布较为接近，均位于负轴区域，表现出\textbf{较高的侵染率和平均直径}。这说明作为草本植物，它们更倾向于\textbf{“菌根协助型”}策略，通过较低的组织密度和较粗的根系来维持与真菌的高效共生，以快速获取养分。
+        \item \textbf{香附子-2（疑似异常样本）}：虽然与香附子-2在PC1轴上和其他香附子样本和香堇菜样本相似，但在 PC2 轴（比根长）上分布更广，这可能是因为小组在采取样本时弄断了一些地下部分的根，导致其质量（0.0293g）显著低于其他两个样本，为该实验引入了异常的样本，造成了较大的误差。
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    % --- 左图：相关性热图 ---
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{统计图/correlation_heatmap.png}
+        \caption{Pearson 相关性热图}
+        \label{fig:heatmap}
+    \end{subfigure}
+    \hfill % 弹性间距
+    % --- 右图：PCA 双序图 ---
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{统计图/pca_biplot.png}
+        \caption{根系性状 PCA 双序图}
+        \label{fig:pca}
+    \end{subfigure}
+    
+    \caption{植物根系性状与菌根侵染率的关联分析。}
+    \label{fig:correlation_pca}
+\end{figure}
+
+\newpage
+
+\section{附录}
+
+\begin{table}[h]
+    \centering
+    \caption{各宿主植物样本的生物量及根系功能性状指标详情}
+    \label{tab:sample_metrics_detailed}
+    \renewcommand{\arraystretch}{1.5} % 显著增加行高
+    \setlength{\tabcolsep}{4pt}       % 适度增加列间距
+    \resizebox{\textwidth}{!}{        % 自动缩放以适应页面宽度
+    \begin{tabular}{lccccccccc}
+        \toprule
+        \textbf{Species} & \multicolumn{3}{c}{\textbf{香堇菜}} & \multicolumn{3}{c}{\textbf{香附子}} & \multicolumn{3}{c}{\textbf{合欢}} \\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+        \textbf{Sample} & 1 & 2 & 3 & 1 & 2 & 3 & 1 & 2 & 3 \\
+        \midrule
+        地上部干重 (g) & 1.1115 & 0.8201 & 0.2992 & 0.5501 & 0.3228 & 0.8012 & 0.3039 & 0.0115 & 0.0196 \\
+        地下部干重 (g) & 0.2445 & 0.1247 & 0.0535 & 0.1603 & 0.0293 & 0.1899 & 0.9207 & 0.0870 & 0.0178 \\
+        根冠比 & 0.220 & 0.152 & 0.179 & 0.291 & 0.091 & 0.237 & 3.030 & 7.565 & 0.906 \\
+        比根长 (m/g) & 9.67 & 10.08 & 25.68 & 25.16 & 103.53 & 11.45 & 1.71 & 21.69 & 64.65 \\
+        根密度 (g/cm$^3$) & 0.059 & 0.093 & 0.054 & 0.014 & 0.004 & 0.049 & 0.309 & 0.422 & 0.063 \\
+        平均根直径 (mm) & 0.76 & 0.73 & 0.55 & 0.95 & 0.92 & 0.86 & 0.91 & 0.23 & 0.43 \\
+        侵染率 (\%) & 73.33 & 73.33 & 73.33 & 63.33 & 63.33 & 63.33 & 43.33 & 43.33 & 43.33 \\
+        \bottomrule
+    \end{tabular}
+    }
+\end{table}
+
+\vspace{3em}
+
+\begin{table}[htbp]
+\centering
+\caption{原始数据} % 这里我也稍微修改了标题以区分
+\label{tab:raw_data_pca_2}
+\renewcommand{\arraystretch}{1.3} % 调整行间距
+\resizebox{\textwidth}{!}{ % 自动缩放到页面宽度
+    \begin{tabular}{lccccc}
+    \toprule
+    文件名 & \makecell{网络面积(mm²)} & \makecell{平均直径(mm)} & \makecell{周长(mm)} & \makecell{体积(mm³)} & \makecell{表面积(mm²)} \\
+    \midrule
+    合欢-1 & 803.97 & 0.911 & 2032.68 & 2984.37 & 4787.46 \\
+    合欢-2 & 284.19 & 0.226 & 3284.06 & 205.97 & 1364.58 \\
+    合欢-3 & 336.59 & 0.426 & 1670.95 & 282.15 & 1571.39 \\
+    香附子-1 & 1381.87 & 0.946 & 4433.96 & 11842.96 & 13106.48 \\
+    香附子-2 & 1125.49 & 0.923 & 3208.84 & 7145.24 & 9508.45 \\
+    香附子-3 & 702.09 & 0.863 & 2183.56 & 3860.93 & 6295.49 \\
+    香堇菜-1 & 873.20 & 0.764 & 2930.70 & 4175.55 & 5920.47 \\
+    香堇菜-2 & 515.03 & 0.726 & 1611.58 & 1341.98 & 2946.04 \\
+    香堇菜-3 & 366.79 & 0.548 & 1630.59 & 981.85 & 2435.36 \\
+    \bottomrule
+    \end{tabular}
+}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{原始数据（续表）}
+\label{tab:raw_data_pca_1}
+\renewcommand{\arraystretch}{1.3} % 调整行间距，1.3 倍行高
+\resizebox{\textwidth}{!}{ % 自动缩放到页面宽度
+    \begin{tabular}{lcccc}
+    \toprule
+    文件名 & \makecell{根尖数量} & \makecell{分支点数量} & \makecell{总根长(mm)} & \makecell{每毫米分支频率} \\
+    \midrule
+    合欢-1 & 1087 & 1448 & 1575.08 & 0.919 \\
+    合欢-2 & 858 & 1453 & 1886.93 & 0.770 \\
+    合欢-3 & 1061 & 1301 & 1147.50 & 1.134 \\
+    香附子-1 & 2988 & 4906 & 4033.70 & 1.216 \\
+    香附子-2 & 2259 & 3601 & 3033.42 & 1.187 \\
+    香附子-3 & 1573 & 2787 & 2174.13 & 1.282 \\
+    香堇菜-1 & 1268 & 2670 & 2363.43 & 1.130 \\
+    香堇菜-2 & 807 & 1239 & 1257.29 & 0.985 \\
+    香堇菜-3 & 792 & 1930 & 1374.02 & 1.405 \\
+    \bottomrule
+    \end{tabular}
+}
+\end{table}
+
+
+
+\end{document}

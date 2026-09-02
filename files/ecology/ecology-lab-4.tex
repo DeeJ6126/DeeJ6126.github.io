@@ -1,0 +1,502 @@
+\documentclass[10.5pt]{config}
+% 本实验报告采用 署名-相同方式共享 4.0 国际许可协议 (CC BY-SA 4.0)
+\setlength{\parskip}{\baselineskip} % 设置段落间距为一个基本行距
+\major{生物科学}
+\name{蒋贤迪}
+\partner{} % 签名栏
+% \title{}
+\stuid{3240105782}
+\date{2025.9.24}
+\lab{生物实验中心-312}
+\course{生态学基础及实验}
+\instructor{何磊}
+\grades{}
+\expname{外源刺激诱导植物气孔开度变化测量} % 实验名字
+\exptype{观测} % 实验类型
+
+
+\usepackage{amsmath} % 用于数学公式
+\usepackage[table]{xcolor} % 用于设置单元格颜色
+\usepackage{booktabs} % 用于更好的表格线条
+\usepackage{mhchem} % 用于 \ce{} 化学式命令
+\usepackage{graphicx} % 用于插入图片
+\usepackage{booktabs} % 用于加载三线表功能
+\usepackage{multirow} % 用于多行合并
+\usepackage{array}    % 增强表格功能
+\usepackage{subcaption}
+\usepackage{siunitx}
+
+\begin{document}
+
+
+% \maketitlepage % 封面
+% \maketoc % 目录
+\makeheader % 首页头部
+
+
+\section{实验目的和要求}
+
+\subsection{实验目的}
+\begin{enumerate}
+    \item 了解气孔结构和气孔运动原理；
+    \item 掌握从蚕豆叶片表皮撕取技术；
+    \item 掌握气孔开度的基本测量方法。
+\end{enumerate}
+
+\subsection{实验要求}
+\begin{enumerate}
+    \item 数据分析和绘图：以不同处理(Ctrl, Solution A, Solution B)为横坐标、气孔开度(经标准化的气孔宽度，无单位)为纵坐标
+    \item 已知脱落酸的气孔开度抑制效果大于水杨酸，基于实验结果对A、B溶液分别是哪一种溶液做出判断
+\end{enumerate}
+
+\section{实验内容和原理}
+
+\subsection{气孔(stoma/stomate)}
+\label{sub:气孔}
+
+% --- 仿照示例2中的[t]对齐和 0.5/0.45 宽度偏好 ---
+\begin{minipage}[t]{0.5\textwidth}
+    \begin{itemize}
+        \item 气孔是存在于叶片、茎以及其他器官表皮中的孔隙
+        \item 气孔是植物与外界交换气体的主要门户，能控制叶片内部气腔与外界大气之间的气体交换速率
+        \item 气孔由两个保卫细胞相围而成,保卫细胞通过形态的改变调节气孔的开合
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\vspace{0em}
+    \centering
+    \includegraphics[width=\linewidth]{实验原理/气孔.png}
+    % --- 仿照示例2中的 minipage 内部使用 captionof ---
+    \captionof{figure}{气孔与气体交换示意图}
+    \label{fig:气孔示意图}
+\end{minipage}
+
+\newpage
+
+\subsection{气孔的分布}
+\label{sub:气孔的分布}
+\begin{minipage}[t]{0.5\textwidth}
+\begin{itemize}
+    \item 气孔普遍存在于植物的叶和茎的表皮，主要位于叶片下表皮。
+    \item 有些植物的花瓣、萼片、果实（苹果、葡萄）和地下茎（马铃薯块茎）的表面也有气孔存在。
+    \item 多数沉水植物没有气孔。
+    \item 如右图
+    \begin{itemize}
+        \item (A)野生型拟南芥中均匀间隔分布的气孔
+        \item (B)\textit{too~many~mouths}突变体中成簇分布的气孔
+    \end{itemize}
+\end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\vspace{0em}
+    \centering
+    \includegraphics[width=\linewidth]{实验原理/气孔的分布.png}
+    % --- 仿照示例2中的 minipage 内部使用 captionof ---
+    \captionof{figure}{野生拟南芥中的气孔（源自《植物生物学》第一版~图5-59）}
+    \label{fig:气孔的分布示意图}
+\end{minipage}
+
+% --- 遵照您的要求，本节只包含文字内容 ---
+
+
+\subsection{气孔的结构}
+\label{sub:气孔的结构}
+
+% --- 仿照示例偏好，使用 [t] (top) 对齐 ---
+\begin{minipage}[t]{0.55\textwidth}
+    气孔由一对保卫细胞被副卫细胞所围绕，如右图所示，其中：
+    \begin{itemize}
+        \item \textbf{Guard Cells}: 保卫细胞，构成气孔的主体。
+        \item \textbf{Stomatal Pore}: 气孔隙，气体进出的通道。
+        \item \textbf{Subsidiary Cell}: 副卫细胞，围绕在保卫细胞外侧。
+        \item \textbf{Epidermal Cell}: （普通）表皮细胞。
+        \item \textbf{Thick Inner Wall}: （保卫细胞）加厚的内壁。
+        \item \textbf{Chloroplast}: 叶绿体。
+        \item \textbf{Vacuole}: 液泡（其膨压变化控制开闭）。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    % --- 遵照您新增的排版偏好，防止图片错位 ---
+    \vspace{0em} 
+    
+    \centering
+    \includegraphics[width=\linewidth]{实验原理/气孔的结构.png}
+    
+    % --- 仿照示例偏好，使用 \captionof ---
+    \captionof{figure}{气孔结构示意图}
+    \label{fig:气孔的结构}
+\end{minipage}
+
+%————————————————————————————————————————————
+\subsection{保卫细胞的类型}
+\label{sub:保卫细胞的类型}
+    \begin{itemize}
+        \item \textbf{肾形}: 大多数双子叶植物和许多单子叶植物、裸子植物、蕨类和藓类的保卫细胞，如(a)(c)拟南芥（肾形）。
+        \item \textbf{哑铃形}: 禾本科植物和部分 莎草科植物的保卫细胞，如(b)大麦（哑铃形）
+    \end{itemize}
+    
+\begin{figure}[h]
+    \centering
+    
+    % --- 第一个子图：保卫细胞类型 ---
+    % 遵照偏好：使用 [t] (top) 对齐
+    \begin{subfigure}[t]{0.48\textwidth}
+        % 遵照偏好：添加 \vspace{0em}
+        \vspace{0em}
+        \centering
+        \includegraphics[width=0.95\linewidth]{实验原理/保卫细胞类型上.png}
+    \end{subfigure}%
+    \hfill % 两个子图之间的水平分隔
+    % --- 第二个子图：气孔运动机理 ---
+    \begin{subfigure}[t]{0.48\textwidth}
+        \vspace{0em}
+        \centering
+        \includegraphics[width=0.75\linewidth]{实验原理/保卫细胞类型下.png}
+    \end{subfigure}
+
+    % 可选：为整个并排图添加一个总标题
+     \caption{保卫细胞两种主要类型类型}
+     \label{fig:保卫细胞两种主要类型类型}
+\end{figure}
+
+\newpage
+
+\subsection{气体的运动及机理}
+\label{sub:气体的运动及机理}
+% --- 膨压变化：吸水与失水 (来自 image_d2bb59.png) ---
+\begin{minipage}[t]{0.48\textwidth}
+气孔运动是指气孔的张开和闭合过程,是通过保卫细胞的膨压变化来实现的，其主要受到离子运输以及细胞膜内外水分流动的调节。
+\begin{itemize}
+    \item 当保卫细胞膨压低时，气孔关闭。
+    \item 随着溶质、接着是水分的净内流，保卫细胞膨压升高并膨胀。
+    \item 纤维素微纤丝的位置和不同程度细胞壁的增厚使气孔打开。
+\end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.8\linewidth]{实验原理/气孔运动的机理.png}
+    \captionof{figure}{气孔运动的机理}
+    \label{fig:气孔运动的机理}
+\end{minipage}
+
+
+
+
+% --- 肾形细胞机理 (来自 image_d2be5c.png) ---
+\begin{minipage}[t]{0.55\textwidth}
+\vspace{2em}
+    肾形保卫细胞壁上有许多以气孔口为\textbf{中心辐射状径向排列的微纤丝}，它限制了保卫细胞沿短轴方向直径的增大。当保卫细胞吸水，膨压加大时，\textbf{较薄的外壁易于伸长}，但微纤丝难以伸长，\textbf{于是微纤丝将拉力传递到内壁，将内壁拉离开来，气孔就张开}。
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.8\linewidth]{实验原理/肾形细胞微纤丝.png}
+\end{minipage}%
+\vspace{1em} % 增加垂直间距
+
+% --- 哑铃形细胞机理 (来自 image_d2be5c.png) ---
+
+
+\begin{minipage}[t]{0.55\textwidth}
+\vspace{2em}
+    哑铃形保卫细胞壁中间部分的胞壁厚，两头薄，纤维素微纤丝则象射线\textbf{从气孔的缝隙向两端辐射}，微纤丝径向排列。当保卫细胞吸水膨胀时，\textbf{微纤丝限制两端胞壁纵向伸长，而改为横向膨大}，两个保卫细胞的中部推开，于是气孔张开。
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.4\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.8\linewidth]{实验原理/哑铃形细胞微纤丝.png}
+\end{minipage}%
+
+\subsection{影响气孔运动的因素}
+\label{sub:影响气孔运动的因素}
+% --- 膨压变化：吸水与失水 (来自 image_d2bb59.png) ---
+\begin{minipage}[t]{0.6\textwidth}
+\begin{itemize}
+    \item 光强和光谱 (蓝光和红光能促进气孔打开，蓝光>红光)
+    \item 温度 (气孔开度一般随温度的上升而增大。在30℃左右达到最大气孔开度)
+    \item $CO_2$浓度 (Low $CO_2$ concentration usually induces opening of stomata while high $CO_2$ concentration closes the same)
+    \item 食草动物侵害与病原体入侵 (both induce stomatal closure)
+    \item \textbf{叶片(尤其是表皮细胞)$H_2O$含量}
+\end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=\linewidth]{实验原理/影响气孔运动的因素.png}
+    \captionof{figure}{影响气孔运动的因素}
+    \label{fig:影响气孔运动的因素}
+\end{minipage}
+
+\newpage
+
+\subsection{气孔运动的激素调节}
+
+\begin{itemize}
+    \item 脱落酸是促进气孔关闭的核心激素
+    \item 水杨酸、乙烯、茉莉酸等也有促进关闭作用
+    \item 细胞分裂素、生长素则多促进气孔开放
+\end{itemize}
+
+\subsubsection*{\textbf{脱落酸（ABA）诱导气孔关闭的机制}}
+\label{sub:ABA机制}
+
+在水分胁迫过程中，保卫细胞对 ABA 的响应受到一系列信号级联反应的调控, 气孔通过响应脱落酸（ABA）信号而关闭，以减少蒸腾作用失水。这一过程的核心在于保卫细胞膨压的降低，其详细分子机制如图 \ref{fig:7-29} 所示。
+
+
+\begin{minipage}[t]{0.45\textwidth}
+    \begin{enumerate}
+        \item 气孔运动取决于保卫细胞膨压的变化，该变化由$K^+$近处细胞的离子流控制，而$K^+$流又是由质膜和液泡膜上$K^+$的通道蛋白控制，分为$K^+$内流通道和$K^+$外流通道。
+        
+        \item 保卫细胞受体 (R) 感知脱落酸 (ABA) 来诱导钙离子 ($Ca^{2+} $)由液泡通过慢液泡通道 (SV) 输出,并且使钙离子通过质膜上的钙渗透离子通道进入细胞，升高了细胞质内$Ca^{2+}$的浓度。
+        
+        \item $Ca^{2+}$的升高通过通过质膜的去极化和对质膜$H^+-ATPase$的抑制，抑制乐$K^+$内流通道，并激活$K^+$外流通道，导致保卫细胞中$K^+$的净输出，细胞膨压降低及气孔关闭
+    \end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0em}
+    \centering
+    % 这里的图片文件名对应您上传的包含“图7-29”的文件
+    \includegraphics[width=\linewidth]{实验原理/ABA信号中的保卫细胞反应模型图7-29.png}
+    \captionof{figure}{ABA 信号中的保卫细胞反应模型：~~(A) ABA 诱导 $Ca^{2+}$ 浓度升高；~~(B) 离子流变化导致气孔关闭（源自《植物生物学》第一版~图7-29）}
+    \label{fig:7-29}
+\end{minipage}
+
+\subsection{气孔开度(Stomatal aperture)}
+
+
+气孔开度是指保卫细胞内壁间跨距，气孔张开的程度，是气孔运动的最重要生理指标
+
+\begin{figure}[h]
+    \centering
+    
+    % --- 第一个子图：保卫细胞类型 ---
+    % 遵照偏好：使用 [t] (top) 对齐
+    \begin{subfigure}[t]{0.48\textwidth}
+        % 遵照偏好：添加 \vspace{0em}
+        \vspace{0em}
+        \centering
+        \includegraphics[width=0.8\linewidth]{实验原理/气孔开度1.png}
+    \end{subfigure}%
+    \hfill % 两个子图之间的水平分隔
+    % --- 第二个子图：气孔运动机理 ---
+    \begin{subfigure}[t]{0.48\textwidth}
+        \vspace{0em}
+        \centering
+        \includegraphics[width=0.65\linewidth]{实验原理/气孔开度2.png}
+    \end{subfigure}
+
+    % 可选：为整个并排图添加一个总标题
+     \caption{气孔开度}
+     \label{fig:气孔开度}
+\end{figure}
+
+\newpage
+
+\section{实验材料与设备}
+
+\begin{itemize}
+    \item \textbf{实验材料：} 新鲜的蚕豆叶片
+    \item \textbf{实验用品：} 显微镜、载玻片、盖玻片、目镜测微尺、培养皿、镊子、单面刀片、吸水纸
+    \item \textbf{实验试剂：}
+    \begin{itemize}
+        \item MES (2-(N-吗啉)乙磺酸) / KCl 缓冲液 ($10/50\,\text{mmol/L}$)
+        \item 水杨酸 (Salicylic Acid, SA) 溶液 \SI{10}{\micro\mol\per\liter}
+        \item 脱落酸 (Abscisic Acid, ABA) 溶液 \SI{10}{\micro\mol\per\liter}
+    \end{itemize}
+\end{itemize}
+
+
+\section{操作方法和实验步骤}
+
+\subsection{实验流程}
+\label{sub:实验流程}
+
+\begin{minipage}[t]{0.55\textwidth}
+    \begin{enumerate}
+    \item 在3个培养皿中，各加入 \SI{9}{\milli\liter} 的 MES/KCl 缓冲液；
+    \item 撕取蚕豆叶片下表皮放入培养皿中（每皿 $\ge 4$ 个表皮条）；
+    \item 光照强度 \SI{14000}{lux}，\SI{28}{\celsius} 条件下培养 \SI{50}{min}；
+    \item 在3个培养皿中，分别加入 MES/KCl 缓冲液 \SI{1}{\milli\liter}、A 溶液 \SI{1}{\milli\liter} 和 B 溶液 \SI{1}{\milli\liter}；
+    \item 光照强度 \SI{14000}{lux}，\SI{28}{\celsius} 条件下继续培养 \SI{20}{min}；
+    \item 制片、定量观测并记录 MES/KCl 缓冲液、A 溶液和 B 溶液培养皿中气孔开度（每人对各处理观测10个气孔）。
+\end{enumerate}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0em}
+    \centering
+        \includegraphics[width=0.9\linewidth]{实验原理/实验流程.png}
+    \captionof{figure}{实验流程图}
+    \label{fig:实验流程图}
+\end{minipage}
+
+
+\subsection{蚕豆叶片下表皮的剥取}
+\label{sub:表皮剥取}
+
+\begin{minipage}[t]{0.60\textwidth}
+为了获得清晰的观测视野，需要掌握正确的表皮剥取技术。具体操作如图 \ref{fig:表皮剥取} 所示，用镊子小心撕取下表皮，避免带有过多的叶肉细胞。
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.35\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.4\linewidth]{实验原理/蚕豆叶片下表皮的剥取.png}
+    \captionof{figure}{蚕豆叶片下表皮的剥取过程示意图}
+    \label{fig:表皮剥取}
+\end{minipage}
+
+\newpage
+
+\subsection{气孔开度测量}
+\label{sub:气孔测量}
+
+% --- 仿照偏好：[t] 对齐, 左文右图 ---
+\begin{minipage}[t]{0.5\textwidth}
+    \begin{itemize}
+        \item \textbf{视野聚焦}：先使用 $10 \times 10$ 倍物镜进行对焦，寻找气孔。
+        \item \textbf{测量}：切换至 $10 \times 40$ 倍物镜，测量气孔开度。
+        \item \textbf{读数}：刻度的读取应精确到最小刻度的 0.5。
+        \item \textbf{字母含义}：$2X_0$ 为长轴，$2Y_0$ 为短轴/开度
+        \item \textbf{数据标准化}：以 Pore width ($2Y_0$) 作为开度指标，并经标准化处
+        理：$X_0/Y_0$。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=0.65\linewidth]{实验原理/气孔开度测量.png}
+    \captionof{figure}{气孔开度测量示意图 }
+    \label{fig:气孔测量}
+\end{minipage}
+
+\section{实验数据记录和处理}
+
+\subsection{实验数据记录}
+
+经过40次观察与测量，得到如下结果(所观察到的图片见附录)：
+
+\begin{table}[h]
+    \centering
+    \caption{气孔开度原始数据（单位：目镜标尺小格）}
+    \label{tab:raw_data_corrected_v3}
+    \footnotesize % 字体调整
+    \setlength{\tabcolsep}{5pt} % 列间距调整
+    \begin{tabular}{ccccccccccccc}
+        \toprule
+        \multirow{2}{*}{序号} & \multicolumn{3}{c}{CK1} & \multicolumn{3}{c}{CK2} & \multicolumn{3}{c}{A} & \multicolumn{3}{c}{B} \\
+        \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} \cmidrule(lr){11-13}
+        & $2X_0$ & $2Y_0$ & $X_0/Y_0$ & $2X_0$ & $2Y_0$ & $X_0/Y_0$ & $2X_0$ & $2Y_0$ & $X_0/Y_0$ & $2X_0$ & $2Y_0$ & $X_0/Y_0$ \\
+        \midrule
+        1 & 3.5 & 11.0 & 0.318 & 4.5 & 11.5 & 0.391 & 2.0 & 14.0 & 0.143 & 3.0 & 11.0 & 0.273 \\
+        2 & 4.0 & 8.5 & 0.471 & 3.5 & 11.0 & 0.318 & 2.5 & 14.5 & 0.172 & 3.5 & 12.0 & 0.292 \\
+        3 & 3.5 & 11.5 & 0.304 & 3.5 & 9.5 & 0.368 & 2.0 & 12.5 & 0.160 & 3.5 & 11.0 & 0.318 \\
+        4 & 3.0 & 9.5 & 0.316 & 4.5 & 8.5 & 0.529 & 2.0 & 15.5 & 0.129 & 2.5 & 11.0 & 0.227 \\
+        5 & 4.5 & 9.0 & 0.500 & 4.0 & 9.0 & 0.444 & 2.5 & 14.5 & 0.172 & 3.0 & 8.5 & 0.353 \\
+        6 & 3.5 & 10.0 & 0.350 & 4.0 & 7.0 & 0.571 & 2.0 & 14.0 & 0.143 & 3.5 & 11.0 & 0.318 \\
+        7 & 4.5 & 9.5 & 0.474 & 3.0 & 9.5 & 0.316 & 2.0 & 13.5 & 0.148 & 3.0 & 10.0 & 0.300 \\
+        8 & 4.0 & 9.5 & 0.421 & 4.5 & 10.0 & 0.450 & 2.0 & 13.0 & 0.154 & 2.5 & 10.0 & 0.250 \\
+        9 & 5.0 & 12.0 & 0.417 & 4.0 & 10.5 & 0.381 & 2.5 & 13.5 & 0.185 & 3.0 & 9.0 & 0.333 \\
+        10 & 4.5 & 10.5 & 0.429 & 3.5 & 10.5 & 0.333 & 2.0 & 14.5 & 0.138 & 3.5 & 9.0 & 0.389 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{实验数据处理}
+
+经标准化处理，得到如下信息：
+
+\begin{table}[h]
+    \centering
+    \caption{不同处理下的气孔开度统计 ($Mean \pm SE$)}
+    \label{tab:stats_data}
+    \begin{tabular}{lccc}
+        \toprule
+        处理组 & 样本量 ($N$) & 平均气孔开度 ($X_0/Y_0$) & 标准误 ($SE$) \\
+        \midrule
+        Ctrl (CK1+CK2) & 20 & \num{0.405} & \num{0.018} \\
+        Solution A     & 10 & \num{0.154} & \num{0.006} \\
+        Solution B     & 10 & \num{0.305} & \num{0.015} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{实验结果与分析}
+
+\subsection{实验结果}
+
+结合表\ref{tab:stats_data}和表\ref{tab:raw_data_corrected_v3}的数据，得到如下示意图：
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{图像.png}
+    \caption{不同组的气孔开度比较}
+    \label{fig:placeholder}
+\end{figure}
+
+\subsection{分析}
+
+从图中可以明显看出，对于气孔开度而言，Ctrl(CK1、CK2)>B>A，结合已知信息“脱落酸的气孔开度抑制效果大于水杨酸”，故可以明显得出结论：\textbf{A组是脱落酸处理，B组是水杨酸处理}。不过本实验也存在一定的误差，具体如下：
+
+\begin{itemize}
+    \item 随着时间推移，眼睛疲劳加重，后面所得的测量结果可能存在一定的测量误差
+    \item 选取的气孔不完全具有随机性，尽管在选取的时候已经尽可能随机取样了
+    \item 所取的叶片可能来自不同的植株，即使来自同一植株，叶片的年龄也不一定相同，可能引入了叶龄所带来的误差
+\end{itemize}
+
+\newpage
+
+\section{附录}
+
+\begin{figure}[h]
+    \centering
+    
+    % --- 第一排：对照组 (CK1, CK2) ---
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        % 假设您的图片在“照片”文件夹下，如果在根目录请去掉“照片/”
+        \includegraphics[width=0.9\linewidth]{照片/CK1.png}
+        \caption{CK1 (对照组1)}
+        \label{fig:CK1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{照片/CK2.png}
+        \caption{CK2 (对照组2)}
+        \label{fig:CK2}
+    \end{subfigure}
+    
+    % --- 增加垂直间距 ---
+    \vspace{1em}
+    
+    % --- 第二排：处理组 (A, B) ---
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{照片/A.png}
+        \caption{Solution A (脱落酸处理)}
+        \label{fig:A}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{照片/B.png}
+        \caption{Solution B (水杨酸处理)}
+        \label{fig:B}
+    \end{subfigure}
+    
+    \caption{不同处理下的蚕豆叶片气孔显微观察图}
+    \label{fig:microscope_photos}
+\end{figure}
+
+\end{document}

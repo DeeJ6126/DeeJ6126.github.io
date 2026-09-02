@@ -1,0 +1,11 @@
+{
+  "songs": [
+    {
+      "id": "ready",
+      "file": "ready.mp3",
+      "url": "/music/ready.mp3",
+      "title": "ready",
+      "order": 1
+    }
+  ]
+}

@@ -1,0 +1,1467 @@
+% !TEX program = xelatex
+% --- 文档类与基础设置 ---
+% ctexart 中文文档类, 10.5pt 对应宋体五号, a4paper 设置纸张
+\documentclass[10.5pt, a4paper]{ctexart}
+
+% --- 宏包声明 ---
+% 页面设置：上下左右边距均为 2cm
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+% 行距设置：1.5 倍行距（更符合中文习惯）
+\usepackage{setspace}
+\onehalfspacing
+
+% 自定义列表环境（用于 enumerate 的中文括号）
+\usepackage{enumitem}
+\usepackage{multirow}
+\usepackage{colortbl}
+% 用于标准、规范地排版科学单位和数字。
+\usepackage{siunitx}
+\usepackage{array} 
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{makecell}
+\usepackage{threeparttable}
+% 用于创建更美观的“三线表”。
+\usepackage{booktabs}
+
+% 图表标题支持
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf}
+
+% 数学公式支持
+\usepackage{amsmath, amssymb}
+
+% 插图支持
+\usepackage{graphicx}
+
+% 文字颜色（用于“要求”部分的红字）
+\usepackage{xcolor}
+
+
+% 定义颜色
+\definecolor{lightblue}{rgb}{0.8, 0.9, 1.0}
+\definecolor{lightyellow}{rgb}{1.0, 0.95, 0.7}
+\definecolor{lightpink}{rgb}{1.0, 0.8, 0.9}
+% 页眉页脚：移除页眉，页脚居中显示页码
+\pagestyle{plain}
+
+% 章节标题格式：左对齐、加粗、1.5倍行距间距
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+
+% 参考文献标题控制（避免 thebibliography 自动生成标题）
+\renewcommand{\refname}{}
+
+% （可选）确保段首缩进为两个汉字
+\setlength{\parindent}{2em}
+
+
+%%% ————————该处为锦上添花内容，原模板没有，可删去——————
+% --- 引用 fancyhdr 宏包 ---
+\usepackage{fancyhdr}
+
+% --- 开始自定义页眉页脚 ---
+\pagestyle{fancy}   % 启用 fancy 样式，这是所有自定义命令生效的前提
+\fancyhf{}          % 清空所有默认的页眉页脚设置
+
+% --- 设置页眉内容 ---
+% [L]代表左边, [C]代表中间, [R]代表右边
+\fancyhead[L]{《生物化学实验(甲)》}
+\fancyhead[C]{酵母蔗糖酶系列实验}
+\fancyhead[R]{xxx}
+
+% --- 设置页脚内容 ---
+\fancyfoot[C]{\thepage} % 在页脚中间显示当前页码
+
+% --- 设置页眉下的分割线 ---
+\renewcommand{\headrulewidth}{0.4pt} % 设置线的粗细，设为 0pt 则无横线
+
+
+
+% --- 文档开始 ---
+\begin{document}
+
+% --- 全局行距设置为1.5倍 ---
+\onehalfspacing
+
+% --- 报告标题与个人信息 ---
+% 完全按照图片布局, 不使用 \maketitle
+\begin{center}
+    {\songti\bfseries \zihao{3} 酵\quad 母\quad 蔗\quad 糖\quad 酶\quad 系\quad 列\quad 实\quad 验}  % 三号, 黑体, 中间空一格
+\end{center}
+\vspace{1cm} % 标题和信息间的垂直距离
+
+
+\begin{tabular}{@{}l@{\hspace{2cm}}l@{\hspace{2cm}}l@{\hspace{2cm}}l@{}}
+姓名：xxx & 专业：生物科学 & 学号：xxxxxxxxxx & \\
+课程名称：生物化学实验 & 同组学生姓名：xxx、xxx & 指导老师：史影 & \\
+\end{tabular}
+
+\vspace{1cm}
+
+% --- 正文部分 ---
+\noindent\textbf{摘要（中文）}
+
+本实验以干面包酵母为原料，构建了酵母蔗糖酶（Invertase）从提取、纯化、性质鉴定到结构预测的完整研究体系。实验首先采用固体剪切法破碎细胞，结合热变性与乙醇分级沉淀进行初步提取，进而利用 DEAE-Sepharose Fast Flow 阴离子交换层析技术实现了酶的高效纯化与富集。经 Folin-酚法与 DNS 法检测，纯化过程比活力显著提升。随后，通过 SDS-PAGE 电泳与 Western Blotting 免疫印迹技术验证了蛋白的分子质量、纯度及特异性。在酶学性质研究中，利用正交试验设计确定了酶促反应的最适条件（温度 $50^{\circ}\text{C}$、pH 5.4），并采用双倒数作图法测定了米氏常数（$K_m$）与最大反应速率（$V_{max}$），对比分析了去糖基化对酶动力学行为的影响。此外，本研究引入 AlphaFold 3 人工智能平台，精准预测了蔗糖酶的单体及同源二聚体结构，解析了活性中心与底物蔗糖的分子对接模式以及糖基化修饰的空间特征。实验结果表明，该纯化策略行之有效，且结合计算生物学手段能更深入地揭示蔗糖酶“序列-结构-功能”的内在联系。
+
+\vspace{1em}
+
+\noindent\textbf{关键词（中文）:}\hspace{1em}酵母蔗糖酶；分离纯化；酶促动力学；AlphaFold 3；正交试验
+
+\vspace{1em}
+
+\noindent\textbf{摘要（英文）}
+
+This experiment established a comprehensive research system for yeast invertase, ranging from extraction and purification to characterization and structural prediction using dry baker's yeast as raw material. The enzyme was initially extracted via solid shear disruption, followed by heat denaturation and ethanol precipitation. High-efficiency purification was subsequently achieved using DEAE-Sepharose Fast Flow ion exchange chromatography, resulting in a significant increase in specific activity as monitored by Folin-phenol and DNS assays. Protein purity, molecular weight, and specificity were verified by SDS-PAGE and Western Blotting. In the characterization phase, an orthogonal experimental design was employed to determine the optimal reaction conditions (Temperature $50^{\circ}\text{C}$, pH 5.4). Kinetic parameters ($K_m$ and $V_{max}$) were determined using Lineweaver-Burk plots, and the effect of deglycosylation on enzymatic kinetics was analyzed. Furthermore, the AlphaFold 3 AI platform was utilized to predict the monomeric and homodimeric structures of invertase, elucidating the molecular docking mode of the active site with sucrose and the spatial distribution of glycosylation sites. The results demonstrate the effectiveness of the purification strategy and highlight that integrating computational biology tools provides deeper insights into the structure-function relationship of the enzyme.
+
+\vspace{1em}
+
+\noindent\textbf{关键词（英文）：}\hspace{1em}Yeast Invertase; Separation and Purification; Enzyme Kinetics; AlphaFold 3; Orthogonal Test
+
+% --- 在此处插入目录 ---
+%\newpage            % 摘要后换页
+%\tableofcontents    % 生成目录
+%\newpage            % 目录后换页，使正文从新的一页开始
+
+\section{前言（含实验背景、实验原理、实验目的等）}
+    % 在此填写前言
+\subsection{蔗糖酶的历史背景}
+蔗糖酶（Invertase），系统命名为 $\beta$-D-呋喃果糖苷果糖水解酶（EC 3.2.1.26），是酶学研究史上具有里程碑意义的酶类。早在 1828 年，Dumas 等人在利用酵母菌发酵蔗糖的过程中首次发现了该酶的活性。随后，Berthelot 于 1860 年将其命名为“Invertase”，因其能催化右旋的蔗糖水解为左旋的转化糖（葡萄糖与果糖的混合物），导致旋光方向发生翻转。蔗糖酶不仅能特异性水解蔗糖非还原末端的 $\beta$-D-呋喃果糖苷键，还具有相对宽泛的底物特异性，能够催化棉子糖（Raffinose）水解生成蜜二糖和果糖，在食品工业及生物化学基础研究中占据重要地位。
+
+\subsection{蔗糖酶的基本理化性质}
+酿酒酵母（\textit{Saccharomyces cerevisiae}）中的蔗糖酶根据其细胞定位和结构特征，主要分为两种形式：外蔗糖酶（Extracellular Invertase）和内蔗糖酶（Intracellular Invertase）。两者虽然由同一基因（\textit{SUC2}）编码，但在转录后修饰及理化性质上存在显著差异：
+
+\begin{enumerate}
+    \item \textbf{分布与修饰}：外蔗糖酶分泌于细胞壁与细胞膜之间的周质空间，经过高度的 N-糖基化修饰，糖含量可达 50\% 以上，这赋予了其极高的热稳定性及水溶性；内蔗糖酶则位于细胞质中，非糖基化或仅含极少量糖分（0--3\%）。
+    \item \textbf{分子量与组成}：由于糖链的存在，外蔗糖酶的单体分子量较大，约为 110--135 kD（甚至可达 270 kD），且富含丝氨酸和蛋氨酸；内蔗糖酶分子量较小，约为 65 kD（二聚体约 135 kD）。
+    \item \textbf{酶学特性}：尽管结构不同，两者的动力学性质十分相似。蔗糖酶的最适 pH 范围通常为 3.5--5.5，等电点（pI）约为 5.0（外酶）至 5.6（内酶）。金属离子 $Zn^{2+}$ 和 $Cu^{2+}$ 对其有强抑制作用，而 $Ba^{2+}$、$Mg^{2+}$ 等则略有激活作用。
+\end{enumerate}
+
+\subsection{蔗糖酶的分子结构}
+蔗糖酶的活性形式通常为多聚体结构。其单体通过催化亚基与 C-末端区的 $\beta$-二元结构域相互作用，组装成底物分子能够进入的“隧道”结构。在生理条件下，酵母蔗糖酶主要以同源二聚体形式存在，但在不同的环境条件（如 pH 或离子强度变化）下，二聚体可进一步组装形成四聚体（二聚二聚体）、六聚体或八聚体等更高级的四级结构（如图 \ref{fig:三维结构} 所示）。这种多聚体状态的转换往往与其变构调节及生物活性的稳定性密切相关。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{实验八图片/蔗糖酶的三维结构.png}
+    \caption{酵母蔗糖酶的多聚体三维结构示意图}
+    \label{fig:三维结构}
+\end{figure}
+
+\subsection{蔗糖酶系列实验的原理}
+本研究涵盖了从天然原料中提取酶蛋白到利用人工智能预测其结构的完整流程，各阶段涉及的核心生化原理如下：
+
+\textbf{1. 酶的提取与纯化原理}：
+基于酶蛋白主要位于酵母周质空间的特性，利用固体剪切效应（研磨）可有效破坏细胞壁释放酶蛋白。利用外蔗糖酶高度糖基化带来的高热稳定性，通过 50$^\circ$C 热处理可使大部分热不稳定的胞内杂蛋白变性沉淀。进一步的纯化则利用有机溶剂沉淀原理，乙醇通过降低溶液介电常数并争夺水化膜，促使蛋白质聚集析出；随后利用阴离子交换层析（DEAE-Sepharose），基于目标蛋白在特定 pH 下的表面净电荷与杂蛋白的差异，通过盐浓度梯度洗脱实现精细分离。
+
+\textbf{2. 酶活检测与定量原理}：
+酶活力的测定基于 3,5-二硝基水杨酸（DNS）比色法。蔗糖酶催化蔗糖水解产生的葡萄糖和果糖均为还原糖，在碱性及沸水浴条件下，还原糖能将黄色的 DNS 还原为棕红色的 3-氨基-5-硝基水杨酸。该产物在 520 nm 或 540 nm 处有最大吸收峰，其吸光度与还原糖含量成正比。蛋白质含量的测定则依据 Folin-酚法，利用蛋白质中的肽键与铜离子的络合反应（双缩脲反应）及酪氨酸/色氨酸残基还原磷钼酸-磷钨酸试剂生成深蓝色化合物的原理进行定量。
+
+\textbf{3. 纯度鉴定与特异性识别原理}：
+SDS-PAGE 电泳利用 SDS 掩盖蛋白质天然电荷差异，使电泳迁移率仅取决于分子量大小，从而鉴定酶的纯度及亚基分子量。Western Blotting 则进一步利用抗原-抗体的特异性结合，将凝胶中的蛋白转移至固相载体后，通过酶联免疫反应显色，特异性地验证目标蛋白的身份。
+
+\textbf{4. 酶促动力学原理}：
+在稳态条件下，单底物酶促反应速率遵循米氏方程（Michaelis-Menten Equation，图2A）。通过测定不同底物浓度下的反应初速率 ($V_0$)，利用双倒数作图法（Lineweaver-Burk Plot，图2B）将非线性关系转化为线性关系，可准确计算出米氏常数 ($K_m$) 和最大反应速率 ($V_{max}$)，从而评估酶对底物的亲和力及催化效率。
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A: 米氏方程 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.7\linewidth]{实验六图片/米式方程.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \label{fig:Mi_figure}
+    \end{minipage}
+    \hfill
+    % --- 子图 B: 双倒数图 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.7\linewidth]{实验六图片/双倒数图.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \label{fig:LB_Plot}
+    \end{minipage}
+    \caption{酶促反应动力学模型。(A) 米氏方程曲线；(B) 双倒数作图法。}
+\end{figure}
+
+\textbf{5. 结构预测原理}：
+AlphaFold 3 (AF3) 是一种基于深度学习的端到端结构预测系统。不同于传统的同源建模，AF3 摒弃了对多序列比对（MSA）及其复杂的几何约束的过度依赖，转而采用扩散模型（Diffusion Model）直接生成蛋白质原子的三维坐标。该系统能够处理高度糖基化带来的结晶困难问题，通过学习海量的 PDB 结构数据，精确预测蔗糖酶单体折叠方式、二聚体组装界面以及底物结合口袋的精细构象。
+
+\subsection{蔗糖酶的研究现状}
+自上世纪初人们开始研究酶动力学以来，蔗糖酶一直是经典的模式酶。世界范围内对蔗糖酶的研究已十分深入，上世纪末已在分子水平上对其基因结构、表达调控及分泌机制进行了透彻解析。当前的科研热点主要集中在以下几个方面：一是探究蔗糖酶在植物生长发育及逆境胁迫响应中的生理功能；二是利用蛋白质工程手段改造其热稳定性或底物特异性；三是开发其在工业领域的应用，例如利用其转糖苷活性（Fructosyltransferase activity）合成低聚果糖等功能性益生元。此外，结合冷冻电镜与 AI 辅助的动态结构研究也是该领域新的增长点。
+
+\section{材料方法（含实验主要用器材、试剂和实验方法）}
+
+\subsection{主要材料与仪器}
+
+本实验所涉及的核心实验材料、试剂及仪器设备汇总于表 \ref{tab:all_materials}。
+\begin{table}[H]
+    \centering
+    \caption{蔗糖酶提取纯化及性质鉴定实验材料与仪器总表}
+    \label{tab:all_materials}
+    \renewcommand{\arraystretch}{1.5} % 增加行高
+    \begin{tabular}{m{3.5cm}<{\centering} m{11cm}}
+        \toprule
+        \textbf{实验环节} & \textbf{主要材料与仪器} \\
+        \midrule
+        
+        % 实验一
+        \makecell{\textbf{实验一} \\ 蔗糖酶提取} & 
+        \textbf{材料}：市售干面包酵母粉、石英砂、95\% 乙醇（预冷）、\SI{20}{mmol/L} Tris-HCl 缓冲液 (pH 7.4)。 \newline
+        \textbf{仪器}：研钵、高速冷冻离心机、恒温水浴锅、电子天平。 \\
+        \midrule
+        
+        % 实验二
+        \makecell{\textbf{实验二} \\ 离子交换层析} & 
+        \textbf{材料}：DEAE-Sepharose Fast Flow 树脂、样品 III（乙醇沉淀复溶物）、\SI{0.5}{mol/L} NaOH、\SI{0.5}{mol/L} NaCl、\SI{5}{\percent} 蔗糖溶液。 \newline
+        \textbf{仪器}：AKTA START 层析系统（或梯度洗脱装置）、自动部分收集器。 \\
+        \midrule
+        
+        % 实验三
+        \makecell{\textbf{实验三} \\ 正交试验设计} & 
+        \textbf{材料}：pH 3.6/4.6/5.4 乙酸缓冲液、\SI{5}{\percent} 蔗糖溶液、DNS 试剂、蔗糖酶稀释液。 \newline
+        \textbf{仪器}：可见分光光度计、恒温水浴锅。 \\
+        \midrule
+        
+        % 实验四
+        \makecell{\textbf{实验四} \\ 纯化定量评估} & 
+        \textbf{材料}：Folin-酚甲/乙试剂、牛血清白蛋白标准液 (\SI{0.5}{g/L})、葡萄糖标准液 (\SI{1}{g/L})。 \newline
+        \textbf{仪器}：可见分光光度计。 \\
+        \midrule
+        
+        % 实验五
+        \makecell{\textbf{实验五} \\ SDS-PAGE 电泳} & 
+        \textbf{材料}：30.8\% 丙烯酰胺贮液、分离胶/浓缩胶缓冲液、10\% SDS、TEMED、10\% Ap、考马斯亮蓝染液。 \newline
+        \textbf{仪器}：垂直电泳槽、电泳仪。 \\
+        \midrule
+        
+        % 实验六
+        \makecell{\textbf{实验六} \\ 酶促动力学} & 
+        \textbf{材料}：蔗糖酶样品 IV、去糖基化蔗糖酶液、\SI{1}{g/L} 葡萄糖标准溶液、DNS 试剂。 \newline
+        \textbf{仪器}：可见分光光度计、恒温水浴锅。 \\
+        \midrule
+        
+        % 实验七
+        \makecell{\textbf{实验七} \\ Western Blotting} & 
+        \textbf{材料}：PVDF 膜、滤纸、转移缓冲液、TBST、封闭液、羊抗蔗糖酶一抗、HRP 标记二抗、ECL 显色液。 \newline
+        \textbf{仪器}：转印槽、脱色摇床、化学发光成像仪。 \\
+        \midrule
+        
+        % 实验八
+        \makecell{\textbf{实验八} \\ 结构预测} & 
+        \textbf{数据}：酵母蔗糖酶氨基酸序列 (UniProt KB)。 \newline
+        \textbf{平台}：AlphaFold Server、UCSF ChimeraX 可视化软件、OpenBayes 算力平台。 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{实验方法}
+
+\subsubsection{酵母蔗糖酶的粗提取与初分级}
+
+\begin{enumerate}
+    \item \textbf{细胞破碎与浸提}：\hspace{1em}称取 \SI{5.0}{g} 干酵母粉置于研钵中，加入约 \SI{1.0}{g} 石英砂辅助研磨。量取 \SI{35}{ml} \SI{20}{mmol/L} Tris-HCl 缓冲液 (pH 7.4)，分批次加入研钵中，持续研磨约 20 min 至呈均匀糊状。将匀浆液转移至离心管中，于 \SI{4}{\celsius}、\SI{12000}{r/min} 离心 10 min，收集上清液，记为样品 I。
+    \item \textbf{热处理除杂}：将样品 I 置于 \SI{50}{\celsius} 恒温水浴中保温 30 min，期间轻柔摇动以受热均匀。热处理结束后迅速冰浴冷却，再次于 \SI{4}{\celsius}、\SI{15000}{r/min} 离心 10 min，去除热变性蛋白沉淀，收集上清液，记为样品 II。
+    \item \textbf{乙醇分级沉淀}：量取样品 II 的体积，在冰浴搅拌条件下，缓慢滴加等体积预冷至 \SI{-20}{\celsius} 的 95\% 乙醇。滴加完毕后静置 10 min，于 \SI{4}{\celsius}、\SI{12000}{r/min} 离心 10 min。弃去上清，沉淀用 \SI{7}{ml} Tris-HCl 缓冲液充分复溶，记为样品 III（粗酶液）。
+\end{enumerate}
+
+\subsubsection{离子交换层析精细纯化}
+
+\begin{enumerate}
+    \item \textbf{层析柱制备与平衡}：将 DEAE-Sepharose Fast Flow 阴离子交换树脂装填至层析柱中，连接 AKTA 层析系统。使用 \SI{20}{mmol/L} Tris-HCl 缓冲液 (pH 7.4) 以 \SI{1.0}{ml/min} 流速平衡色谱柱，直至流出液 UV 吸收基线稳定。
+    \item \textbf{上样与穿流洗脱}：将样品 III 经 \SI{0.45}{\mu m} 滤膜过滤后上样。继续用平衡缓冲液洗脱，直至未结合的杂蛋白（穿流峰）完全流出且 UV 曲线回归基线。
+    \item \textbf{梯度洗脱与收集}：设置线性盐梯度程序，使用含 \SI{0.5}{mol/L} NaCl 的缓冲液进行洗脱。流速设定为 \SI{1.0}{ml/min}，每管收集 \SI{2.0}{ml}。根据 UV 吸收峰（280 nm）和酶活检测结果，合并酶活力最高的洗脱峰组分，记为样品 IV（纯酶液），添加 \SI{20}{\%} 甘油后置于 \SI{-20}{\celsius} 保存。
+\end{enumerate}
+
+\subsubsection{定量检测体系建立}
+
+本研究中蛋白质含量测定采用 Folin-酚法，酶活力测定采用 DNS 法。
+
+\textbf{1. 蛋白质含量测定（Folin-酚法）}
+
+以牛血清白蛋白（BSA）制作标准曲线，同时测定各纯化阶段样品的蛋白浓度。具体加样体系如表 \ref{tab:folin_method} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{Folin-酚法测定蛋白含量加样表}
+    \label{tab:folin_method}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccc}
+        \toprule
+        \textbf{试剂 / 步骤} & \textbf{空白管} & \textbf{标准管 1} & \textbf{标准管 2} & \textbf{标准管 3} & \textbf{标准管 4} & \textbf{样品测定管} \\
+        \midrule
+        \SI{0.5}{g/L} BSA 标准液 (ml) & 0 & 0.2 & 0.4 & 0.6 & 0.8 & 0 \\
+        待测样品液 (ml) & 0 & 0 & 0 & 0 & 0 & $V_{sample}$ \\
+        去离子水 (ml) & 1.0 & 0.8 & 0.6 & 0.4 & 0.2 & $1.0 - V_{sample}$ \\
+        Folin-酚甲试剂 (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+        \midrule
+        \multicolumn{7}{c}{涡旋混匀，室温（\SI{25}{\celsius}）反应 10 min} \\
+        \midrule
+        Folin-酚乙试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+        \midrule
+        \multicolumn{7}{c}{立即混匀，室温（\SI{25}{\celsius}）反应 15 min，于 500 nm 处测定吸光度} \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+\textbf{2. 蔗糖酶活力测定（DNS 法）}
+
+酶活力定义：在 \SI{50}{\celsius}、pH 4.6 条件下，每分钟催化蔗糖水解产生 \SI{1}{\mu g} 葡萄糖所需的酶量为一个活力单位 (U)。测定步骤包括葡萄糖标准曲线绘制及酶活测定，加样体系如表 \ref{tab:dns_method} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{DNS 法测定酶活力加样表}
+    \label{tab:dns_method}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccc}
+        \toprule
+        \textbf{试剂 / 步骤} & \textbf{空白管} & \textbf{标曲管 1} & \textbf{标曲管 2} & \textbf{标曲管 3} & \textbf{标曲管 4} & \textbf{酶活测定管} \\
+        \midrule
+        \SI{1}{g/L} 葡萄糖标准液 (ml) & 0 & 0.2 & 0.4 & 0.6 & 0.8 & 0 \\
+        稀释酶液 (ml) & 0 & 0 & 0 & 0 & 0 & $V_{enz}$ \\
+        \SI{5}{\%} 蔗糖溶液 (ml) & 0 & 0 & 0 & 0 & 0 & 0.5 \\
+        \SI{0.1}{mol/L} 乙酸缓冲液 (ml) & 0 & 0 & 0 & 0 & 0 & 0.5 \\
+        去离子水 (ml) & 2.0 & 1.8 & 1.6 & 1.4 & 1.2 & $1.0 - V_{enz}$ \\
+        \midrule
+        \multicolumn{7}{c}{酶活测定管需在 \SI{50}{\celsius} 水浴保温 10 min（标曲管略过此步）} \\
+        \midrule
+        DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+        \midrule
+        \multicolumn{7}{c}{沸水浴加热 5 min，流水冷却至室温，加入 \SI{5.0}{ml} 去离子水定容} \\
+        \multicolumn{7}{c}{混匀后于 520 nm 处测定吸光度} \\
+        \bottomrule
+    \end{tabular}}
+\end{table}
+
+\subsubsection{酶促反应最适条件的正交优化}
+
+采用 $L_9(3^4)$ 正交表设计实验，考察 pH、温度、底物浓度（蔗糖）及酶浓度四个因素对反应速率的影响。实验共设 9 个反应组，具体加样及反应条件如表 \ref{tab:orthogonal_method} 所示。
+
+\begin{table}[H]
+    \centering
+    \begin{threeparttable} % 引入 threeparttable 环境以支持 tablenotes
+        \caption{酶促反应条件优化的正交试验方案 ($L_9(3^4)$)}
+        \label{tab:orthogonal_method}
+        % 调整列间距，防止过宽 (可选)
+        \setlength{\tabcolsep}{4pt} 
+        \begin{tabular}{cccccc}
+            \toprule
+            % --- 表头第一行 ---
+            \multirow{2}{*}{\textbf{实验号}} & \textbf{pH} & \textbf{酶液量 (ml)} & \textbf{蔗糖量 (ml)} & \textbf{温度 (\SI{}{\celsius})} & \multirow{2}{*}{\textbf{DNS显色}} \\
+            % --- 表头第二行 (因素代号) ---
+             & \textbf{(因素A)} & \textbf{(因素B)} & \textbf{(因素C)} & \textbf{(因素D)} & \\
+            \midrule
+            
+            % --- 表格内容 ---
+            1 & 3.6 & 0.1 & 0.2 & 37 & \multirow{9}{*}{\shortstack{反应结束后\\加入 0.5 ml\\DNS 试剂\\沸水浴 5 min\\测定 $A_{520}$}} \\
+            2 & 3.6 & 0.2 & 0.5 & 50 & \\
+            3 & 3.6 & 0.5 & 1.0 & 65 & \\
+            4 & 4.6 & 0.1 & 0.5 & 65 & \\
+            5 & 4.6 & 0.2 & 1.0 & 37 & \\
+            6 & 4.6 & 0.5 & 0.2 & 50 & \\
+            7 & 5.4 & 0.1 & 1.0 & 50 & \\
+            8 & 5.4 & 0.2 & 0.2 & 65 & \\
+            9 & 5.4 & 0.5 & 0.5 & 37 & \\
+            \bottomrule
+        \end{tabular}
+        
+        % --- 表格注释 ---
+        \begin{tablenotes}
+            \footnotesize
+            \item 注：各组反应体系均用去离子水补足体积至 \SI{2.0}{ml}。反应时间统一为 10 min。
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+\subsubsection{蔗糖酶纯度的电泳鉴定 (SDS-PAGE)}
+
+\begin{enumerate}
+    \item \textbf{凝胶制备}：组装垂直电泳槽玻璃板，检查气密性。按配方依次配制 15 ml 分离胶（下层胶）和 5 ml 浓缩胶（上层胶）。分离胶灌注后需液封以平整胶面，待聚合完全后倾去覆盖液，灌注浓缩胶并插入梳子，静置约 10 min 待其聚合。
+    \item \textbf{样品处理}：取各纯化阶段样品（I、II、III、IV）及去糖基化样品各 \SI{40}{\mu l}，分别加入 \SI{10}{\mu l} $5\times$ SDS 上样缓冲液。混匀后于 \SI{100}{\celsius} 沸水浴中加热 3 min，使蛋白质变性，冷却至室温备用。
+    \item \textbf{电泳程序}：将电泳缓冲液加入槽中，拔出梳子并加样。设置恒流电泳程序：浓缩胶阶段电流控制在 10--20 mA，待溴酚蓝指示带进入分离胶后，电流调至 20--30 mA 并保持恒定，直至染料迁移至凝胶底部约 \SI{0.5}{cm} 处停止。
+    \item \textbf{染色与脱色}：小心剥离凝胶，切除浓缩胶部分。将分离胶置于考马斯亮蓝快染液中，摇床染色 30 min。随后用去离子水漂洗，直至背景清晰，拍照记录。
+\end{enumerate}
+
+\subsubsection{酶促反应动力学参数测定}
+
+本实验通过测定不同底物浓度下的反应初速率，绘制双倒数图以计算 $K_m$ 和 $V_{max}$。
+
+\textbf{1. 葡萄糖标准曲线制作}
+
+按表 \ref{tab:std_curve_kinetics} 所示体系制备标准管，测定 $A_{520}$ 并绘制标准曲线。
+
+\begin{table}[H]
+    \centering
+    \caption{葡萄糖标准曲线制作加样表}
+    \label{tab:std_curve_kinetics}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{管号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+        \midrule
+        \SI{1}{g/L} 葡萄糖标准液 (ml) & 0 & 0.1 & 0.15 & 0.2 & 0.25 & 0.3 & 0.35 & 0.4 \\
+        去离子水 (ml) & 1.5 & 1.4 & 1.35 & 1.3 & 1.25 & 1.2 & 1.15 & 1.1 \\
+        DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+        \midrule
+        \multicolumn{9}{c}{混匀，\SI{100}{\celsius} 沸水浴 5 min，流水冷却至室温} \\
+        \midrule
+        去离子水 (定容) (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+        \midrule
+        \multicolumn{9}{c}{混匀后于 520 nm 处测定吸光度（以 0 号管校零）} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\textbf{2. 动力学反应体系}
+
+分别测定天然蔗糖酶（样品 IV）与去糖基化蔗糖酶在不同底物浓度下的反应速率，加样体系如表 \ref{tab:kinetics_reaction} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{酶促动力学反应加样表}
+    \label{tab:kinetics_reaction}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{管号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+        \midrule
+        \SI{5}{\%} 蔗糖溶液 (ml) & 0 & 0.1 & 0.15 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 \\
+        pH 4.6 乙酸缓冲液 (ml) & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+        去离子水 (ml) & 1.2 & 1.1 & 1.05 & 1.0 & 0.9 & 0.8 & 0.7 & 0.6 \\
+        \midrule
+        \multicolumn{9}{c}{冰上配制混合液，加入酶液启动反应} \\
+        \midrule
+        适宜稀释度的酶液 (ml) & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+        \midrule
+        \multicolumn{9}{c}{混匀，\SI{50}{\celsius} 水浴准确保温 10 min} \\
+        \midrule
+        DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+        \midrule
+        \multicolumn{9}{c}{\SI{100}{\celsius} 沸水浴 5 min 终止反应并显色，冷却后加入 \SI{5.0}{ml} 水定容} \\
+        \multicolumn{9}{c}{测定 $A_{520}$，计算各管反应初速率 $V_0$} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{蔗糖酶的免疫印迹鉴定 (Western Blotting)}
+
+\begin{enumerate}
+    \item \textbf{转膜}：SDS-PAGE 电泳结束后，切除浓缩胶，将分离胶在转膜缓冲液中平衡。按“纤维垫-滤纸-凝胶-PVDF膜-滤纸-纤维垫”顺序组装“三明治”结构（PVDF 膜需预先经甲醇活化）。置于转印槽中，在 \SI{200}{mA} 恒流条件下转膜 1.5 h。
+    \item \textbf{封闭与孵育}：取出 PVDF 膜，用 TBST 漂洗后，浸入封闭液（TBSTM）中室温孵育 1 h。随后加入稀释的蔗糖酶一抗（1:2000），室温孵育 1 h。TBST 洗膜 3 次后，加入 HRP 标记的二抗（1:2000），室温孵育 1 h。
+    \item \textbf{显色检测}：洗去未结合的二抗，滴加 ECL 化学发光底物（或 TMB 显色液），在化学发光成像仪下曝光并记录条带信号。
+\end{enumerate}
+
+\subsubsection{基于 AlphaFold 3 的结构生物学计算模拟}
+
+\begin{enumerate}
+    \item \textbf{全长与截断体建模}：利用 AlphaFold Server 平台，输入酵母蔗糖酶全长氨基酸序列（UniProt ID: P00724）进行单体折叠预测。同时构建不同长度的 C 端截断体任务（截断至 482、432、382 位），利用 UCSF ChimeraX 对比各模型结构，并根据 pLDDT 值评估 N 端信号肽的无序性。
+    \item \textbf{同源二聚体预测}：输入两份 Suc2 成熟体序列，设置“Multimer”模式进行同源二聚体组装预测。分析单体间的相互作用界面，统计氢键及盐桥分布。
+    \item \textbf{分子对接与修饰模拟}：在 OpenBayes 云算力平台上，编写 JSON 任务文件，分别模拟蔗糖酶与底物蔗糖（Sucrose）的分子对接，以及 N-乙酰葡糖胺（GlcNAc）在特定糖基化位点（如 Asn111, Asn275）的结合模式。通过 ChimeraX 分析活性口袋残基与配体的相互作用力。
+\end{enumerate}
+
+\section{实验结果（结合实验内容和步骤阐述，包含获得的实验现象与数据处理图表，并有一定结论）}
+
+\subsection{粗提取与初分级结果}
+
+\begin{enumerate}
+    \item \textbf{破碎与提取}：经石英砂研磨及离心后，收集到颜色较深的棕黄色上清液（样品 I），体积 $V_1 = \SI{28.5}{ml}$。液体的颜色和粘度表明酵母细胞破碎效果良好，胞内物质已有效释放。
+    \item \textbf{热处理纯化}：样品 I 经 \SI{50}{\celsius} 热处理并离心后，获得上清液（样品 II）体积 $V_2 = \SI{23.5}{ml}$。与样品 I 相比，样品 II 颜色明显变浅且澄清度增加，说明热处理步骤成功去除了部分热不稳定的杂蛋白及色素。
+    \item \textbf{乙醇沉淀}：加入冷乙醇后溶液出现明显浑浊，离心后管底可见灰白色沉淀。加入缓冲液后沉淀复溶性良好，获得样品 III（$V_3 = \SI{16.0}{ml}$），表明蔗糖酶已被成功富集且未发生不可逆变性。
+\end{enumerate}
+
+\subsection{离子交换层析分离结果}
+
+离子交换层析的洗脱曲线如下图所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{实验二四七图片/图2.png}
+    \caption{离子交换层析洗脱曲线（蓝线：UV 280nm 吸光度；红线：电导率；紫线：梯度浓度）}
+    \label{fig:exp2_elution}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{实验二四七图片/图10-1.jpg}
+    \caption{梯度洗脱过程显色}
+\end{figure}
+
+如图\ref{fig:exp2_elution}所示，洗脱过程清晰地展示了两个主要的蛋白峰。第一个峰（左侧较窄峰）出现在上样后的低盐洗脱阶段，对应未与阴离子交换树脂结合的穿流杂蛋白（Flow-through）；第二个峰（右侧宽峰）出现在电导率（红线）和梯度浓度（紫线）上升的阶段，表明结合在柱上的目标蛋白随离子强度的增加被洗脱下来。收集该梯度洗脱峰即为样品 IV。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{实验二四七图片/图10-2.png}
+    \caption{色深-试管标号对照曲线}
+\end{figure}
+
+为了进一步确定目标蛋白的活性分布，根据收集管中样品的颜色深浅，制作了色深-试管标号对照曲线。最终选取颜色最深的 38-44 号管作为酶活性最高的组分，标记为IV-1。
+
+\subsection{酶促反应条件的正交优化结果}
+
+\subsubsection{正交试验数据分析}
+
+正交试验结果及极差分析如下表所示。
+
+\begin{table}[H]
+\centering
+\caption{正交试验结果数据表}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{实验组号} & \textbf{pH} & \makecell{\textbf{蔗糖稀释}\\ \textbf{液体积(ml)}} & \makecell{\textbf{蔗糖溶液}\\\textbf{体积（ml）} }& \textbf{温度（℃）} & \textbf{520nm吸光度} \\ \hline
+1 & \cellcolor{lightpink}5.4 & \cellcolor{lightblue}0.1 & \cellcolor{lightyellow}0.5 & \cellcolor{lightblue}37 & 2.350 \\ \hline
+2 & \cellcolor{lightyellow}4.6 & \cellcolor{lightblue}0.1 & \cellcolor{lightblue}0.2 & \cellcolor{lightpink}65 & 0.318 \\ \hline
+3 & \cellcolor{lightblue}3.6 & \cellcolor{lightblue}0.1 & \cellcolor{lightpink}1.0 & \cellcolor{lightyellow}50 & 0.674 \\ \hline
+4 & \cellcolor{lightblue}3.6 & \cellcolor{lightyellow}0.2 & \cellcolor{lightblue}0.5 & \cellcolor{lightpink}65 & 1.115 \\ \hline
+5 & \cellcolor{lightpink}5.4 & \cellcolor{lightyellow}0.2 & \cellcolor{lightblue}0.2 & \cellcolor{lightyellow}50 & 0.012 \\ \hline
+6 & \cellcolor{lightyellow}4.6 & \cellcolor{lightyellow}0.2 & \cellcolor{lightpink}1 & \cellcolor{lightblue}37 & 0.601 \\ \hline
+7 & \cellcolor{lightyellow}4.6 & \cellcolor{lightpink}0.5 & \cellcolor{lightyellow}0.5 & \cellcolor{lightblue}50 & 2.093 \\ \hline
+8 & \cellcolor{lightblue}3.6 & \cellcolor{lightpink}0.5 & \cellcolor{lightblue}0.2 & \cellcolor{lightblue}37 & 0.719 \\ \hline
+9 & \cellcolor{lightpink}5.4 & \cellcolor{lightpink}0.5 & \cellcolor{lightblue}1 & \cellcolor{lightpink}65 & 0.860 \\ \hline
+\multirow{3}{*}{\textbf{极差}} & \cellcolor{lightyellow}1.775 & \cellcolor{lightyellow}1.103 & \cellcolor{lightyellow}1.235 & \cellcolor{lightyellow}2.081 & / \\ \cline{2-6}
+ & \cellcolor{lightblue}0.441 & \cellcolor{lightblue}2.032 & \cellcolor{lightblue}0.707 & \cellcolor{lightblue}1.631 & / \\ \cline{2-6}
+ & \cellcolor{lightpink}2.338 & \cellcolor{lightpink}1.374 & \cellcolor{lightpink}0.259 & \cellcolor{lightpink}0.797 & / \\ \hline
+ \multirow{3}{*}{\textbf{平均值}} & \cellcolor{lightyellow}1.004 & \cellcolor{lightyellow}0.576 & \cellcolor{lightyellow}1.853 & \cellcolor{lightyellow}0.926 & / \\ \cline{2-6}
+ & \cellcolor{lightblue}0.836 & \cellcolor{lightblue}1.114 & \cellcolor{lightblue}0.350 & \cellcolor{lightblue}1.223 & / \\ \cline{2-6}
+ & \cellcolor{lightpink}1.074 & \cellcolor{lightpink}1.224 & \cellcolor{lightpink}0.712 & \cellcolor{lightpink}0.764 & / \\ \hline
+\textbf{平均值极差} & 0.238 & 0.648 & 1.503 & 0.459 & / \\ \hline
+\end{tabular}
+\label{tab:exp3_orthogonal_results}
+\end{table}
+
+\subsubsection{最适条件确定}
+
+根据极差分析（图 \ref{fig:exp3_analysis}），各因素对酶活性的影响程度由大到小依次为：底物浓度 (C) > 酶浓度 (B) > 温度 (D) > pH (A)。
+通过比较各水平的均值 ($K$ 值)，确定本实验条件下酵母蔗糖酶的最优反应条件组合为：
+\begin{itemize}
+    \item \textbf{温度}：\SI{50}{\celsius} (均值 1.223 最高)
+    \item \textbf{pH}：5.4 (均值 1.074 最高)
+\end{itemize}
+(注：蔗糖量与酶量为反应体系组分，非酶学性质，故重点关注温度与pH的优化结果)。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验三图片/正交实验极差分析.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {A};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验三图片/正交实验平均值分析.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {B};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{酶促反应正交试验数据可视化分析。(A)极差大小对比分析；(B)各因素水平均值趋势分析。}
+    \label{fig:exp3_analysis}
+\end{figure}
+
+\subsection{纯化过程的定量评估结果}
+
+\subsubsection{标准曲线构建}
+
+分别构建了蛋白质含量（Folin-酚法）和还原糖含量（DNS 法）的标准曲线，结果如图 \ref{fig:exp4_std_curves} 所示。
+\begin{itemize}
+    \item \textbf{蛋白质标曲}：$y = 1.227x + 0.0617$ ($R^2 = 0.9981$)，线性关系良好。
+    \item \textbf{葡萄糖标曲}：$y = 2.5114x - 0.118$ ($R^2 = 0.9985$)，线性关系良好。
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A: 蛋白质标曲 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.8\linewidth]{实验二四七图片/图4.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B: 葡萄糖标曲 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.8\linewidth]{实验二四七图片/图7.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{定量分析标准曲线。(A) Folin-酚法蛋白质含量测定标准曲线；(B) DNS 法还原糖含量测定标准曲线。}
+    \label{fig:exp4_std_curves}
+\end{figure}
+
+\subsubsection{纯化总表}
+
+综合各样品的蛋白浓度与酶活力测定数据，计算各步样品的总蛋白、总活力、比活力及回收率，结果汇总于表 \ref{tab:exp4_purification_summary}。
+
+\begin{table}[H]
+    \centering
+    \caption{蔗糖酶各步骤分离纯化效果评价表}
+    \label{tab:exp4_purification_summary}
+
+    \begin{tabular}{cccccccccc}
+        \toprule
+        \textbf{样品} & \textbf{体积} & \textbf{蛋白浓度} & \textbf{总蛋白} & \textbf{总蛋白} & \textbf{酶活力} & \textbf{总活力} & \textbf{总酶活力} & \textbf{比活力} & \textbf{总纯化} \\
+         & (ml) & (mg/ml) & (mg) & \textbf{回收率} & (U/ml) & (U) & \textbf{回收率} & (U/mg) & \textbf{倍数} \\
+        \midrule
+        样品 I & 28.5 & 26.75 & 762.38 & 100\% & 541918.0 & 15444663 & 100\% & 20258.6 & 1.00 \\
+        样品 II & 23.5 & 17.23 & 404.91 & 53.11\% & 445162.0 & 10461307 & 67.73\% & 25836.4 & 1.28 \\
+        样品 III & 16.0 & 10.60 & 169.60 & 22.25\% & 617916.7 & 9886667 & 64.01\% & 58294.0 & 2.88 \\
+        样品 IV & 2.0 & 2.10 & 4.20 & 0.55\% & 426041.3 & 852083 & 5.52\% & 202876.8 & 10.01 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+从表 \ref{tab:exp4_purification_summary} 可知，随着纯化步骤的进行，比活力呈现显著上升趋势，从样品 I 的 20258.6 U/mg 提升至样品 IV 的 202876.8 U/mg，总纯化倍数达到 10.01 倍，表明纯化策略有效。但需注意样品 IV 的总酶活力回收率较低（5.52\%），主要损失发生在层析步骤的收集策略上。
+
+\subsection{蔗糖酶纯度与分子量的电泳鉴定结果}
+
+各阶段样品的 SDS-PAGE 电泳图谱如图 \ref{fig:exp5_sds_page} 所示。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{实验五图片/SDS-PAGE结果.JPG}
+    \caption{蔗糖酶各纯化阶段样品的 SDS-PAGE 电泳图谱。(从左至右：Marker、I、II、III、IV-1、IV-2、IV-3、IV-4、去糖基化样品 IV-4)}
+    \label{fig:exp5_sds_page}
+\end{figure}
+
+由图 \ref{fig:exp5_sds_page} 可见：
+\begin{itemize}
+    \item \textbf{纯化效果}：样品 I 至 III 的泳道中杂蛋白条带较多，背景较深；而样品 IV（离子交换层析洗脱峰）在约 120 kD 处显示出单一、清晰的主条带，杂带基本消失，表明经过纯化后蔗糖酶纯度显著提高。
+    \item \textbf{糖基化分析}：对比天然样品 IV 与经 Endo H 酶切处理的去糖基化样品（IV-E），可见去糖基化后蛋白条带发生明显迁移，分子量从约 120 kD 降至约 60--70 kD。这证实了酵母外蔗糖酶具有高度的糖基化修饰（糖链约占分子量的一半）。
+\end{itemize}
+
+\subsection{蔗糖酶的 Western Blotting 鉴定结果}
+
+Western Blotting 显色结果如图 \ref{fig:exp7_wb} 所示。
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A: 显色图 1 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验二四七图片/图9-1.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B: 显色图 2 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验二四七图片/图9-2.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{蔗糖酶特异性免疫印迹检测结果}
+    \label{fig:exp7_wb}
+\end{figure}
+
+免疫印迹结果显示，纯化样品在膜上呈现清晰的特异性条带，位置与 SDS-PAGE 中的主带一致。去糖基化样品的条带信号较弱（图 \ref{fig:exp7_wb}B），推测可能是因为抗体主要识别天然蛋白的糖表位或空间构象，去糖基化导致抗原结合表位改变，从而降低了结合效率。
+
+\subsection{酶促动力学参数测定结果}
+
+\subsubsection{葡萄糖标准曲线与双倒数作图}
+
+本实验测定了不同底物浓度下的反应初速率，数据处理结果如图 \ref{fig:exp6_kinetics} 所示。
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A: 葡萄糖标曲 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验六图片/标准曲线.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B: 双倒数图 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验六图片/双倒数图结果.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{酶促动力学实验结果。(A) 葡萄糖定量标准曲线；(B) 天然蔗糖酶与去糖基化蔗糖酶的动力学行为比较。}
+    \label{fig:exp6_kinetics}
+\end{figure}
+
+\subsubsection{动力学参数计算}
+
+根据双倒数图（图 \ref{fig:exp6_kinetics}B）的截距与斜率，计算得到米氏常数 ($K_m$) 与最大反应速率 ($V_{max}$)，如表 \ref{tab:exp6_parameters} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{天然与去糖基化蔗糖酶动力学参数对比}
+    \label{tab:exp6_parameters}
+    \begin{tabular}{ccc}
+        \toprule
+        \textbf{酶形式} & \textbf{$K_m$ (\SI{}{mmol/L})} & \textbf{$V_{max}$ (\SI{}{mmol/(L \cdot min)})} \\
+        \midrule
+        天然酵母蔗糖酶 & 7.043 & 0.0589 \\
+        去糖基化蔗糖酶 & 4.479 & 0.0257 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+结果显示，去糖基化后酶的 $K_m$ 值减小（亲和力增加），但 $V_{max}$ 显著降低。这提示糖链结构虽然对底物结合有一定空间位阻（去除后亲和力上升），但对维持酶活性中心的催化构象至关重要（去除后催化效率下降）。
+
+
+\subsection{AlphaFold 3 结构预测与分析结果}
+
+\subsubsection{单体折叠特征与结构稳定性}
+
+利用 AlphaFold 3 对全长序列进行预测，并对其 pLDDT 置信度进行可视化分析（图 \ref{fig:exp8_core_analysis}A）。结果显示，N 端前 20--30 个氨基酸区域呈现明显的橙红色（低置信度），且空间构象松散，这与信号肽（Signal Peptide）在天然状态下的无序特性高度吻合。
+
+% --- 第一行图：单独展示置信度分析 (图 A) ---
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.55\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/单体&截断体/50透明度_单体置信度着色.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{全长模型 pLDDT 分析}
+    \end{minipage}
+\end{figure}
+
+为了定量评估核心结构域的独立性，构建了三个不同长度的 C 端截断体模型（截断体单独模型见附录图 \ref{fig:app_truncations}）。将截断体与全长模型进行结构叠合（图 \ref{fig:exp8_core_analysis}B-D），并计算原子位置均方根偏差（RMSD），结果如表 \ref{tab:exp8_rmsd} 所示。
+
+\begin{table}[H]
+    \centering
+    \caption{全长模型与不同截断体的结构差异定量分析 (RMSD)}
+    \label{tab:exp8_rmsd}
+    \begin{tabular}{ccc}
+        \toprule
+        \textbf{比较组别} & \textbf{修剪原子对 RMSD (Pruned)} & \textbf{全原子对 RMSD (All pairs)} \\
+        \midrule
+        全长 与 截断体 (1-482) & 0.382 \si{\angstrom} & 14.546 \si{\angstrom} \\
+        全长 与 截断体 (1-432) & 0.272 \si{\angstrom} & 15.620 \si{\angstrom} \\
+        全长 与s 截断体 (1-382) & 0.321 \si{\angstrom} & 6.514 \si{\angstrom} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+数据表明，虽然全原子对 RMSD 因序列长度差异较大，但代表核心结构域匹配度的修剪原子对 RMSD 均低于 0.4 \si{\angstrom}，且截断体核心骨架（彩色）与全长模型（黄色）在空间上高度重合（图 \ref{fig:exp8_core_analysis}），证明蔗糖酶 N 端核心区域具有高度的折叠自主性与稳定性。
+
+% --- 第二行图：并排展示三个截断体对比 (图 B, C, D) ---
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验八图片/单体&截断体/50透明度_单体与截断体1_482比较.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{全长 与 1-482}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验八图片/单体&截断体/50透明度_单体与截断体1_432比较.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{C}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{全长 与 1-432}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.3\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验八图片/单体&截断体/50透明度_单体与截断体1_382比较.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{D}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{全长 与 1-382}
+    \end{minipage}
+    
+    \caption{单体结构特征分析。(A) N 端信号肽区域呈低置信度的无序状态（橙红色）；(B-D) 截断体（彩色）与全长模型（灰色）在核心结构域上高度重合，表明核心骨架稳定性不受 C 端影响。}
+    \label{fig:exp8_core_analysis}
+\end{figure}
+
+\subsubsection{同源二聚体组装机制}
+
+预测得到的同源二聚体结构如图 \ref{fig:exp8_dimer_overall} 所示，两个单体以非共价键形式紧密结合，形成对称的“背靠背”四级结构。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{实验八图片/二聚体/50透明度二聚体照.jpg}
+    \caption{AlphaFold 3 预测的酵母蔗糖酶同源二聚体整体结构（透明度 50\%）。}
+    \label{fig:exp8_dimer_overall}
+\end{figure}
+
+进一步对界面进行微观分析（图 \ref{fig:exp8_dimer_interface}）。图 A 清晰展示了界面处氨基酸侧链的紧密堆积，范德华接触丰富；叠加氢键网络后（图 B），界面核心区域显示出密集的红色虚线连接。这些特异性的极性相互作用如同“分子拉链”，是维持二聚体在生理条件下稳定存在的关键。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/二聚体/100透明度_单体间氨基酸相互作用_局部_无氢键.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{界面残基与相互作用力（无氢键）}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/二聚体/100透明度_单体间氨基酸相互作用_局部_有氢键.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{界面氢键网络（红色连线）}
+    \end{minipage}
+    \caption{二聚体界面相互作用力分析。(A) 侧链堆积与范德华接触；(B) 关键氢键分布。}
+    \label{fig:exp8_dimer_interface}
+\end{figure}
+
+\subsubsection{底物识别与糖基化位点分析}
+
+分子对接结果揭示了底物识别的结构基础。在不透明表面模式下（图 \ref{fig:exp8_docking}A），可见蔗糖分子精准嵌入酶表面的深层活性口袋。透视分析（图 \ref{fig:exp8_docking}B）进一步显示，Glu223、Arg170 等残基通过侧链与蔗糖形成多重氢键（青色实线），实现了对底物的特异性锚定。
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/与底物/0透明度_展示位于活性口袋.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{底物结合位置概览（0\% 透明度）}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/与底物/50透明度_局部.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{活性中心氢键相互作用}
+    \end{minipage}
+    \caption{蔗糖酶与底物蔗糖的分子对接模拟。(A) 宏观结合口袋；(B) 微观氢键网络（青色）。}
+    \label{fig:exp8_docking}
+\end{figure}
+
+\vspace{1em}
+
+基于 UniProt 验证的 N-糖基化位点信息，本研究利用 AF3 模拟了 5 个 GlcNAc 配体的共折叠过程,并将配体染成洋红色，选中所有糖基化位点染成黄色，如图 \ref{fig:app_glycosylation_global}A, B所示。虽然配体能吸附于蛋白表面，但仅部分能精准锚定至预设的黄色糖基化位点，其余游离于非位点区。这表明 AF3 在处理多位点、非共价修饰预测时存在一定的随机性与局限性。
+
+为探究微环境影响，选取两代表性位点进行微观分析。在 Asn275 位点（图 \ref{fig:exp8_glyco_micro}A），配体 D 虽进入相互作用半径并产生范德华力接触，但未形成氢键。这表明该处配体仅靠较弱的非极性力维持吸附，构象松散，未能完全模拟出天然键合的紧密状态。
+
+相比之下，Asn111 位点（图 \ref{fig:exp8_glyco_micro}B）展现了高度结构互补性：配体 E 与侧链形成了清晰的青色氢键。这种特定的氢键取向在几何上完美模拟了 N-糖苷键反应的前体构象。结果证实 Asn111 具备高亲和力结构基础，也表明 AF3 在特定微环境下具备精准预测特异性相互作用的能力。
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/糖基化/50透明度_配体D和ASN275有相互作用力_没有形成氢键.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{Asn275 位点（无氢键）}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/糖基化/50透明度_配体E和ASN111形成氢键.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{Asn111 位点（形成氢键）}
+    \end{minipage}
+    \caption{糖基化位点结合模式的微观差异对比。}
+    \label{fig:exp8_glyco_micro}
+\end{figure}
+\section{分析讨论（分析实验现象和数据，异常结果出现的原因，整体实验综合讨论，新问题的提出等）}
+
+\subsection{对实验现象和数据的分析}
+
+\subsubsection{提取与纯化}
+实验数据显示，从粗提样品到最终纯化样品IV，蔗糖酶比活力有大幅度提升，纯化倍数达10.01，表明本研究所采用的研磨破碎$\rightarrow$热处理$\rightarrow$乙醇沉淀$\rightarrow$离子交换层析的纯化路线是有效的，能显著去除杂蛋白。在现象上，样品颜色由深棕黄逐渐变为浅黄澄清，这也直观反映了杂质的减少。离子交换层析洗脱曲线中，穿流峰与梯度洗脱峰分离良好，证明 DEAE 介质在pH 7.4下对蔗糖酶具有选择性吸附能力。
+
+\subsubsection{酶促反应因素正交试验数据分析}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ccccc}
+    \toprule
+    \makecell{实验因素} & \makecell{pH} & \makecell{蔗糖酶稀释\\液体积 (mL)} & \makecell{蔗糖溶液\\体积 (mL)} & \makecell{温度 ($^\circ$C)} \\
+    \midrule
+    \makecell{520nm吸光度\\平均值均值} & 0.238 & 0.648 & 1.503 & 0.459 \\
+    \bottomrule
+    \end{tabular}
+    \caption{酶促反应因素正交试验数据平均值极差}
+    \label{tab:table1}
+\end{table}
+
+从表\ref{tab:table1}中数据可以看出，平均值极差大小排序为：底物浓度>酶浓度>温度>pH，所以影响因素的主次排序为：底物浓度>酶浓度>温度>pH。反应受底物浓度限制明显，酶浓度影响也较大，说明酶量不足时反应受限，但过量可能抑制。温度37℃最佳，可能是酶的最适温度。pH=5.4 最佳，说明酶在此酸性条件下活性最高。
+
+观察数据结果（表\ref{tab:exp3_orthogonal_results}），发现实验组号1与7吸光度值都很高，说明与DNS反应的葡萄糖浓度最高，酶催化反应较优。两者相比，组1虽然酶浓度较低，在底物浓度一样的情况下，吸光度值依然比组7高，说明酵母蔗糖酶在组1的条件（即pH=5.4，T=37$\circ$C）下活性很高，推断出pH=5.4，T=37$\circ$C可能为酵母蔗糖酶最适反应条件。进一步推断出，酵母蔗糖酶的最优反应参数是温度：50℃、pH值：5.4、蔗糖溶液体积：0.5mL、蔗糖酶稀释液体积：0.5mL。
+
+\subsubsection{酶促反应动力学数据分析}
+
+从$K_m$、$V_\text{max}$的数值可以看出，去糖基化后都有相应的减小。$K_m$是酶与底物之间的亲和力的一个指标，$K_m$值的减小表明酶对底物的亲和力增加了，即在较低的底物浓度下酶就能达到其半数的最大反应速率。这意味着去糖基化可能增强了酶与底物之间的相互作用或者优化了酶的活性位点，使得底物更容易结合。$V_\text{max}$的减小表明，即使底物充分存在，酶催化反应的速度也无法达到处理前的水平。这种情况可能是因为去糖基化过程损害了酶的催化能力，减少了有活性的酶的数量或降低了酵母蔗糖酶的活化效率。
+
+\subsubsection{SDS-PAGE与Western Blot 实验}
+SDS-PAGE 结果清晰显示，随着纯化步骤推进，样品条带数量减少、主带变锐，表明纯度提高。去糖基化样品条带位置较天然酶下移，证实糖基化修饰会增加表观分子量。Western Blot 结果进一步验证了各样品中蔗糖酶的存在，但去糖基化样品条带信号较弱，提示糖基化可能影响抗体识别或蛋白的构象。
+
+\subsubsection{结构预测分析}
+AlphaFold3 预测结果与实验数据高度吻合：全长模型中信号肽区域呈低pLDDT无序状态，与生物学事实一致；去信号肽后核心结构高度稳定，C端截断不影响折叠。二聚体界面存在密集氢键网络，解释了酶在天然状态下以二聚体形式存在的稳定性。分子对接显示蔗糖分子精准嵌入活性口袋，关键残基形成相互作用，验证了催化机制的结构基础。
+
+\subsection{异常结果出现的原因}
+
+\subsubsection{纯化过程中酶活回收率过低}
+在离子交换层析步骤中，样品IV的总酶活回收率仅为5.52\%，显著低于理论预期。这一异常可能因为洗脱过程中盐浓度梯度设置偏陡，导致目标酶在短时间内经历了剧烈的离子强度变化而发生部分失活；同时，层析操作时间较长，样品在非低温环境中暴露时间过久，也会进一步加剧了酶活损失。为了改善这个问题，后续实验应优化洗脱程序，采用更加平缓的线性盐梯度并且严格控制层析系统温度，同时在上样前通过预实验确定最佳上样量与柱载量匹配度，必要时可采用阶段洗脱策略以提高回收率。
+
+\subsubsection{去糖基化样品 Western Blot 信号弱}
+Western Blot 检测中发现去糖基化蔗糖酶条带信号明显弱于糖基化样品，这可能是因为糖基化修饰的缺失改变了蛋白质表面构象，导致一抗识别表位被遮蔽或空间取向改变，从而降低了抗原-抗体结合效率。为解决此问题，老师的做法是加强一抗和二抗的浓度或者尝试使用针对不同抗原表位的一抗。
+
+\subsubsection{糖基化模拟中部分配体未能准确定位}
+AlphaFold3 预测结果显示，部分 GlcNAc配体未与已知糖基化位点形成稳定结合，这主要受限于当前算法将糖分子视为非共价配体进行处理，缺乏共价键连接约束，导致配体在采样空间中自由度过大而出现偏离。为提升预测可靠性，可结合分子动力学模拟对 AF3 输出结构进行局部优化。长期来看，期待AF3后续版本能整合共价修饰建模功能，实现对翻译后修饰的更精准预测。
+
+\subsection{整体实验综合讨论}
+综合来看，本系列实验构建了一个从传统提取纯化到现代结构功能研究的完整流程，展现了多学科交叉在酶学研究中的价值。一方面，传统生化方法如研磨破碎、层析纯化等，虽然存在酶活损失等问题，但仍是获取目标蛋白的基础手段；另一方面，SDS-PAGE、Western Blot、酶动力学分析以及AlphaFold3 结构预测等现代技术，为我们提供了从分子量、免疫特异性、催化性质到三维结构的全方位视角。这些方法相互印证、互为补充。特别值得关注的是糖基化修饰对酶的多重影响，它不仅表现在电泳条带迁移率的变化上，也体现在酶与底物亲和力的改变以及抗体识别效率的差异中，这提示我们在未来酶工程研究中，翻译后修饰是一个不可忽视的调控维度。整体而言，本实验不仅成功实现了蔗糖酶的提取与初步表征，更展示了“湿实验”与“干实验”结合、经典方法与现代技术并用的研究思路，为后续更深入的机制探索奠定了基础。
+
+\section{结语（系统性总结、前瞻性探讨、心得等）}
+
+\subsection{系统性总结}
+本次蔗糖酶系列实验让我们得以系统性地完成了从酵母细胞中提取蔗糖酶、通过多步纯化获得高纯度样品，并综合运用生化和结构手段对其性质进行鉴定的全过程。实验结果表明，我们采用的研磨破碎、热处理、乙醇沉淀和离子交换层析等传统方法能够有效富集蔗糖酶，使其比活力提升了约10倍。进一步的电泳、免疫印迹、酶动力学测定以及 AlphaFold3 结构预测等现代分析手段，不仅验证了纯化效果，还从不同维度揭示了蔗糖酶的分子特性、催化行为和空间结构特征。整体来看，实验流程设计合理，各项结果相互印证，达到了理论与实践的有机结合，为深入理解酶的结构与功能关系提供了扎实的数据基础。
+
+\subsection{前瞻性探讨}
+随着生物技术和计算方法的快速发展，我们小组结合一部分前沿文献阅读认为蔗糖酶的研究有望在以下几个方向取得新进展：一是基于AlphaFold 等 AI预测工具，可以更精准地指导酶分子改造，比如针对活性中心或糖基化位点进行理性设计，以提升酶的催化效率或稳定性；二是结合酶固定化与反应器技术，推动蔗糖酶在食品加工或生物能源领域的实际应用；三是从糖生物学角度深入探究糖基化修饰对酶功能的精细调控机制。
+
+\subsection{心得体会}
+通过这次系列实验，我们深刻体会到科学研究的系统性与交叉性。从细胞破碎到层析纯化，每一步操作都需要严谨细致，任何一个环节的疏忽都可能影响最终结果。实验中我们也遇到了很多困难，比如酶活回收率偏低、Western Blot信号不强等，促使我们不断思考原因、优化方案。此外，团队协作与跨学科交流也让我们认识到，现代生命科学研究往往需要融合生物、化学、信息等多个领域的知识与技能。这次实验不仅让我们对酶学研究的完整流程有了更直观、更系统的理解，与此同时也锻炼了我们的动手能力与科研思维，也为今后从事相关研究积累了宝贵经验。最后，我们小组也衷心感谢实验课程上不断为我们提供帮助的老师们，你们的耐心教导和对我们的鼓励是我们顺利完成实验的最大助力。
+
+\section{参考文献}
+\vspace{-1cm}
+    \begin{thebibliography}{99}
+        \setlength{\itemsep}{0pt}
+        \bibitem{1} SAMARTH KULSHREHTA. Invertase and its applications---A brief review[J]. Journal of Pharmacy Research, 2013, 7: 792-797.
+        \bibitem{2} HABIBULLAH NADEEM. Microbial invertases: A review on kinetics, thermodynamics, physicochemical properties[J]. Process Biochemistry, 2015, 50: 1202-1210.
+        \bibitem{3} LUIS RODRIGUEZ. Yeast Invertase: Subcellular Distribution and Possible Relationship between the Isoenzymes[J]. Current Microbiology, 1978, 1: 41-44.
+        \bibitem{4} M. ANGELA SAINZ-POLO. Three-dimensional Structure of Saccharomyces Invertase: ROLE OF A NON-CATALYTIC DOMAIN IN OLIGOMERIZATION AND SUBSTRATE SPECIFICITY[J]. The Journal of Biological Chemistry, 2013, 288(14): 9755-9766.
+        \bibitem{5} ANTHONY P. TIMERMAN. The Isolation of Invertase from Baker's Yeast: A Four-Part Exercise in Protein Purification and Characterization[J]. Journal of Chemical Education, 2009, 86(3): 379-381.
+        \bibitem{6} UROŠ ANDJELKOVIC. Purification and characterisation of Saccharomyces cerevisiae external invertase isoforms[J]. Food Chemistry, 2010, 120: 799-804.
+        \bibitem{7} CHRISTINE V. SAPAN. Colorimetric protein assay techniques[J]. Biotechnol. Appl. Biochem., 1999, 29: 99-108.
+        \bibitem{8} MARION M. BRADFORD. Rapid and Sensitive Method for the Quantitation of Microgram Quantities of Protein Utilizing the Principle of Protein-Dye Binding[J]. Analytical Biochemistry, 1976, 72: 248-254.
+        \bibitem{9} 方开泰, 马长兴. 正交与均匀试验设计[M]. 科学出版社, 2001.
+        \bibitem{10} 董如何, 肖必华, 方永水. 正交试验设计的理论分析方法及应用[J]. 安徽建筑工业学院学报(自然科学版), 2004, 06: 103-106.
+    \end{thebibliography}
+
+\newpage
+
+\section{附录：补充实验数据与原始记录}
+
+\subsection{相关图片}
+
+\subsubsection{实验二：离子交换层析设备}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{实验二四七图片/图1.png}
+    \caption{离子交换树脂色谱系统示意图}
+    \label{fig:app_exp2_system}
+\end{figure}
+
+\subsubsection{实验三：正交试验显色结果}
+\begin{figure}[H]
+    \centering
+    % --- 子图 A ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验三图片/正交试验预实验结果.jpeg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验三图片/正交试验结果.jpeg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{正交试验原始数据记录。(A) 预实验确定稀释倍数；(B) 正交分组显色对比。}
+    \label{fig:app_exp3_color}
+\end{figure}
+
+\subsubsection{实验四：定量测定显色结果}
+\begin{figure}[H]
+    \centering
+    % --- 子图 A ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验二四七图片/图3.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B (已交换为图6) ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验二四七图片/图6.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{标准曲线制作显色现象。(A) 蛋白质标准品；(B) 葡萄糖标准品。}
+    \label{fig:app_exp4_protein_color}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A (已交换为图5) ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验二四七图片/图5.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验二四七图片/图8.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{样品测定显色现象。(A) 蛋白含量测定；(B) 酶活力测定。}
+    \label{fig:app_exp4_dns_color}
+\end{figure}
+
+\subsubsection{实验六：动力学实验原始记录}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{实验六图片/葡萄糖标准曲线.JPG}
+    \caption{动力学实验-葡萄糖标准曲线显色结果}
+    \label{fig:app_exp6_std_color}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验六图片/蔗糖酶酶促动力学.JPG}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill
+    % --- 子图 B ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{实验六图片/去糖基化酶促动力学.JPG}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+    \end{minipage}
+    \caption{酶促动力学反应体系显色对比。(A) 天然酶；(B) 去糖基化酶。}
+    \label{fig:app_exp6_kinetics_color}
+\end{figure}
+
+\subsubsection{实验八：AlphaFold3 预测蛋白质结构}
+
+\begin{figure}[H]
+    \centering
+    % --- 第一行 ---
+    % 子图 A: 全长模型 (新增)
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/单体&截断体/50透明度_单体正面照.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{全长单体模型}
+    \end{minipage}
+    \hfill
+    % 子图 B: 截断体 1-482
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/单体&截断体/50透明度_截断体1~482照.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{截断体 1-482}
+    \end{minipage}
+    
+    \vspace{0.5cm} % 增加行间距
+    
+    % --- 第二行 ---
+    % 子图 C: 截断体 1-432
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/单体&截断体/50透明度_截断体1~432照.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{C}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{截断体 1-432}
+    \end{minipage}
+    \hfill
+    % 子图 D: 截断体 1-382
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/单体&截断体/50透明度_截断体1~382照.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{D}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{截断体 1-382}
+    \end{minipage}
+    
+    \caption{全长单体及 C 端截断体的独立折叠模型视图。(A) 全长模型；(B-D) 不同长度的截断体模型。}
+    \label{fig:app_truncations}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    % --- 糖基化宏观分布 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/糖基化/15透明度_洋红球体配体_橘色糖基化位点_正面.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{正面观}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{实验八图片/糖基化/15透明度_洋红球体配体_橘色糖基化位点_背面.jpg}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right, font=\bfseries] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{背面观}
+    \end{minipage}
+    \caption{GlcNAc 配体在蔗糖酶表面的宏观分布概览（洋红色球体=配体，橘色=预设糖基化位点）。}
+    \label{fig:app_glycosylation_global}
+\end{figure}
+
+\subsection{相关表格}
+
+\subsubsection{实验三：正交试验原始数据记录}
+
+\begin{table}[H]
+    \centering
+    \caption{正交试验预实验结果（确定酶稀释倍数）}
+    \label{tab:app_exp3_pre}
+    \begin{tabular}{ccccc}
+    \toprule
+    \textbf{稀释倍数} & \textbf{1000} & \textbf{2000} & \textbf{4000} & \textbf{空白} \\
+    \midrule
+    $A_{520}$ & 1.242 & 0.538 & 0.174 & 校零 \\
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{正交试验分组加样与测定记录总表}
+    \label{tab:app_exp3_merged_ordered}
+    % 使用 resizebox 自动缩放表格至页面宽度
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{ccccccccccc}
+    \toprule
+    \textbf{试剂 (ml) \textbackslash 实验号} & \textbf{2} & \textbf{4} & \textbf{9} & \textbf{1} & \textbf{6} & \textbf{8} & \textbf{3} & \textbf{5} & \textbf{7} & \textbf{0 (对照)} \\
+    \midrule
+    5\% 蔗糖溶液 [S] & 0.5 & 0.2 & 1.0 & 0.5 & 0.2 & 1.0 & 0.5 & 0.2 & 1.0 & 0.5 \\
+    0.1mol/L 缓冲液 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+    缓冲液 pH & 5.6 & 4.6 & 3.6 & 3.6 & 5.6 & 4.6 & 4.6 & 3.6 & 5.6 & 4.6 \\
+    去离子水 & 0.9 & 0.8 & 0.3 & 0.5 & 1.1 & 0.4 & 0.8 & 1.2 & 0 & 1.0 \\
+    \midrule
+    \textbf{预热温度} & \multicolumn{3}{c}{\textbf{37\si{\degreeCelsius} 预热}} & \multicolumn{3}{c}{\textbf{50\si{\degreeCelsius} 预热}} & \multicolumn{3}{c}{\textbf{65\si{\degreeCelsius} 预热}} & - \\
+    \midrule
+    样品 IV 稀释液 [E] & 0.1 & 0.5 & 0.2 & 0.5 & 0.2 & 0.1 & 0.2 & 0.1 & 0.5 & 0 \\
+    反应体系总体积 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 \\
+    \midrule
+    \textbf{酶促反应} & \multicolumn{3}{c}{混匀，37\si{\degreeCelsius} 保温 10min} & \multicolumn{3}{c}{混匀，50\si{\degreeCelsius} 保温 10min} & \multicolumn{3}{c}{混匀，65\si{\degreeCelsius} 保温 10min} & - \\
+    \midrule
+    DNS 试剂 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+    \midrule
+    \textbf{显色} & \multicolumn{9}{c}{混匀，100\si{\degreeCelsius} 水浴保温 5min（所有管同步骤）} & - \\
+    \midrule
+    去离子水 & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 \\
+    后续操作 & \multicolumn{9}{c}{涡旋仪充分混匀（所有管同步骤）} & - \\
+    \midrule
+    \textbf{$A_{520}$ 实测值} & \textbf{0.318} & \textbf{1.115} & \textbf{0.860} & \textbf{2.350} & \textbf{0.601} & \textbf{0.719} & \textbf{0.674} & \textbf{0.012} & \textbf{2.093} & \textbf{校零} \\
+    \bottomrule
+    \end{tabular}%
+    }
+\end{table}
+
+\subsubsection{实验四：定量测定原始读数}
+
+
+\begin{table}[H]
+\centering
+\caption{福林-酚法蛋白质标准曲线制作表}
+\begin{tabular}{ccccccc}
+\toprule
+\textbf{试剂 / 步骤} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\
+\midrule
+标准蛋白含量 (mg) & 0 & 0.1 & 0.2 & 0.3 & 0.4 & 0.5 \\
+0.5g/L 牛血清白蛋白 (ml) & 0 & 0.2 & 0.4 & 0.6 & 0.8 & 1.0 \\
+去离子水 (ml) & 1.0 & 0.8 & 0.6 & 0.4 & 0.2 & 0 \\
+Folin-酚甲试剂 (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+\midrule
+\multicolumn{7}{c}{涡旋仪混匀，室温放置（25$^{\circ}$C 水浴）10 min} \\
+\midrule
+Folin-酚乙试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+\midrule
+\multicolumn{7}{c}{即刻涡旋仪混匀，室温放置（25$^{\circ}$C 水浴）15 min} \\
+\midrule
+$A_{500}$ & 校零 & 0.183 & 0.308 & 0.438 & 0.539 & 0.681 \\
+\bottomrule
+\end{tabular}
+\label{tab:folin_std_appendix}
+\end{table}
+
+% 表2：各样品蛋白测定
+\begin{table}[H]
+\centering
+\caption{Folin-酚法测定各蔗糖酶样本的蛋白含量加样表}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccccccccccccc}
+\toprule
+\textbf{试剂 / 步骤} & \textbf{空白} & \multicolumn{3}{c}{\textbf{样品 I (1:10)}} & \multicolumn{3}{c}{\textbf{样品 II (1:5)}} & \multicolumn{3}{c}{\textbf{样品 III (1:5)}} & \multicolumn{3}{c}{\textbf{样品 IV (原液)}} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14}
+\textbf{管号} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} & \textbf{13} \\
+\midrule
+去离子水 (ml) & 1.0 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 \\
+稀释蔗糖酶液 (ml) & 0 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 \\
+Folin-酚甲试剂 (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+\midrule
+\multicolumn{14}{c}{涡旋仪混匀，室温放置（25$^{\circ}$C 水浴）10 min} \\
+\midrule
+Folin-酚乙试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+\midrule
+\multicolumn{14}{c}{即刻涡旋仪混匀，室温放置（25$^{\circ}$C 水浴）15 min} \\
+\midrule
+$A_{500}$ & 校零 & 0.210 & 0.396 & 0.770 & 0.272 & 0.498 & 0.885 & 0.160 & 0.330 & 0.695 & 0.191 & 0.319 & 0.584 \\
+\bottomrule
+\end{tabular}}
+\label{tab:folin_samples_appendix}
+\end{table}
+
+% 表3：葡萄糖标曲
+\begin{table}[H]
+\centering
+\caption{DNS 法制作葡萄糖标准曲线加样表}
+\begin{tabular}{ccccccccc}
+\toprule
+\textbf{试剂 / 步骤} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+\midrule
+葡萄糖含量 (mg) & 0 & 0.1 & 0.2 & 0.25 & 0.3 & 0.35 & 0.4 & 0.5 \\
+1g/L 葡萄糖标准液 (ml) & 0 & 0.1 & 0.2 & 0.25 & 0.3 & 0.35 & 0.4 & 0.5 \\
+去离子水 (ml) & 2.0 & 1.9 & 1.8 & 1.75 & 1.7 & 1.65 & 1.6 & 1.5 \\
+DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+\midrule
+\multicolumn{9}{c}{涡旋仪混匀，>95$^{\circ}$C 水浴加热 5 min，冷水冷却至室温} \\
+\midrule
+去离子水 (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+\midrule
+\multicolumn{9}{c}{涡旋仪混匀} \\
+\midrule
+$A_{520}$ & 校零 & 0.118 & 0.410 & 0.502 & 0.639 & 0.760 & 0.884 & 1.135 \\
+\bottomrule
+\end{tabular}
+\label{tab:dns_std_appendix}
+\end{table}
+
+% 表4：各样品酶活力测定
+\begin{table}[H]
+\centering
+\caption{蔗糖酶活力测定加样表}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{cccccccccccccc}
+\toprule
+\textbf{试剂 / 步骤} & \textbf{空白} & \multicolumn{3}{c}{\textbf{I (1:4000)}} & \multicolumn{3}{c}{\textbf{II (1:4000)}} & \multicolumn{3}{c}{\textbf{III (1:4000)}} & \multicolumn{3}{c}{\textbf{IV (1:2000)}} \\
+\cmidrule(lr){2-2} \cmidrule(lr){3-5} \cmidrule(lr){6-8} \cmidrule(lr){9-11} \cmidrule(lr){12-14}
+\textbf{管号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9} & \textbf{10} & \textbf{11} & \textbf{12} \\
+\midrule
+0.1mol/L 乙酸缓冲液 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+去离子水 (ml) & 1.0 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 & 0.95 & 0.9 & 0.8 \\
+稀释蔗糖酶液 (ml) & 0 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 & 0.05 & 0.1 & 0.2 \\
+5\% 蔗糖溶液 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+\midrule
+\multicolumn{14}{c}{涡旋仪混匀，50$^{\circ}$C 水浴保温 10 min，冷水冷却至室温} \\
+\midrule
+DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+\midrule
+\multicolumn{14}{c}{涡旋仪混匀，>95$^{\circ}$C 水浴加热 5 min，冷水冷却至室温} \\
+\midrule
+去离子水 (ml) & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 & 5.0 \\
+\midrule
+$A_{520}$ & 校零 & 0.042 & 0.235 & 0.578 & 0.029 & 0.152 & 0.431 & 0.073 & 0.241 & 0.602 & 0.111 & 0.434 & 1.072 \\
+\bottomrule
+\end{tabular}}
+\label{tab:enzyme_activity_appendix}
+\end{table}
+
+\subsubsection{实验六：动力学实验原始数据与加样记录}
+
+\begin{table}[H]
+    \centering
+    \caption{动力学实验-葡萄糖标准曲线制作加样与测定记录}
+    \label{tab:app_exp6_std}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccccc}
+    \toprule
+    \textbf{管号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \midrule
+    \SI{1}{g/L} 葡萄糖标准液 (ml) & 0 & 0.1 & 0.15 & 0.2 & 0.25 & 0.3 & 0.35 & 0.4 \\
+    去离子水 (ml) & 1.5 & 1.4 & 1.35 & 1.3 & 1.25 & 1.2 & 1.15 & 1.1 \\
+    DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+    \midrule
+    \multicolumn{9}{c}{混匀，\SI{100}{\celsius} 恒温水浴保温 5 min，流水冷却至室温} \\
+    \midrule
+    去离子水 (定容) (ml) & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 \\
+    \midrule
+    $A_\text{520 实测值}$ & 校零 & 0.068 & 0.197 & 0.330 & 0.429 & 0.551 & 0.701 & 0.848 \\
+    \bottomrule
+    \end{tabular}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{天然蔗糖酶酶促反应体系与速率测定记录}
+    \label{tab:app_exp6_native}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccccc}
+    \toprule
+    \textbf{实验组号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \midrule
+    5\% 蔗糖溶液 (ml) & 0 & 0.1 & 0.15 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 \\
+    \SI{0.1}{mol/L} 乙酸缓冲液 pH4.6 (ml) & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+    去离子水 (ml) & 1.2 & 1.1 & 1.05 & 1 & 0.9 & 0.8 & 0.7 & 0.6 \\
+    \midrule
+    \multicolumn{9}{c}{冰上配制，加入酶液启动反应} \\
+    \midrule
+    样品 IV 蔗糖酶液 (ml) & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+    \midrule
+    \multicolumn{9}{c}{混匀，\SI{50}{\celsius} 水浴准确保温 10 min} \\
+    \midrule
+    DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+    \midrule
+    \multicolumn{9}{c}{\SI{100}{\celsius} 水浴保温 5 min 终止反应并显色，流水冷却} \\
+    \midrule
+    去离子水 (定容) (ml) & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 \\
+    $A_\text{520 实测值}$ & 校零 & 0.350 & 0.584 & 0.845 & 0.853 & 1.128 & 1.256 & 1.335 \\
+    \bottomrule
+    \end{tabular}}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{去糖基化蔗糖酶酶促反应体系与速率测定记录}
+    \label{tab:app_exp6_deglyco}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{ccccccccc}
+    \toprule
+    \textbf{实验组号} & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} \\
+    \midrule
+    5\% 蔗糖溶液 (ml) & 0 & 0.1 & 0.15 & 0.2 & 0.3 & 0.4 & 0.5 & 0.6 \\
+    \SI{0.1}{mol/L} 乙酸缓冲液 pH4.6 (ml) & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 & 0.2 \\
+    去离子水 (ml) & 1.2 & 1.1 & 1.05 & 1 & 0.9 & 0.8 & 0.7 & 0.6 \\
+    \midrule
+    \multicolumn{9}{c}{冰上配制，加入酶液启动反应} \\
+    \midrule
+    去糖基化酶液 (ml) & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 & 0.1 \\
+    \midrule
+    \multicolumn{9}{c}{混匀，\SI{50}{\celsius} 水浴准确保温 10 min} \\
+    \midrule
+    DNS 试剂 (ml) & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 & 0.5 \\
+    \midrule
+    \multicolumn{9}{c}{\SI{100}{\celsius} 水浴保温 5 min 终止反应并显色，流水冷却} \\
+    \midrule
+    去离子水 (定容) (ml) & 5 & 5 & 5 & 5 & 5 & 5 & 5 & 5 \\
+    $A_\text{520 实测值}$ & 校零 & 0.028 & 0.069 & 0.096 & 0.180 & 0.198 & 0.273 & 0.434 \\
+    \bottomrule
+    \end{tabular}}
+\end{table}
+
+
+
+\end{document}
