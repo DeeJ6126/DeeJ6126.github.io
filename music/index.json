@@ -1,11 +1,53 @@
 {
   "songs": [
     {
-      "id": "ready",
-      "file": "ready.mp3",
-      "url": "/music/ready.mp3",
-      "title": "ready",
+      "id": "Sunny_Stroll",
+      "file": "Sunny_Stroll.mp3",
+      "url": "/music/Sunny_Stroll.mp3",
+      "title": "Sunny Stroll",
       "order": 1
+    },
+    {
+      "id": "One_night_in_Lisbon",
+      "file": "One_night_in_Lisbon.mp3",
+      "url": "/music/One_night_in_Lisbon.mp3",
+      "title": "One night in Lisbon",
+      "order": 2
+    },
+    {
+      "id": "summer_paradise",
+      "file": "summer_paradise.mp3",
+      "url": "/music/summer_paradise.mp3",
+      "title": "summer paradise",
+      "order": 3
+    },
+    {
+      "id": "Sunny_afternoon",
+      "file": "Sunny_afternoon.mp3",
+      "url": "/music/Sunny_afternoon.mp3",
+      "title": "Sunny afternoon",
+      "order": 4
+    },
+    {
+      "id": "Tranquilo",
+      "file": "Tranquilo.mp3",
+      "url": "/music/Tranquilo.mp3",
+      "title": "Tranquilo",
+      "order": 5
+    },
+    {
+      "id": "Waterfront",
+      "file": "Waterfront.mp3",
+      "url": "/music/Waterfront.mp3",
+      "title": "Waterfront",
+      "order": 6
+    },
+    {
+      "id": "Rebeiria_Grande",
+      "file": "Rebeiria_Grande.mp3",
+      "url": "/music/Rebeiria_Grande.mp3",
+      "title": "Rebeiria Grande",
+      "order": 7
     }
   ]
 }
