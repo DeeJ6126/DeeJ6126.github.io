@@ -1,9 +1,0 @@
-{
-	"Version": 3,
-	"FileReferences": {
-		"Moc": "seethrough_output.moc3",
-		"Textures": [
-			"texture_00.png"
-		]
-	}
-}
