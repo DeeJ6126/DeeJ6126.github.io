@@ -7,7 +7,7 @@ Dee 的一体化个人站点，使用 Astro 生成静态页面。当前正式完
 环境要求：Node.js `>= 22.12.0`，GitHub Actions 使用 Node.js 24。
 
 ```bash
-npm ci
+npm install --no-audit --prefer-offline --no-fund
 npm run import:notes
 npm run server
 ```
