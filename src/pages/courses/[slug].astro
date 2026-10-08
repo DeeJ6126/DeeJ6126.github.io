@@ -1,0 +1,150 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import MarkdownNote from '../../components/MarkdownNote.astro';
+import { disciplineLabels, formatBytes, loadPdfResources } from '../../lib/course-data';
+import { compileMarkdown } from '../../lib/markdown';
+import { listAllSections, resolveAllFileItems, readTextSection, getTexCompanion, getMdCompanion } from '../../lib/parse-sections.mjs';
+import '../../styles/course-detail.css';
+import '../../styles/note-reader.css';
+import '../../styles/zoology.css';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses');
+  return courses.map(course => ({ params: { slug: course.id }, props: { course } }));
+}
+
+interface Props { course: CollectionEntry<'courses'>; }
+const { course } = Astro.props;
+const notes = await getCollection('notes');
+
+const courseDir = path.join(process.cwd(), 'src', 'content', 'courses', course.id);
+const sections = listAllSections(courseDir);
+const pdfResources = loadPdfResources();
+
+// Pre-render text sections to HTML. We can't use `render()` from
+// astro:content here because these section files are not part of the
+// `courses` content collection, and feeding them through `render()` with
+// a fake `collection: 'courses'` entry fails schema validation in Astro 7
+// (returns no Content component, body renders empty).
+// See src/lib/markdown.ts for the plugin chain used.
+const textContent = await Promise.all(sections.map(async (s) => {
+  if (s.type !== 'text') return { section: s, html: '' };
+  const data = readTextSection(courseDir, s.id);
+  if (!data) return { section: s, html: '' };
+  return { section: s, html: await compileMarkdown(data.body) };
+}));
+
+const discipline = disciplineLabels[course.data.discipline];
+---
+<SiteLayout title={`${course.data.title} | Dee's Blog`} description={course.data.summary}>
+  <aside class="detail-rail" aria-label="课程页面目录">
+    <a class="back-link" href="/" aria-label="返回课程列表" data-motion="section" data-motion-target-page="courses">←</a>
+    <div class="rail-course">
+      <span>{discipline.english}</span>
+      <strong>{course.data.title}</strong>
+    </div>
+    <nav>
+      {sections.map((section, index) => {
+        const fileCount = section.type === 'files' ? (section.files || []).length : 0;
+        return (
+          <a class={index === 0 ? 'active' : ''} href={`#${section.id}`}>
+            {section.title}
+            {section.type === 'files' && <small>{String(fileCount).padStart(2, '0')}</small>}
+          </a>
+        );
+      })}
+    </nav>
+  </aside>
+
+  <main class="detail-shell">
+    <header class:list={['course-hero', `hero-${course.data.coverStyle}`]}>
+      <div class="hero-copy">
+        <span class="eyebrow">{discipline.english} / COURSE</span>
+        <h1>{course.data.title}</h1>
+        <p>{course.data.summary}</p>
+      </div>
+      <div class:list={['hero-geometry', { 'has-cover': Boolean(course.data.cover) }]} aria-hidden="true" data-motion-target="course-detail">
+        {course.data.cover && <img src={course.data.cover} alt="" />}
+        {!course.data.cover && <><i></i><i></i><i></i><strong>{String(course.data.order).padStart(2, '0')}</strong></>}
+      </div>
+    </header>
+
+    {textContent.map(({ section, html }, index) => {
+      if (section.type === 'text') {
+        return (
+          <section class="detail-section reflection-section" id={section.id} data-detail-section>
+            <header class="section-heading">
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <div><p>SECTION</p><h2>{section.title}</h2></div>
+            </header>
+            <div class="reflection-copy prose" set:html={html}></div>
+          </section>
+        );
+      }
+      // files section
+      const resolved = resolveAllFileItems(courseDir, section.id, notes, pdfResources);
+      return (
+        <section class="detail-section notes-section" id={section.id} data-detail-section>
+          <header class="section-heading">
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <div><p>NOTES & MATERIALS</p><h2>{section.title}</h2></div>
+          </header>
+          <div class="note-list">
+            {resolved.map((note, noteIndex) => (
+              <details class="note-item" data-note-item open={noteIndex === 0}>
+                <summary>
+                  <span class="note-index">{String(noteIndex + 1).padStart(2, '0')}</span>
+                  <strong>{note.title}</strong>
+                  <span class="note-format">
+                    {note.kind === 'pdf' ? `PDF · ${formatBytes(note.size || 0)}` :
+                     note.kind === 'image' ? 'IMAGE' : 'MARKDOWN'}
+                  </span>
+                  <span class="note-toggle" aria-hidden="true">＋</span>
+                </summary>
+                <div class="note-reader">
+                  {note.kind === 'pdf' ? (
+                    <>
+                      <div class="reader-toolbar">
+                        <span>PDF DOCUMENT</span>
+                        <div>
+                          <a href={note.url} target="_blank" rel="noreferrer">新窗口阅读</a>
+                          <a href={note.url} download>下载</a>
+                          {(() => { const tex = getTexCompanion(note.url); return tex && <a href={tex.url} download>下载 .tex 源文件</a>; })()}
+                          {(() => { const md = getMdCompanion(note.url); return md && <a href={md.url} download>查看 Markdown 源</a>; })()}
+                          {note.shareUrl && <button class="share-copy" type="button" data-copy-share={note.shareUrl} title="复制幕布分享链接"><span class="copy-icon" aria-hidden="true"></span><span data-copy-label>复制幕布链接</span></button>}
+                        </div>
+                      </div>
+                      <iframe src={`${note.url}#view=FitH`} title={`${note.title} PDF 预览`} loading="lazy"></iframe>
+                    </>
+                  ) : note.kind === 'image' ? (
+                    <div class="image-viewer">
+                      <img src={note.url} alt={note.title} />
+                    </div>
+                  ) : (
+                    <>
+                      <div class="reader-toolbar">
+                        <span>MARKDOWN DOCUMENT</span>
+                        <div>
+                          <a href={note.url} download>下载 Markdown</a>
+                          {note.shareUrl && <button class="share-copy" type="button" data-copy-share={note.shareUrl} title="复制幕布分享链接"><span class="copy-icon" aria-hidden="true"></span><span data-copy-label>复制幕布链接</span></button>}
+                        </div>
+                      </div>
+                      {note.entry && <MarkdownNote entry={note.entry} />}
+                    </>
+                  )}
+                </div>
+              </details>
+            ))}
+            {resolved.length === 0 && <p class="empty-state">这门课程的笔记正在整理中。</p>}
+          </div>
+        </section>
+      );
+    })}
+  </main>
+  <script>
+    import '../../scripts/course-detail.js';
+  </script>
+</SiteLayout>

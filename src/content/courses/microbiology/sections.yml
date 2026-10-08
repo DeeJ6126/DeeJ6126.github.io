@@ -1,0 +1,6 @@
+  - id: 课程感想
+    type: text
+    title: 课程感想
+  - id: 课程笔记
+    type: files
+    title: 期末考试

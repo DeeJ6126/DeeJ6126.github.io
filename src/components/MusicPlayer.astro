@@ -1,0 +1,43 @@
+---
+// BGM control panel. Renders the song selector + transport + seek + volume
+// widgets. The actual <audio> element is created once by the inline script in
+// SiteLayout.astro's <head>, so it survives ClientRouter navigations; this
+// component is only the visible UI, and bgm.js wires it to that element.
+// The panel itself is transition:persist so the song selector, slider
+// positions, and "playing/paused" state survive navigation without re-init.
+// NOTE: bgm.css is imported from SiteLayout.astro, NOT from here. A
+// stylesheet imported by this component's inline script is treated as
+// page-scoped in dev, and the ClientRouter removes its <style> on
+// navigation — which used to leave the panel unstyled (dropped out of its
+// fixed position) after visiting a course page.
+---
+<div class="bgm" data-bgm>
+  <div
+    class="bgm-panel"
+    data-bgm-panel
+    data-bgm-ready="false"
+    transition:persist="bgm-panel"
+    role="region"
+    aria-label="音乐控制"
+  >
+    <div class="bgm-row bgm-row-main">
+      <select class="bgm-song" data-bgm-song aria-label="选择歌曲"></select>
+      <span class="bgm-status" data-bgm-status>加载中…</span>
+    </div>
+    <div class="bgm-row bgm-row-controls">
+      <button type="button" class="bgm-btn" data-bgm-prev aria-label="上一首">⏮</button>
+      <button type="button" class="bgm-btn bgm-btn-play" data-bgm-play aria-label="播放">
+        <span class="btn-play-icon"></span>
+      </button>
+      <button type="button" class="bgm-btn" data-bgm-next aria-label="下一首">⏭</button>
+      <input type="range" class="bgm-volume" min="0" max="1" step="0.01" value="0.18" data-bgm-volume aria-label="音量" />
+    </div>
+    <div class="bgm-row bgm-row-seek">
+      <input type="range" class="bgm-seek" min="0" max="1000" value="0" step="1" data-bgm-seek aria-label="进度" />
+      <span class="bgm-time"><span data-bgm-current>0:00</span> / <span data-bgm-duration>0:00</span></span>
+    </div>
+  </div>
+</div>
+<script>
+  import '../scripts/bgm.js?astro-rerun';
+</script>

@@ -1,0 +1,10 @@
+---
+import { disciplineLabels, disciplineOrder } from '../lib/course-data';
+---
+<aside class="course-rail" aria-label="课程分类">
+  {disciplineOrder.map((discipline, index) => (
+    <a class:list={{ active: index === 0 }} href={`#${discipline}`} data-discipline-link={discipline}>
+      <span aria-hidden="true"></span>{disciplineLabels[discipline].title}
+    </a>
+  ))}
+</aside>

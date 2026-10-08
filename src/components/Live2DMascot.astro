@@ -1,0 +1,41 @@
+---
+const actions = [
+  ['walk', '走走'], ['run', '跑起来'], ['jump', '跳一下'], ['hop', '蹦一下'],
+  ['wave', '挥手'], ['dance', '跳舞'], ['bow', '鞠躬'], ['nod', '点头'],
+  ['shake', '摇头'], ['spin', '转圈'], ['turn', '转身'], ['look', '四处看看'],
+  ['flap', '扑腾'], ['shiver', '抖一抖'], ['sit', '坐下'], ['sleep', '睡觉'],
+  ['dizzy', '晕乎乎'], ['stand', '站起来'],
+];
+const expressions = [
+  ['neutral', '平静'], ['happy', '开心'], ['wink', '眨眼'], ['love', '喜欢'],
+  ['shy', '害羞'], ['surprised', '惊讶'], ['angry', '生气'], ['sad', '难过'],
+  ['sleepy', '犯困'], ['thinking', '思考'], ['smug', '得意'], ['pout', '嘟嘴'],
+  ['worried', '担心'], ['determined', '认真'], ['flustered', '慌张'], ['scared', '害怕'],
+  ['excited', '期待'], ['cry', '大哭'], ['confused', '疑惑'],
+];
+---
+<div class="live2d-mascot" data-live2d-mascot data-pet-state="loading" transition:persist="live2d-mascot">
+  <div class="whale-pet-stage" data-mascot-stage aria-hidden="true"></div>
+  <button class="whale-pet-hit" data-mascot-hit type="button" aria-label="鲸鱼娘：点击戳一戳，拖动拎起来，右键打开互动" hidden></button>
+  <span class="live2d-mascot-bubble" data-mascot-bubble role="status" hidden></span>
+  <button class="whale-pet-toggle" data-mascot-toggle type="button" aria-controls="whale-pet-menu" aria-expanded="false" aria-label="打开鲸鱼娘互动" disabled><span data-mascot-toggle-label>互动</span><img data-mascot-toggle-icon src="/img/whale-pet/deepseek.svg" alt="" hidden /></button>
+  <section class="whale-pet-menu" id="whale-pet-menu" data-mascot-menu role="dialog" aria-label="鲸鱼娘互动" hidden>
+    <header><strong>鲸鱼娘</strong><button type="button" data-mascot-close aria-label="关闭互动">×</button></header>
+    <p class="whale-pet-hint">戳一戳、摸摸头，或者拎起来再松手。</p>
+    <label>活动频率<select data-mascot-roam><option value="free">自由溜达</option><option value="calm">偶尔走走</option><option value="off">乖乖待着</option></select></label>
+    <label>换个表情<select data-mascot-expression>{expressions.map(([value, label]) => <option value={value}>{label}</option>)}</select></label>
+    <div class="whale-pet-actions" aria-label="动作">{actions.map(([word, label]) => <button type="button" data-mascot-action={word}>{label}</button>)}</div>
+    <p class="whale-pet-status" data-mascot-status role="status"></p>
+    <footer>
+      <div class="whale-pet-footer-controls">
+        <button type="button" data-mascot-hide>暂时躲起来</button>
+        <label class="whale-pet-size"><span>大小 <output data-mascot-size-label>60%</output></span><input data-mascot-size type="range" min="40" max="100" step="5" value="60" aria-label="鲸鱼娘大小" /></label>
+        <button type="button" data-mascot-sing>唱歌</button>
+      </div>
+      <span>选择会留在这个浏览器里</span>
+    </footer>
+  </section>
+</div>
+<script>
+  import '../scripts/live2d-mascot.js';
+</script>

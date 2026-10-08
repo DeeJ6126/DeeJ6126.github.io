@@ -1,0 +1,8 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+
+interface Props { entry: CollectionEntry<'notes'>; }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<article class="markdown-reader prose"><Content /></article>

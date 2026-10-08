@@ -1,0 +1,88 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/about.css';
+
+interface AboutSection {
+  id: string;
+  title: string;
+  body: string;
+  pull_quote?: string;
+  body_after?: string;
+}
+interface AboutData {
+  avatar?: string;
+  eyebrow?: string;
+  hero?: string;
+  bio?: string;
+  sections?: AboutSection[];
+  github?: { url: string; label?: string };
+  footer?: string;
+}
+
+const dataPath = path.join(process.cwd(), 'source', '_data', 'about.yml');
+const raw = fs.readFileSync(dataPath, 'utf8');
+const data = (yaml.load(raw) ?? {}) as AboutData;
+
+const avatar = data.avatar || '/img/avatar.jpg';
+const eyebrow = data.eyebrow || 'ABOUT / DEE';
+const hero = data.hero || '';
+const bio = data.bio || '';
+const sections = Array.isArray(data.sections) ? data.sections : [];
+const github = data.github || { url: '', label: 'GitHub' };
+const footer = data.footer || 'KEEP LEARNING, KEEP CONNECTING.';
+---
+<SiteLayout title="关于 | Dee's Blog" description="关于 Dee 与这个持续生长的学习站点。" active="about">
+  <main class="about-page">
+    <aside class="about-rail">
+      <a class="about-avatar" href="/" aria-label="返回首页">
+        <img src={avatar} alt="Dee" />
+      </a>
+      <div class="about-rail-head">
+        <small>ABOUT</small>
+        <h1>Dee</h1>
+        <p set:html={bio}></p>
+      </div>
+      <nav class="about-toc">
+        {sections.map((s, i) => (
+          <a href={`#${s.id}`}>
+            <b>{String(i + 1).padStart(2, '0')}</b>
+            <span>{s.title}</span>
+          </a>
+        ))}
+      </nav>
+      {github.url && (
+        <a class="about-github" href={github.url} target="_blank" rel="noopener" aria-label={github.label || 'GitHub'}>
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+            <path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.4.7-4.1-1.6-4.1-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2 0 1.9 1.2 1.9 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 6 .4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/>
+          </svg>
+          <span>{github.label || 'GitHub'}</span>
+        </a>
+      )}
+    </aside>
+
+    <article class="about-essay">
+      <header>
+        <small>{eyebrow}</small>
+        <h2 set:html={hero}></h2>
+      </header>
+
+      {sections.map((s) => (
+        <section id={s.id}>
+          <div set:html={s.body} />
+          {s.pull_quote && (
+            <div class="pull">
+              <small>原则</small>
+              {s.pull_quote}
+            </div>
+          )}
+          {s.body_after && <div set:html={s.body_after} />}
+        </section>
+      ))}
+
+      <footer class="about-essay-foot">{footer}</footer>
+    </article>
+  </main>
+</SiteLayout>

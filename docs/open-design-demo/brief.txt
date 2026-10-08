@@ -1,0 +1,69 @@
+# 设计任务：Dee's Blog 学习资料中心落地页
+
+你是 Open Design 驱动下的设计 agent。请严格按下方 SKILL 工作流和 DESIGN.md 设计系统，在 cwd（E:\BlogFile\docs\open-design-demo）中生成单个自包含 index.html 文件。
+
+## 任务输入（对应 saas-landing skill 的 inputs）
+
+- product_name: Dee's Blog 学习资料中心
+- tagline: 生物化学与生态学，笔记·讲义·实验报告一站式下载
+- has_pricing: false（本页无需价格区）
+- proof_count: 3（三条课程/学科见证）
+- hero_density: 96
+- accent_strength: 1.0
+
+## 内容素材（必须使用真实内容，禁止 lorem ipsum）
+
+站点背景：个人学习博客，整理发布生物化学、生态学学习资料，静态站点 + PDF 讲义下载。
+
+功能区块请用以下真实内容：
+
+- Hero 副标题：为生物科学学习者整理的高质量资料库——从分子机制到生态系统，讲义、笔记与实验报告持续更新。
+- 主 CTA：浏览资料目录（指向 /resources/）
+- 次 CTA：站内搜索（指向 /search/）
+- Features（6 个）：
+  1. 生物化学讲义 — 12 份章节讲义，覆盖水、氨基酸、蛋白质、酶、碳水化合物、核酸、脂质与代谢
+  2. 生态学实验报告 — 6 份完整实验报告，从种群增长到菌根共生观测
+  3. 代谢全景图 — 47MB 高清生化代谢通路总图
+  4. 本地搜索 — 无需服务器，全文检索文章与资料
+  5. 自动资料目录 — 新增 PDF 自动收录，无需手工维护
+  6. 随构建更新 — 资料元数据与排序集中配置
+- Social proof（3 条）：
+  1. 生物化学 · 12 份章节讲义（水/氨基酸/蛋白质/酶/碳水化合物/核酸/脂质/运输/代谢）
+  2. 生态学 · 6 份实验报告 + 总结 PPT
+  3. 19 份 PDF 资料 · 自动收录与中文目录
+- Footer CTA：让学习资料触手可及——访问 Dee's Blog 开始学习
+- Footer：© 2026 Dee's Blog · GitHub Pages
+
+## SKILL 工作流（必须逐条执行）
+
+1. 读取 DESIGN.md 上下文：使用下面给定的 Minimal 设计系统 tokens，不发明新颜色。
+2. 规划区块，顺序为：Hero → Features → Social proof → Footer CTA → Footer（pricing 因 has_pricing=false 跳过）。
+3. 应用设计系统：
+   - 所有颜色必须来自 DESIGN.md tokens，禁止自造 hex。
+   - 标题用 display 字体 Inter，正文用 Open Sans，等宽用 Inconsolata。
+   - 遵守 4/8/12/16/24/32 间距刻度与栅格。
+   - 按钮：主操作 #0C0C09，次级保持中性；卡片保持一致的圆角与留白策略；不添加阴影（minimal 风格）。
+   - 强调色（#312C85）仅允许出现两次：hero 一次、footer CTA 一次，链接可用。
+4. 输出单个自包含 index.html：
+   - 所有 CSS 内联在 <head> 的 <style> 中。
+   - 无外部 JS（可含少量内联 <script> 用于交互，如搜索框占位/滚动）。
+   - 语义化 HTML：<header> <main> <section> <footer>。
+   - 每个可编辑元素标记 data-od-id="<unique-slug>"。
+   - Google Fonts 加载 Inter/Open Sans，附系统字体回退。
+5. 自检：文本内容有意义；颜色全部来自调色板；1440w/768w/375w 下观感良好；强调色不超过两次。
+
+## Minimal 设计系统（DESIGN.md 全文）
+
+Category: Modern & Minimal。剥离装饰、强调留白、克制的用色，追求清晰与专注。
+
+- 色板：Primary #0C0C09 / Secondary #312C85 / Success #16A34A / Warning #D97706 / Danger #DC2626 / Surface #F4F4F1 / Text #0C0C09 / Neutral #F4F4F1
+  - 主 CTA 用 Primary(#0C0C09)；大面积背景与卡片用 Surface(#F4F4F1)；正文用 Text(#0C0C09)。
+- 字体：Scale=desktop-first expressive；primary=Open Sans，display=Inter，mono=Inconsolata；字重 100-900。
+- 间距刻度：4/8/12/16/24/32；保持纵向节奏一致。
+- 布局：清晰内容块 + 一致内边距；层级明显：标题 → 支持文案 → 主操作；先用留白分离，再考虑边框或阴影。
+- 组件：主按钮 #0C0C09，次级中性；输入框有强 focus-visible 状态；卡片圆角/间距/层级一致。
+- 动效：150–250ms 短过渡、稳定缓动；hover/focus-visible/active/disabled/loading 状态明确。
+- 语调：简洁、自信、产品化；微文案面向行动；标签保持字面清晰。
+- 反模式：不引入色板外颜色；不用相同字号字重抹平层级；不做损害可读性的装饰；不混用无关视觉隐喻。
+
+完成后只写 index.html，不要生成独立 CSS/JS/README。

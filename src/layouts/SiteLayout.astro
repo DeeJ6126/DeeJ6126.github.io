@@ -1,0 +1,107 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import CursorTrail from '../components/CursorTrail.astro';
+import MotionLayer from '../components/MotionLayer.astro';
+import Live2DMascot from '../components/Live2DMascot.astro';
+import MusicPlayer from '../components/MusicPlayer.astro';
+import { ClientRouter } from 'astro:transitions';
+import faviconUrl from '../assets/favicon.svg?url';
+import '../styles/global.css';
+import '../styles/cursor-trail.css';
+import '../styles/site-motion.css';
+import '../styles/course-cover.css';
+import '../styles/live2d-mascot.css';
+import 'katex/dist/katex.min.css';
+// bgm.css is imported here, from the layout, and NOT from MusicPlayer.astro:
+// a stylesheet pulled in by that component's inline <script> is treated as
+// page-scoped, which made the whole panel lose its styling after a
+// navigation. The layout import keeps it with the other shared stylesheets;
+// the positioning rules that the panel cannot survive without are also
+// declared inline below.
+import '../styles/bgm.css';
+
+interface Props { title: string; description: string; active?: 'courses' | 'projects' | 'about'; cursorTrail?: boolean; }
+const { title, description, active = 'courses', cursorTrail = true } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href={faviconUrl} type="image/svg+xml" />
+    <link rel="preload" href="/img/motion/bird-flight.png" as="image" type="image/png" />
+    <title>{title}</title>
+    <ClientRouter fallback="swap" />
+    <!-- Critical BGM positioning, declared inline on purpose.
+         The ClientRouter rebuilds <head> on every navigation, and a
+         stylesheet's injected <style> can be dropped in the process — the
+         panel then lost `position: fixed` and fell into the document flow
+         at the bottom of the page (live repro: entering a course and coming
+         back left it at y=7195 instead of y=797). Inline style is part of
+         every incoming document, so these load-bearing rules can never go
+         missing. The rest of the panel styling stays in
+         src/styles/bgm.css. -->
+    <style is:inline>
+      .bgm { position: fixed; left: 0; bottom: 0; z-index: 80; pointer-events: none; }
+      body[data-motion-page="courses"] .bgm { width: 210px; }
+    </style>
+    <script is:inline>
+      // The BGM <audio> node must live OUTSIDE the element tree that the
+      // ClientRouter swaps on navigation. A declarative <audio> in the body
+      // — even with transition:persist — is re-created from the incoming
+      // document on every client-side navigation (verified with Playwright:
+      // identity changes and currentTime rewinds to the previous document's
+      // snapshot), which is what made playback stop on navigation.
+      //
+      // Creating it once here in <head>, which is never swapped, keeps a
+      // single audio element alive for the whole tab lifetime. bgm.js
+      // reads window.__bgmAudio.
+      (function () {
+        var key = '__bgmAudio';
+        var existing = window[key];
+        if (existing) {
+          // Drop any stray declarative copy that a swap may have inserted.
+          document.querySelectorAll('audio[data-bgm-audio]').forEach(function (el) {
+            if (el !== existing) el.remove();
+          });
+          return;
+        }
+        var audio = document.createElement('audio');
+        audio.id = 'bgm-audio';
+        audio.preload = 'metadata';
+        audio.setAttribute('data-bgm-audio', '');
+        window[key] = audio;
+        document.head.appendChild(audio);
+      })();
+    </script>
+    <script is:inline>
+      (function () {
+        try {
+          var key = 'dee:motion-intro-seen';
+          if (sessionStorage.getItem(key)) return;
+          if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+          var root = document.documentElement;
+          root.classList.add('is-intro-playing');
+          window.setTimeout(function () {
+            if (!window.__deeMotionIntroDone) root.classList.remove('is-intro-playing');
+          }, 4000);
+        } catch (e) { /* 存储不可用等场景直接放弃开场 */ }
+      })();
+    </script>
+  </head>
+  <body data-motion-page={active} data-cursor-trail-enabled={cursorTrail ? 'true' : 'false'}>
+    <SiteHeader active={active}><slot name="header-action" slot="action" /></SiteHeader>
+    <slot />
+    <Live2DMascot />
+    <MotionLayer />
+    <CursorTrail />
+    <!-- BGM audio lives in <head> (created by the inline script above) so the
+         ClientRouter can never swap it out. The control panel is rendered by
+         MusicPlayer and is hidden outside course pages via bgm.css, while the
+         audio keeps playing. -->
+    <MusicPlayer />
+  </body>
+</html>

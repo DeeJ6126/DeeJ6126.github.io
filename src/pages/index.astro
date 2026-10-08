@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CourseRail from '../components/CourseRail.astro';
+import CourseEntry from '../components/CourseEntry.astro';
+import { disciplineLabels, disciplineOrder, sortCourses } from '../lib/course-data';
+import '../styles/course-index.css';
+import '../styles/zoology.css';
+
+const courses = sortCourses(await getCollection('courses'));
+let runningIndex = 0;
+---
+<SiteLayout title="课程 | Dee's Blog" description="Dee 的生物科学、生物信息与人工智能课程笔记。">
+  <div slot="header-action" class="course-search" data-course-search>
+    <button class="icon-button" type="button" aria-label="搜索课程" aria-expanded="false" data-search-toggle>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+    </button>
+    <label><span class="sr-only">课程名称</span><input type="search" placeholder="搜索课程名" data-search-input disabled /></label>
+  </div>
+  <CourseRail />
+  <main class="page-shell course-page">
+    {disciplineOrder.map((discipline, sectionIndex) => {
+      const group = courses.filter(course => course.data.discipline === discipline);
+      return (
+        <>
+          <section class="discipline-section" id={discipline} data-discipline-section={discipline}>
+            <header class="discipline-heading">
+              <span>{String(sectionIndex + 1).padStart(2, '0')} / 03</span>
+              <h2>{disciplineLabels[discipline].title}</h2>
+              <small>{disciplineLabels[discipline].english}</small>
+            </header>
+            {group.map((course) => {
+              runningIndex += 1;
+              return <CourseEntry course={course} index={runningIndex} reverse={runningIndex % 2 === 0} />;
+            })}
+          </section>
+          {sectionIndex < disciplineOrder.length - 1 && <div class="section-bridge" aria-hidden="true"><i></i><i></i><i></i><i></i></div>}
+        </>
+      );
+    })}
+    <p class="no-course-results" hidden data-no-results>未找到对应课程。</p>
+  </main>
+  <script src="../scripts/course-index.js"></script>
+</SiteLayout>

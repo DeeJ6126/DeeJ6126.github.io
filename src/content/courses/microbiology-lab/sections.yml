@@ -1,0 +1,6 @@
+  - id: xinde
+    type: text
+    title: 心得
+  - id: 课程笔记
+    type: files
+    title: 实验报告

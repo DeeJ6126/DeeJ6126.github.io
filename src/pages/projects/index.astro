@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ProjectEntry from '../../components/ProjectEntry.astro';
+import '../../styles/project-index.css';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+---
+<SiteLayout title="项目 | Dee's Blog" description="Dee 的学习项目与设计实践。" active="projects">
+  <div slot="header-action" class="project-search" data-project-search>
+    <button class="icon-button" type="button" aria-label="搜索项目" aria-expanded="false" data-search-toggle>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+    </button>
+    <label><span class="sr-only">项目名称</span><input type="search" placeholder="搜索项目名" data-search-input disabled /></label>
+  </div>
+
+  <main class="project-page">
+    <div class="project-context"><span>SELECTED PROJECTS / 2026</span><small>{String(projects.length).padStart(2, '0')} PROJECT</small></div>
+    <section class="project-scroll" aria-label="项目列表">
+      {projects.map((project, index) => (
+        <ProjectEntry project={project} index={index + 1} reverse={index % 2 === 1} />
+      ))}
+    </section>
+    <p class="no-project-results" hidden data-no-results>未找到对应项目。</p>
+  </main>
+  <script src="../../scripts/project-index.js"></script>
+</SiteLayout>

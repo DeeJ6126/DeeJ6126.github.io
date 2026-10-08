@@ -1,0 +1,186 @@
+.cover-zoology {
+  background: #e9f3ff;
+}
+
+.cover-zoology i:nth-child(1) {
+  left: 10%;
+  top: 17%;
+  width: 48%;
+  height: 58%;
+  border: 2px solid var(--ink);
+  transform: rotate(-8deg);
+}
+
+.cover-zoology i:nth-child(2) {
+  right: 13%;
+  top: 12%;
+  width: 23%;
+  height: 23%;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.cover-zoology i:nth-child(3) {
+  right: 18%;
+  bottom: 14%;
+  width: 42%;
+  height: 12%;
+  background: var(--blue);
+}
+
+.cover-zoology strong {
+  position: absolute;
+  left: 15%;
+  bottom: 21%;
+  color: var(--ink);
+  font-size: 34px;
+}
+
+.hero-zoology .hero-geometry {
+  background: #dff4ff;
+}
+
+.hero-zoology .hero-geometry i:nth-child(1) {
+  background: var(--blue);
+}
+
+.hero-zoology .hero-geometry i:nth-child(2) {
+  background: var(--lime);
+}
+
+.cover-botany {
+  background: #eef8ed;
+}
+
+.cover-botany i:nth-child(1) {
+  left: 13%;
+  top: 12%;
+  width: 22%;
+  height: 62%;
+  background: var(--blue);
+  transform: rotate(18deg);
+}
+
+.cover-botany i:nth-child(2) {
+  left: 36%;
+  top: 17%;
+  width: 34%;
+  height: 34%;
+  border-radius: 50%;
+  background: var(--lime);
+}
+
+.cover-botany i:nth-child(3) {
+  right: 10%;
+  bottom: 12%;
+  width: 37%;
+  height: 28%;
+  border: 2px solid var(--ink);
+}
+
+.cover-molecular {
+  background: #172d62;
+}
+
+.cover-molecular i:nth-child(1),
+.cover-molecular i:nth-child(2) {
+  left: 14%;
+  width: 70%;
+  height: 16%;
+  border: 2px solid white;
+  transform: rotate(-13deg);
+}
+
+.cover-molecular i:nth-child(1) {
+  top: 24%;
+}
+
+.cover-molecular i:nth-child(2) {
+  top: 49%;
+}
+
+.cover-molecular i:nth-child(3) {
+  right: 11%;
+  top: 12%;
+  width: 17%;
+  height: 17%;
+  background: var(--cyan);
+}
+
+.cover-microbiology {
+  background: #e8f5ff;
+}
+
+.cover-microbiology i {
+  border-radius: 50%;
+}
+
+.cover-microbiology i:nth-child(1) {
+  left: 12%;
+  top: 18%;
+  width: 42%;
+  height: 42%;
+  background: var(--blue);
+}
+
+.cover-microbiology i:nth-child(2) {
+  right: 16%;
+  top: 13%;
+  width: 20%;
+  height: 20%;
+  background: var(--lime);
+}
+
+.cover-microbiology i:nth-child(3) {
+  right: 12%;
+  bottom: 15%;
+  width: 31%;
+  height: 31%;
+  border: 2px solid var(--ink);
+}
+
+.cover-botany strong,
+.cover-molecular strong,
+.cover-microbiology strong {
+  position: absolute;
+  left: 12%;
+  bottom: 9%;
+  font-size: 32px;
+}
+
+.cover-botany strong,
+.cover-microbiology strong {
+  color: var(--ink);
+}
+
+.hero-botany .hero-geometry {
+  background: #e8f6e8;
+}
+
+.hero-botany .hero-geometry i:nth-child(1) {
+  background: var(--lime);
+}
+
+.hero-molecular .hero-geometry {
+  background: #172d62;
+}
+
+.hero-molecular .hero-geometry i:nth-child(1) {
+  background: var(--cyan);
+}
+
+.hero-molecular .hero-geometry i:nth-child(3) {
+  border-color: white;
+}
+
+.hero-molecular .hero-geometry strong {
+  color: white;
+}
+
+.hero-microbiology .hero-geometry {
+  background: #dff5ff;
+}
+
+.hero-microbiology .hero-geometry i:nth-child(1) {
+  background: var(--blue);
+}

@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { project: CollectionEntry<'projects'>; index: number; reverse?: boolean; }
+const { project, index, reverse = false } = Astro.props;
+---
+<article
+  class:list={['project-entry', `accent-${project.data.accent}`, { reverse }]}
+  data-project-entry
+  data-project-title={project.data.title.toLocaleLowerCase('zh-CN')}
+>
+  <a class="project-visual" href={`/projects/${project.id}/`} aria-label={`进入项目：${project.data.title}`} data-motion="project-detail" data-motion-target-page="projects">
+    <img src={project.data.cover} alt={`${project.data.title}界面预览`} />
+  </a>
+  <div class="project-copy">
+    <span class="eyebrow">PROJECT / {String(index).padStart(2, '0')}</span>
+    <h2><a href={`/projects/${project.id}/`} data-motion="project-detail" data-motion-target-page="projects">{project.data.title}</a></h2>
+    <p>{project.data.summary}</p>
+    <ul aria-label="技术信息">
+      {project.data.technologies.slice(0, 4).map(item => <li>{item}</li>)}
+    </ul>
+    <a class="text-link" href={`/projects/${project.id}/`} data-motion="project-detail" data-motion-target-page="projects">查看项目</a>
+  </div>
+</article>

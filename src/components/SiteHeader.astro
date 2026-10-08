@@ -1,0 +1,13 @@
+---
+interface Props { active?: 'courses' | 'projects' | 'about'; }
+const { active = 'courses' } = Astro.props;
+---
+<header class="site-header">
+  <a class="site-brand" href="/" data-motion="section" data-motion-target-page="courses">DEE'S BLOG</a>
+  <nav aria-label="主导航">
+    <a class:list={{ active: active === 'courses' }} href="/" data-motion="section" data-motion-target-page="courses" data-motion-page-link="courses">课程</a>
+    <a class:list={{ active: active === 'projects' }} href="/projects/" data-motion="section" data-motion-target-page="projects" data-motion-page-link="projects">项目</a>
+    <a class:list={{ active: active === 'about' }} href="/about/" data-motion="section" data-motion-target-page="about" data-motion-page-link="about">关于</a>
+  </nav>
+  <div class="header-action"><slot name="action" /></div>
+</header>

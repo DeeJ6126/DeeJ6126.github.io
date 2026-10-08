@@ -1,0 +1,36 @@
+# BGM song list — editable via admin at /music.
+# The actual audio files live in source/music/ and are synced to public/music/
+# by tools/sync-static-assets.js, which also writes public/music/index.json
+# for the site's player widget to fetch.
+#
+# songs: list of {id, title, order}.
+#   - id:    matches the audio file's stem in source/music/<id>.mp3
+#            (file names use underscores, so URLs never need escaping)
+#   - title: display name shown in the player (spaces are fine here)
+#   - order: smaller = earlier in the player queue
+songs:
+  - id: Sunny_Stroll
+    title: Sunny Stroll
+    order: 1
+  - id: One_night_in_Lisbon
+    title: One night in Lisbon
+    order: 2
+  - id: summer_paradise
+    title: summer paradise
+    order: 3
+  - id: Sunny_afternoon
+    title: Sunny afternoon
+    order: 4
+  - id: Tranquilo
+    title: Tranquilo
+    order: 5
+  - id: Waterfront
+    title: Waterfront
+    order: 6
+  - id: Rebeiria_Grande
+    title: Rebeiria Grande
+    order: 7
+
+  - id: Let_Me_Go
+    title: Let Me Go · 大肥鱼摸鱼歌
+    order: 8

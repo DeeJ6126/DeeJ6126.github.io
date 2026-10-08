@@ -1,0 +1,128 @@
+.notes-section {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 56px;
+}
+
+.notes-section > .section-heading {
+  width: max-content;
+  max-width: 100%;
+}
+
+.notes-section > .note-list {
+  width: 100%;
+  min-width: 0;
+}
+
+.notes-section .note-reader {
+  padding-left: 0;
+}
+
+.reader-toolbar button.share-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: white;
+  font-size: 9px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.reader-toolbar > div {
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+.reader-toolbar button.share-copy.copied {
+  color: var(--lime);
+}
+
+.copy-icon {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border: 1px solid currentColor;
+}
+
+.copy-icon::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  left: -4px;
+  top: -4px;
+  border: 1px solid currentColor;
+  background: var(--ink);
+}
+
+.markdown-reader pre.astro-code {
+  position: relative;
+  margin: 32px 5px 36px 0;
+  padding: 42px 24px 20px 68px !important;
+  border: 1px solid #8b95a9;
+  border-radius: 0;
+  background: #fbfcfe !important;
+  box-shadow: 5px 5px 0 #d9dde5;
+  color: #172e61 !important;
+  counter-reset: code-line;
+  font-family: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.markdown-reader pre.astro-code::before {
+  content: attr(data-language);
+  position: absolute;
+  inset: 0 0 auto;
+  height: 27px;
+  padding: 0 14px;
+  border-bottom: 1px solid #d5dae3;
+  color: #5d687b;
+  font-family: inherit;
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 27px;
+  text-transform: uppercase;
+}
+
+.markdown-reader pre.astro-code code {
+  display: block;
+  min-width: max-content;
+}
+
+.markdown-reader pre.astro-code .line {
+  display: block;
+  min-height: 1.7em;
+  counter-increment: code-line;
+}
+
+.markdown-reader pre.astro-code .line::before {
+  content: counter(code-line);
+  display: inline-block;
+  width: 34px;
+  margin-left: -48px;
+  margin-right: 14px;
+  color: #7b8493;
+  font-size: 11px;
+  text-align: right;
+  user-select: none;
+}
+
+@media (max-width: 920px) {
+  .notes-section {
+    gap: 40px;
+  }
+
+  .notes-section > .section-heading {
+    width: auto;
+  }
+
+  .markdown-reader pre.astro-code {
+    padding-right: 16px !important;
+    padding-left: 58px !important;
+  }
+}

@@ -1,0 +1,26 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { course: CollectionEntry<'courses'>; index: number; reverse?: boolean; }
+const { course, index, reverse = false } = Astro.props;
+---
+<article class:list={['course-entry', { reverse }]} data-course-entry data-course-title={course.data.title.toLocaleLowerCase('zh-CN')}>
+  <a class:list={['course-cover', `cover-${course.data.coverStyle}`, { 'has-cover': Boolean(course.data.cover) }]} href={`/courses/${course.id}/`} aria-label={`进入${course.data.title}`} data-motion="course-detail" data-motion-target-page="courses">
+    {course.data.cover && <img src={course.data.cover} alt={`${course.data.title}课程封面`} />}
+    {course.data.coverStyle === 'zoology' && <><i></i><i></i><i></i><strong>ZOO / 21</strong></>}
+    {course.data.coverStyle === 'botany' && <><i></i><i></i><i></i><strong>BOT / 03</strong></>}
+    {course.data.coverStyle === 'molecular' && <><i></i><i></i><i></i><strong>MOL / 16</strong></>}
+    {course.data.coverStyle === 'microbiology' && <><i></i><i></i><i></i><strong>MIC / 02</strong></>}
+    {course.data.coverStyle === 'anndata' && <><i></i><i></i><i></i><strong>obs × var</strong></>}
+    {course.data.coverStyle === 'r' && <><i></i><i></i><strong>R / 03</strong></>}
+    {course.data.coverStyle === 'scanpy' && <><i></i><i></i><i></i><strong>SCANPY</strong></>}
+    {course.data.coverStyle === 'd2l' && <><i></i><i></i><strong>D2L</strong></>}
+    {course.data.coverStyle === 'generative' && <><i></i><i></i><i></i><strong>GEN</strong></>}
+  </a>
+  <div class="course-meta">
+    <b class="course-number">{String(index).padStart(2, '0')}</b>
+    <span class="eyebrow">{course.data.discipline.toUpperCase()} / COURSE</span>
+    <h3><a href={`/courses/${course.id}/`} data-motion="course-detail" data-motion-target-page="courses">{course.data.title}</a></h3>
+    <p>{course.data.summary}</p>
+    <a class="text-link" href={`/courses/${course.id}/`} data-motion="course-detail" data-motion-target-page="courses">进入课程</a>
+  </div>
+</article>
