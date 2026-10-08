@@ -21,7 +21,7 @@
     "katex": "^0.18.4",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.2"
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
