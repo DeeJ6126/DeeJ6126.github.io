@@ -48,6 +48,13 @@
       "url": "/music/Rebeiria_Grande.mp3",
       "title": "Rebeiria Grande",
       "order": 7
+    },
+    {
+      "id": "Let_Me_Go",
+      "file": "Let_Me_Go.m4a",
+      "url": "/music/Let_Me_Go.m4a",
+      "title": "Let Me Go · 大肥鱼摸鱼歌",
+      "order": 8
     }
   ]
 }
