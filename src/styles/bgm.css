@@ -1,0 +1,226 @@
+/* bgm.css - BGM control panel
+ *
+ * Two shapes:
+ *   - default (360px wide): two compact rows. Row 1 has the
+ *     transport buttons (prev/play/next) + volume slider; row 2 has
+ *     the seek slider + time readout. The play button is 28px
+ *     (small enough to sit comfortably next to the other transport
+ *     buttons without dominating).
+ *   - courses page (210px wide): the panel snaps onto the course-rail's
+ *     right border. Same row layout, but the volume slider shares
+ *     the row with the transport buttons. The course-rail shrinks
+ *     its bottom to make room.
+ * On /projects and /about the panel is hidden entirely (below), while the
+ * audio keeps playing.
+ *
+ * NOTE: imported from SiteLayout.astro, not from the MusicPlayer component.
+ * A stylesheet pulled in by that component's inline <script> is treated as
+ * page-scoped and made the panel lose all styling after a navigation.
+ * The load-bearing positioning rules (.bgm fixed/z-index, and the 210px
+ * courses width) are additionally declared inline in SiteLayout's <head>,
+ * because the ClientRouter can drop an injected <style> mid-navigation.
+ */
+
+.bgm {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  /* z-index sits above every other layer on the page: motion-layer is
+   * 55, the live2d mascot is 30, and the cursor-trail canvas is 60.
+   * 80 keeps the BGM panel unconditionally on top, including on
+   * ClientRouter navigations where the cursor-trail canvas is
+   * preserved across the swap. */
+  z-index: 80;
+  pointer-events: none;
+}
+
+/* Hide the BGM only until init has populated the dropdown and
+ * restored the audio state. The data-bgm-ready attribute lives on
+ * the panel (which is transition:persist) so the visibility state
+ * survives navigations and we don't flash a half-initialized panel
+ * on every page swap. */
+.bgm-panel[data-bgm-ready="false"] { display: none; }
+
+.bgm > * { pointer-events: auto; }
+
+.bgm-panel {
+  width: 360px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 0;
+  border-bottom: 0;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 1;
+  color: var(--ink);
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  box-sizing: border-box;
+}
+
+.bgm-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.bgm-row-main { gap: 12px; }
+
+.bgm-song {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  padding: 4px 0;
+  outline: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.bgm-song:focus { border-bottom-color: var(--blue); }
+
+.bgm-status {
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.bgm-time {
+  color: var(--muted);
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+.bgm-seek, .bgm-volume {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.bgm-seek { flex: 1; min-width: 60px; }
+.bgm-volume { flex: 1; min-width: 0; }
+
+.bgm-seek::-webkit-slider-runnable-track,
+.bgm-volume::-webkit-slider-runnable-track {
+  height: 2px;
+  background: var(--line);
+  border-radius: 0;
+}
+
+.bgm-seek::-moz-range-track,
+.bgm-volume::-moz-range-track {
+  height: 2px;
+  background: var(--line);
+  border-radius: 0;
+}
+
+.bgm-seek::-webkit-slider-thumb,
+.bgm-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: var(--blue);
+  border-radius: 50%;
+  margin-top: -4px;
+  border: 0;
+  cursor: pointer;
+}
+
+.bgm-seek::-moz-range-thumb,
+.bgm-volume::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: var(--blue);
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+}
+
+.bgm-btn {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 11px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  transition: color 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+}
+
+.bgm-btn:hover { color: var(--blue); }
+
+.bgm-btn-play {
+  width: 28px;
+  height: 28px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 11px;
+}
+
+.bgm-btn-play:hover { background: var(--ink); color: #fff; }
+
+.bgm[data-playing="true"] .bgm-btn-play { background: var(--ink); }
+.bgm[data-playing="true"] .btn-play-icon::before { content: "⏸"; }
+.bgm:not([data-playing="true"]) .btn-play-icon::before { content: "▶"; }
+
+/* ---- Courses page: panel slots into the left rail's frame ----
+ *
+ * The course-rail sits at left:0 with width:210px and a right border.
+ * The BGM panel shares that right border, sits flush against the
+ * page's left edge, and the controls keep the same two-row layout
+ * (transport + volume / seek + time). The course-rail shrinks its
+ * bottom to make room for the panel.
+ */
+body[data-motion-page="courses"] .bgm {
+  left: 0;
+  bottom: 0;
+  width: 210px;
+}
+
+/* Hide the control panel on pages that aren't course-related. The
+ * <audio> element is still playing in the background (it's hoisted to
+ * SiteLayout and transition:persist), so navigation from a course page
+ * to /about or /projects still keeps the song going — the user just
+ * can't see the controls until they navigate back to a course page. */
+body[data-motion-page="projects"] .bgm-panel,
+body[data-motion-page="about"] .bgm-panel { display: none; }
+
+body[data-motion-page="courses"] .bgm-panel {
+  width: 100%;
+  height: auto;
+  padding: 12px 14px;
+  gap: 8px;
+  font-size: 11px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+body[data-motion-page="courses"] .bgm-time {
+  min-width: 70px;
+  font-size: 10px;
+}
+
+body[data-motion-page="courses"] .course-rail {
+  bottom: 120px;
+}

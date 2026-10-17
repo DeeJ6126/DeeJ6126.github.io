@@ -1,0 +1,69 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import '../../styles/project-detail.css';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+<SiteLayout title={`${project.data.title} | Dee's Blog`} description={project.data.summary} active="projects" cursorTrail={false}>
+  <main class:list={['project-detail', `accent-${project.data.accent}`]}>
+    <header class="project-detail-hero">
+      <a class="project-back" href="/projects/" aria-label="返回项目页" data-motion="section" data-motion-target-page="projects">←</a>
+      <div class="project-detail-copy">
+        <span>PROJECT / {project.data.year} / {project.data.status}</span>
+        <h1>{project.data.title}</h1>
+        <p>{project.data.summary}</p>
+      </div>
+      <figure class="project-cover" data-motion-target="project-detail"><img src={project.data.cover} alt={`${project.data.title}知识图谱界面`} /></figure>
+    </header>
+
+    <section class="project-detail-section overview-section" id="background">
+      <header><span>01</span><p>OVERVIEW</p><h2>项目背景</h2></header>
+      <div class="project-detail-text">
+        <p>{project.data.background}</p>
+        <Content />
+      </div>
+    </section>
+
+    <section class="project-detail-section process-section" id="process">
+      <header><span>02</span><p>PROCESS</p><h2>实现过程</h2></header>
+      <ol>
+        {project.data.process.map((step, index) => (
+          <li><b>{String(index + 1).padStart(2, '0')}</b><div><strong>{step.title}</strong><p>{step.description}</p></div></li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="project-detail-section result-section" id="results">
+      <header><span>03</span><p>OUTCOMES</p><h2>成果图片</h2></header>
+      <div class="result-list">
+        {project.data.outcomes.map((outcome, index) => (
+          <figure>
+            <div class="result-image"><img src={outcome.image} alt={`${outcome.title}界面`} /></div>
+            <figcaption><b>{String(index + 1).padStart(2, '0')}</b><div><strong>{outcome.title}</strong><p>{outcome.caption}</p></div></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="project-detail-section tech-section" id="technical">
+      <header><span>04</span><p>TECHNICAL</p><h2>技术信息</h2></header>
+      <div>
+        <ul>{project.data.technologies.map(item => <li>{item}</li>)}</ul>
+      </div>
+    </section>
+
+    <section class="project-detail-section link-section" id="links">
+      <header><span>05</span><p>LINKS</p><h2>相关链接</h2></header>
+      {project.data.links.length > 0
+        ? <nav aria-label="相关链接">{project.data.links.map(link => <a href={link.url}>{link.label}<span>↗</span></a>)}</nav>
+        : <p>相关链接将在项目公开后补充。</p>}
+    </section>
+  </main>
+</SiteLayout>

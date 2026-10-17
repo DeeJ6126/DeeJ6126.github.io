@@ -1,0 +1,32 @@
+{
+  "name": "dees-blog",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npm run check && node tools/sync-static-assets.js && astro build",
+    "check": "node tools/check-content.js && node tools/verify-imported-notes.js",
+    "clean": "node tools/clean-generated.js",
+    "server": "node tools/sync-static-assets.js && astro dev",
+    "preview": "astro preview",
+    "astro:check": "astro check",
+    "import:notes": "node tools/import-course-notes.js --write",
+    "import:check": "node tools/import-course-notes.js --check",
+    "admin": "node admin/server.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/markdown-remark": "^7.2.4",
+    "astro": "^7.2.4",
+    "katex": "^0.18.4",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^26.2.0",
+    "hexo-front-matter": "^4.2.1",
+    "js-yaml": "^4.1.1"
+  }
+}

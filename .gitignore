@@ -1,0 +1,19 @@
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+dist/
+.astro/
+.tmp/
+.dsh-vision-toolkit/
+.deploy*/
+_multiconfig.yml
+Blue Sky.mp4
+blueskyanimation.html
+admin/
+
+# Local dev tooling (run on this machine only)
+start-servers.bat
+.trash/

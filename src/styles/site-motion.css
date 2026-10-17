@@ -1,0 +1,240 @@
+:root {
+  --motion-enter: cubic-bezier(.22, .72, .18, 1);
+  --motion-exit: cubic-bezier(.7, 0, .84, .24);
+  --motion-shift: cubic-bezier(.4, 0, .2, 1);
+}
+
+.motion-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+  contain: strict;
+}
+
+.motion-layer.is-active {
+  pointer-events: auto;
+}
+
+.motion-layer.is-active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .08;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 170 170' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.motion-layer.is-opaque {
+  background: var(--paper);
+}
+
+.motion-stage,
+.motion-veil {
+  position: absolute;
+  inset: 0;
+}
+
+.motion-run {
+  position: absolute;
+  inset: 0;
+}
+
+.motion-veil {
+  background: var(--paper);
+  opacity: 0;
+}
+
+/* ---------- 首次开场：品牌片头（见下方 .motion-brand-*） ---------- */
+
+/* 与 motion-timelines.mjs 的 brandBeat 共用同一份时间刻度。
+   页面在开场期间保持隐藏；浮现由 JS 驱动（见 playRevealTimeline），
+   所以这里只留静态的隐藏状态，不再写 animation 与 nth-child 延迟——
+   两套时钟管同一批元素必然会漂移。 */
+html.is-intro-playing .site-header,
+html.is-intro-playing .course-rail,
+html.is-intro-playing .bgm,
+html.is-intro-playing .live2d-mascot,
+html.is-intro-playing main > * {
+  opacity: 0;
+}
+
+/* 开场浮层自带噪点，页面那层先让位，避免叠加成双倍颗粒。 */
+html.is-intro-playing body::after { opacity: 0; }
+
+html.is-intro-playing .course-rail a span { transition: background .24s ease; }
+
+/* ---------- 首次开场：品牌片头（自组装 + 标题 + 方块隐去） ---------- */
+/* 几何全部由 JS 按 1920x1080 参考帧换算成视口像素写出内联样式；
+   这里只管外观。固定在浮层内用 absolute：浮层本身已铺满视口。 */
+.motion-brand-ground,
+.motion-brand-paper,
+.motion-brand-wire,
+.motion-brand-square {
+  position: absolute;
+  display: block;
+}
+
+.motion-brand-ground { inset: 0; background: #020202; }
+.motion-brand-paper {
+  inset: 0;
+  background:
+    radial-gradient(58% 46% at 30% 32%, #f3ebed 0%, rgba(243,235,237,0) 70%),
+    radial-gradient(52% 42% at 74% 62%, #f5e8ec 0%, rgba(245,232,236,0) 72%),
+    radial-gradient(46% 38% at 58% 78%, #e6e9ec 0%, rgba(230,233,236,0) 74%),
+    #e6e3e7;
+}
+
+.motion-brand-wire svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.motion-brand-wire path {
+  fill: none;
+  stroke: #c4d6e9;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}
+
+/* 与源片测得的渐变一致（顶部 #316fe7 -> 底部 #bacde8） */
+.motion-brand-square {
+  background: linear-gradient(180deg,
+    #316fe7 0%, #3976f4 17%, #4889f2 33%, #59a2ef 50%,
+    #86b7ee 67%, #9cbee8 83%, #bacde8 100%);
+}
+
+.motion-brand-word {
+  position: absolute;
+  display: block;
+  transform: translate(-50%, -50%);
+}
+.motion-brand-glyph {
+  margin: 0;
+  white-space: nowrap;
+  line-height: 1;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-weight: 700;
+}
+.motion-brand-word.is-dees .motion-brand-glyph { color: rgba(18, 101, 243, .42); }
+.motion-brand-word.is-blog .motion-brand-glyph { color: rgba(90, 130, 190, .40); }
+
+
+.motion-course-cover,
+.motion-course-guide,
+.motion-project-clone,
+.motion-project-node,
+.motion-flight-fragment,
+.motion-bird-flight,
+.motion-return-token,
+.motion-course-baseline {
+  position: fixed;
+  display: block;
+}
+
+.motion-link,
+.motion-project-link {
+  position: fixed;
+  display: block;
+  height: 1px;
+  background: rgba(18, 101, 243, .28);
+  transform-origin: left center;
+}
+
+.motion-course-cover,
+.motion-project-clone {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  outline: 1px solid rgba(246, 247, 245, .16);
+}
+
+.motion-course-cover {
+  background-color: var(--paper);
+  background-size: contain;
+  background-position: center;
+  box-shadow: 0 16px 44px rgba(23, 51, 108, .1);
+}
+
+.motion-course-guide,
+.motion-flight-fragment,
+.motion-return-token {
+  box-shadow: 0 0 0 1px rgba(23, 51, 108, .05);
+}
+
+.motion-bird-content {
+  position: absolute;
+  inset: 0;
+  transform-origin: center;
+}
+
+.motion-bird-content.is-rightbound {
+  transform: scaleX(-1);
+}
+
+.motion-bird-leader {
+  position: absolute;
+  left: 1%;
+  top: 22%;
+  width: 18%;
+  aspect-ratio: 1;
+  /* the same block as the opening animation's gradient square
+     (.motion-brand-square), flipped: 0deg puts the deep blue stop at the
+     BOTTOM so the block reads light-to-dark downward */
+  background: linear-gradient(0deg,
+    #316fe7 0%, #3976f4 17%, #4889f2 33%, #59a2ef 50%,
+    #86b7ee 67%, #9cbee8 83%, #bacde8 100%);
+}
+
+.motion-bird-image {
+  position: absolute;
+  left: 13%;
+  top: 0;
+  display: block;
+  width: 87%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.motion-project-clone {
+  background-color: var(--paper);
+}
+
+.motion-project-node {
+  box-shadow: 0 0 0 1px rgba(23, 51, 108, .08);
+}
+
+.motion-inked {
+  isolation: isolate;
+}
+
+.motion-inked::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  pointer-events: none;
+  opacity: .1;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, .8) 0 1px, transparent 1.2px);
+  background-size: 8px 8px;
+  mix-blend-mode: soft-light;
+}
+
+.motion-course-baseline {
+  background: var(--blue);
+  transform-origin: left center;
+}
+
+html.is-motion-running,
+html.is-motion-running body {
+  overflow: hidden;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-layer {
+    display: none !important;
+  }
+}

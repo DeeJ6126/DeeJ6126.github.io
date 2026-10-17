@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dee's Blog 学习资料中心 · 生物化学与生态学资料库</title>
+<meta name="description" content="为生物科学学习者整理的高质量资料库——生物化学与生态学讲义、笔记与实验报告一站式下载，支持本地全文搜索。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=Open+Sans:wght@400;600&family=Inconsolata:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Dee's Blog 学习资料中心 — Minimal 设计系统
+   色板：Primary #0C0C09 / Secondary #312C85 / Surface #F4F4F1
+   间距刻度：4 / 8 / 12 / 16 / 24 / 32（大间隔取 32 的倍数）
+   ============================================================ */
+:root{
+  --primary:#0C0C09;
+  --secondary:#312C85;
+  --surface:#F4F4F1;
+  --text:#0C0C09;
+  --neutral:#F4F4F1;
+
+  /* 文本/边框取自主色板颜色的透明度派生 */
+  --ink-45:rgba(12,12,9,.45);
+  --ink-60:rgba(12,12,9,.62);
+  --line:rgba(12,12,9,.14);
+  --line-strong:rgba(12,12,9,.34);
+  --wash:rgba(12,12,9,.05);
+
+  /* 间距刻度 */
+  --space-1:4px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-5:24px;
+  --space-6:32px;
+  --space-7:64px; /* 32 × 2 */
+  --space-8:96px; /* 32 × 3 */
+
+  --radius-card:12px;
+  --radius-btn:10px;
+  --container:1120px;
+
+  --font-body:'Open Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+  --font-display:'Inter',-apple-system,'Segoe UI',system-ui,sans-serif;
+  --font-mono:'Inconsolata','Cascadia Mono',Consolas,'Courier New',monospace;
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--surface);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:1rem;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+:focus-visible{outline:2px solid var(--text);outline-offset:3px}
+
+.container{max-width:var(--container);margin-inline:auto;padding-inline:var(--space-5)}
+.mono{font-family:var(--font-mono)}
+
+/* ---------- 顶栏 ---------- */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(244,244,241,.88);
+  -webkit-backdrop-filter:blur(10px);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.header-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--space-5);height:64px;
+}
+.brand{
+  display:inline-flex;align-items:baseline;gap:var(--space-2);
+  font-family:var(--font-display);font-weight:700;font-size:1.0625rem;
+  letter-spacing:-.01em;
+}
+.brand-sub{
+  font-family:var(--font-mono);font-size:.6875rem;letter-spacing:.06em;color:var(--ink-60);
+}
+.site-nav{display:flex;gap:var(--space-6)}
+.site-nav a{
+  font-size:.9375rem;font-weight:600;color:var(--ink-60);
+  transition:color .18s var(--ease);
+}
+.site-nav a:hover{color:var(--secondary)}
+
+/* ---------- 按钮 ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
+  font-family:var(--font-display);font-weight:600;font-size:1rem;
+  padding:var(--space-3) var(--space-5);
+  border-radius:var(--radius-btn);border:1px solid transparent;
+  cursor:pointer;text-align:center;
+  transition:transform .18s var(--ease),background-color .18s var(--ease),
+             border-color .18s var(--ease),opacity .18s var(--ease);
+}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--primary);color:var(--surface)}
+.btn-primary:hover{transform:translateY(-2px);opacity:.92}
+.btn-secondary{border-color:var(--line-strong);color:var(--text);background:transparent}
+.btn-secondary:hover{border-color:var(--text);background:var(--wash);transform:translateY(-2px)}
+.btn-sm{padding:var(--space-2) var(--space-4);font-size:.875rem}
+
+/* ---------- Hero ---------- */
+.hero{padding:var(--space-8) 0 var(--space-7)}
+.hero-inner{
+  max-width:820px;margin-inline:auto;
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  gap:var(--space-5);
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  font-family:var(--font-mono);font-size:.8125rem;letter-spacing:.08em;
+  color:var(--ink-60);
+  padding:var(--space-1) var(--space-3);
+  border:1px solid var(--line);border-radius:999px;
+}
+.eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--secondary)}
+.hero-title{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2.125rem,3.4vw + 1.1rem,3.375rem);
+  line-height:1.12;letter-spacing:-.025em;color:var(--text);
+}
+.hero-sub{
+  font-size:clamp(1rem,.6vw + .85rem,1.1875rem);
+  color:var(--ink-60);max-width:34em;
+}
+.hero-ctas{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-4);margin-top:var(--space-2)}
+.hero-meta{
+  display:flex;flex-wrap:wrap;justify-content:center;
+  gap:var(--space-4) var(--space-6);
+  font-family:var(--font-mono);font-size:.8125rem;color:var(--ink-45);
+  margin-top:var(--space-4);
+}
+.hero-meta li{display:inline-flex;align-items:center;gap:var(--space-2)}
+.hero-meta li::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--ink-45)}
+
+/* ---------- 通用区块 ---------- */
+section{scroll-margin-top:80px}
+.section-head{
+  max-width:640px;margin:0 auto var(--space-7);
+  display:flex;flex-direction:column;align-items:center;gap:var(--space-3);
+  text-align:center;
+}
+.section-eyebrow{font-size:.8125rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-45)}
+.section-title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.625rem,1.6vw + 1.1rem,2.25rem);
+  letter-spacing:-.02em;line-height:1.2;
+}
+.section-lead{color:var(--ink-60);font-size:1.0625rem}
+
+/* ---------- 卡片 ---------- */
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius-card);
+  padding:var(--space-5);
+  transition:border-color .2s var(--ease),transform .2s var(--ease);
+}
+.card:hover{border-color:var(--line-strong);transform:translateY(-3px)}
+
+/* ---------- Features ---------- */
+.features{padding:var(--space-7) 0 var(--space-8)}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
+.feature{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-3)}
+.card-index{font-size:.8125rem;color:var(--ink-45);letter-spacing:.1em}
+.card-title{
+  font-family:var(--font-display);font-weight:600;font-size:1.1875rem;
+  letter-spacing:-.01em;
+}
+.card-desc{color:var(--ink-60);font-size:.9375rem;line-height:1.65}
+.tag{
+  margin-top:auto;
+  padding:var(--space-1) var(--space-3);
+  border:1px solid var(--line-strong);border-radius:999px;
+  font-size:.75rem;letter-spacing:.04em;color:var(--ink-60);
+}
+
+/* ---------- Social proof ---------- */
+.proof{padding:0 0 var(--space-8)}
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-5)}
+.proof-card{display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-6)}
+.proof-label{font-size:.8125rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-45)}
+.proof-number{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(2.5rem,4vw + 1.5rem,3.25rem);
+  line-height:1;letter-spacing:-.03em;color:var(--text);
+}
+.proof-number small{
+  font-family:var(--font-body);font-weight:600;font-size:1rem;color:var(--ink-45);
+  margin-left:var(--space-1);
+}
+.proof-desc{font-family:var(--font-mono);font-size:.875rem;color:var(--ink-60)}
+.proof-topics{font-size:.875rem;color:var(--ink-45);line-height:1.7;margin-top:var(--space-1)}
+
+/* ---------- Footer CTA ---------- */
+.cta{padding:var(--space-8) 0}
+.cta-inner{
+  max-width:680px;margin-inline:auto;
+  display:flex;flex-direction:column;align-items:center;gap:var(--space-4);
+  text-align:center;
+}
+.cta-title{
+  font-family:var(--font-display);font-weight:800;
+  font-size:clamp(1.75rem,1.8vw + 1.1rem,2.5rem);
+  line-height:1.18;letter-spacing:-.02em;
+}
+.accent-underline{
+  background-image:linear-gradient(var(--secondary),var(--secondary));
+  background-size:100% .28em;background-repeat:no-repeat;background-position:0 92%;
+}
+.cta-sub{color:var(--ink-60);max-width:32em}
+.cta .btn{margin-top:var(--space-2)}
+
+/* ---------- 页脚 ---------- */
+.site-footer{border-top:1px solid var(--line);padding:var(--space-6) 0}
+.footer-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:var(--space-4);flex-wrap:wrap;
+}
+.footer-copy{font-size:.875rem;color:var(--ink-60)}
+.footer-nav{display:flex;gap:var(--space-5)}
+.footer-nav a{
+  font-size:.875rem;font-weight:600;color:var(--ink-60);
+  transition:color .18s var(--ease);
+}
+.footer-nav a:hover{color:var(--secondary)}
+
+/* ---------- 入场动效（150–250ms） ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+.reveal.is-visible{opacity:1;transform:translateY(0)}
+
+/* ---------- 响应式 ---------- */
+@media (max-width:960px){
+  .feature-grid,.proof-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:640px){
+  .site-nav{display:none}
+  .hero{padding:var(--space-7) 0 var(--space-6)}
+  .hero-ctas{flex-direction:column;width:100%}
+  .hero-ctas .btn{width:100%}
+  .features{padding:var(--space-6) 0 var(--space-7)}
+  .section-head{margin-bottom:var(--space-6)}
+  .proof-grid,.feature-grid{grid-template-columns:1fr}
+  .proof{padding-bottom:var(--space-7)}
+  .cta{padding:var(--space-7) 0}
+  .footer-inner{flex-direction:column;justify-content:center;text-align:center}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" data-od-id="nav-brand">
+      Dee's Blog<span class="brand-sub" data-od-id="nav-brand-sub">学习资料中心</span>
+    </a>
+    <nav class="site-nav" aria-label="主导航" data-od-id="nav">
+      <a href="/resources/" data-od-id="nav-link-resources">资料目录</a>
+      <a href="/search/" data-od-id="nav-link-search">站内搜索</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="/resources/" data-od-id="nav-cta">开始学习</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ Hero ============ -->
+  <section id="hero" class="hero">
+    <div class="container hero-inner">
+      <p class="eyebrow reveal" data-od-id="hero-eyebrow">
+        <span class="eyebrow-dot" aria-hidden="true"></span>持续更新 · PDF 讲义直接下载 · 本地全文搜索
+      </p>
+      <h1 class="hero-title reveal" data-od-id="hero-title">生物化学与生态学，<br>笔记·讲义·实验报告一站式下载</h1>
+      <p class="hero-sub reveal" data-od-id="hero-subtitle">为生物科学学习者整理的高质量资料库——从分子机制到生态系统，讲义、笔记与实验报告持续更新。</p>
+      <div class="hero-ctas reveal" data-od-id="hero-cta-row">
+        <a class="btn btn-primary" href="/resources/" data-od-id="cta-browse">浏览资料目录</a>
+        <a class="btn btn-secondary" href="/search/" data-od-id="cta-search">站内搜索</a>
+      </div>
+      <ul class="hero-meta reveal" data-od-id="hero-meta">
+        <li data-od-id="hero-meta-1">生物化学 · 12 份章节讲义</li>
+        <li data-od-id="hero-meta-2">生态学 · 6 份实验报告</li>
+        <li data-od-id="hero-meta-3">19 份 PDF · 自动收录</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ Features ============ -->
+  <section id="features" class="features">
+    <div class="container">
+      <header class="section-head" data-od-id="features-head">
+        <p class="mono section-eyebrow" data-od-id="features-eyebrow">FEATURES · 资料库功能</p>
+        <h2 class="section-title" data-od-id="features-title">一个目录，装下全部学习资料</h2>
+        <p class="section-lead" data-od-id="features-lead">讲义、笔记、实验报告统一归档——自动收录、本地检索、构建时更新。</p>
+      </header>
+
+      <div class="feature-grid">
+        <article class="card feature" data-od-id="feature-01">
+          <p class="mono card-index" data-od-id="feature-01-index">01</p>
+          <h3 class="card-title" data-od-id="feature-01-title">生物化学讲义</h3>
+          <p class="card-desc" data-od-id="feature-01-desc">12 份章节讲义，覆盖水、氨基酸、蛋白质、酶、碳水化合物、核酸、脂质与代谢。</p>
+          <span class="tag mono" data-od-id="feature-01-meta">12 份 PDF</span>
+        </article>
+
+        <article class="card feature" data-od-id="feature-02">
+          <p class="mono card-index" data-od-id="feature-02-index">02</p>
+          <h3 class="card-title" data-od-id="feature-02-title">生态学实验报告</h3>
+          <p class="card-desc" data-od-id="feature-02-desc">6 份完整实验报告，从种群增长到菌根共生观测。</p>
+          <span class="tag mono" data-od-id="feature-02-meta">6 份 PDF</span>
+        </article>
+
+        <article class="card feature" data-od-id="feature-03">
+          <p class="mono card-index" data-od-id="feature-03-index">03</p>
+          <h3 class="card-title" data-od-id="feature-03-title">代谢全景图</h3>
+          <p class="card-desc" data-od-id="feature-03-desc">47MB 高清生化代谢通路总图。</p>
+          <span class="tag mono" data-od-id="feature-03-meta">47MB 高清图</span>
+        </article>
+
+        <article class="card feature" data-od-id="feature-04">
+          <p class="mono card-index" data-od-id="feature-04-index">04</p>
+          <h3 class="card-title" data-od-id="feature-04-title">本地搜索</h3>
+          <p class="card-desc" data-od-id="feature-04-desc">无需服务器，全文检索文章与资料。</p>
+          <span class="tag mono" data-od-id="feature-04-meta">无服务器</span>
+        </article>
+
+        <article class="card feature" data-od-id="feature-05">
+          <p class="mono card-index" data-od-id="feature-05-index">05</p>
+          <h3 class="card-title" data-od-id="feature-05-title">自动资料目录</h3>
+          <p class="card-desc" data-od-id="feature-05-desc">新增 PDF 自动收录，无需手工维护。</p>
+          <span class="tag mono" data-od-id="feature-05-meta">自动收录</span>
+        </article>
+
+        <article class="card feature" data-od-id="feature-06">
+          <p class="mono card-index" data-od-id="feature-06-index">06</p>
+          <h3 class="card-title" data-od-id="feature-06-title">随构建更新</h3>
+          <p class="card-desc" data-od-id="feature-06-desc">资料元数据与排序集中配置。</p>
+          <span class="tag mono" data-od-id="feature-06-meta">构建时更新</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Social proof ============ -->
+  <section id="proof" class="proof">
+    <div class="container">
+      <header class="section-head" data-od-id="proof-head">
+        <p class="mono section-eyebrow" data-od-id="proof-eyebrow">PROOF · 学科资料一览</p>
+        <h2 class="section-title" data-od-id="proof-title">两大方向，资料持续扩充</h2>
+        <p class="section-lead" data-od-id="proof-lead">全部资料均为个人学习整理，按学科归档、随构建更新。</p>
+      </header>
+
+      <div class="proof-grid">
+        <article class="card proof-card" data-od-id="proof-01">
+          <p class="mono proof-label" data-od-id="proof-01-label">生物化学</p>
+          <p class="proof-number" data-od-id="proof-01-number">12<small>份</small></p>
+          <p class="proof-desc" data-od-id="proof-01-desc">章节讲义</p>
+          <p class="proof-topics" data-od-id="proof-01-topics">水 · 氨基酸 · 蛋白质 · 酶 · 碳水化合物 · 核酸 · 脂质 · 运输 · 代谢</p>
+        </article>
+
+        <article class="card proof-card" data-od-id="proof-02">
+          <p class="mono proof-label" data-od-id="proof-02-label">生态学</p>
+          <p class="proof-number" data-od-id="proof-02-number">6<small>份</small></p>
+          <p class="proof-desc" data-od-id="proof-02-desc">实验报告 + 总结 PPT</p>
+          <p class="proof-topics" data-od-id="proof-02-topics">从种群增长到菌根共生观测</p>
+        </article>
+
+        <article class="card proof-card" data-od-id="proof-03">
+          <p class="mono proof-label" data-od-id="proof-03-label">资料总览</p>
+          <p class="proof-number" data-od-id="proof-03-number">19<small>份</small></p>
+          <p class="proof-desc" data-od-id="proof-03-desc">PDF 资料</p>
+          <p class="proof-topics" data-od-id="proof-03-topics">自动收录 · 中文目录 · 集中元数据配置</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Footer CTA ============ -->
+  <section id="cta" class="cta">
+    <div class="container cta-inner">
+      <p class="mono section-eyebrow" data-od-id="cta-eyebrow">GET STARTED · 开始学习</p>
+      <h2 class="cta-title" data-od-id="cta-title">让学习资料<span class="accent-underline">触手可及</span>——访问 Dee's Blog 开始学习</h2>
+      <p class="cta-sub" data-od-id="cta-sub">免费浏览全部讲义、笔记与实验报告，PDF 直接下载，无需登录。</p>
+      <a class="btn btn-primary" href="/resources/" data-od-id="cta-browse-main">浏览资料目录</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy" data-od-id="footer-copyright">© 2026 Dee's Blog · GitHub Pages</p>
+    <nav class="footer-nav" aria-label="页脚导航" data-od-id="footer-nav">
+      <a href="/resources/" data-od-id="footer-link-resources">资料目录</a>
+      <a href="/search/" data-od-id="footer-link-search">站内搜索</a>
+      <a href="https://github.com/" rel="noopener" data-od-id="footer-link-github">GitHub</a>
+    </nav>
+  </div>
+</footer>
+
+<noscript><style>.reveal{opacity:1;transform:none;transition:none}</style></noscript>
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // 站内锚点平滑滚动
+  document.querySelectorAll('a[href^="#"]').forEach(function(link){
+    link.addEventListener('click', function(e){
+      var id = link.getAttribute('href');
+      if(id.length < 2) return;
+      var target = document.querySelector(id);
+      if(!target) return;
+      e.preventDefault();
+      target.scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+    });
+  });
+
+  // 滚动入场（尊重 prefers-reduced-motion）
+  var els = document.querySelectorAll('.reveal');
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.15});
+    els.forEach(function(el){ io.observe(el); });
+  } else {
+    els.forEach(function(el){ el.classList.add('is-visible'); });
+  }
+})();
+</script>
+</body>
+</html>
