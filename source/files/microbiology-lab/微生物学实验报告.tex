@@ -1,0 +1,1011 @@
+﻿% !TEX program = xelatex
+% --- 文档类与基础设置 ---
+\documentclass[UTF8,a4paper,12pt,fontset=none]{ctexart}
+
+% --- 宏包声明 ---
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setCJKmainfont[AutoFakeBold=true]{FangSong}
+\setCJKfamilyfont{zhsong}[AutoFakeBold=true]{SimSun}
+\setCJKfamilyfont{zhfs}[AutoFakeBold=true]{FangSong}
+\newcommand{\zhsong}{\CJKfamily{zhsong}}
+\newcommand{\zhfs}{\CJKfamily{zhfs}}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.45cm,bottom=2.35cm,headsep=0.45cm}
+\usepackage{setspace}
+\setstretch{1.5}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{caption}
+\captionsetup{font=small, labelfont=bf}
+\usepackage{amsmath, amssymb}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\setlength{\intextsep}{0.55\baselineskip}
+\setlength{\textfloatsep}{0.7\baselineskip}
+\setlength{\floatsep}{0.55\baselineskip}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{cite}
+\usepackage{fancyhdr}
+\setlength{\headheight}{15pt}
+\renewcommand{\refname}{}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0pt}
+\renewcommand{\figurename}{图}
+\renewcommand{\tablename}{表}
+\DeclareCaptionLabelSeparator{zhperiod}{. }
+\DeclareCaptionFont{zhsong}{\zhsong}
+\captionsetup[figure]{font={small,stretch=1.2,zhsong},labelfont=normalfont,labelsep=zhperiod,justification=centering}
+\captionsetup[table]{font={small,stretch=1.2,zhsong},labelfont=normalfont,labelsep=zhperiod,justification=centering,position=top}
+\setlength{\abovecaptionskip}{4pt}
+\setlength{\belowcaptionskip}{2pt}
+\fancypagestyle{reportstyle}{
+  \fancyhf{}
+  \fancyhead[L]{\zihao{5}\zhsong《微生物学实验》}
+  \fancyhead[C]{\zihao{5}\zhsong\reporttitle}
+  \fancyhead[R]{\zihao{5}\zhsong\studentname}
+  \renewcommand{\headrulewidth}{0.4pt}
+  \fancyfoot[C]{\zihao{5}\thepage}
+}
+\ctexset{
+  section = {
+    format = \zihao{-3}\zhfs\bfseries,
+    number = \arabic{section},
+    aftername = \hspace{0.55em},
+    beforeskip = 0.6\baselineskip,
+    afterskip = 0.35\baselineskip
+  },
+  subsection = {
+    format = \zihao{4}\zhfs\bfseries,
+    number = \thesection.\arabic{subsection},
+    aftername = \hspace{0.55em},
+    beforeskip = 0.55\baselineskip,
+    afterskip = 0.25\baselineskip
+  },
+  subsubsection = {
+    format = \zihao{-4}\zhfs\bfseries,
+    number = \thesubsection.\arabic{subsubsection},
+    aftername = \hspace{0.55em},
+    beforeskip = 0.4\baselineskip,
+    afterskip = 0.15\baselineskip
+  }
+}
+\renewcommand{\thesection}{\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\setcounter{tocdepth}{2}
+\numberwithin{figure}{section}
+\newcommand{\upcite}[1]{\textsuperscript{\cite{#1}}}
+
+% 参考文献标题由正文中的 \section{参考文献} 给出；此处去除 thebibliography 自带标题，避免标题与第一条文献之间出现空白。
+\makeatletter
+\renewenvironment{thebibliography}[1]
+  {\list{\@biblabel{\@arabic\c@enumiv}}%
+    {\settowidth\labelwidth{\@biblabel{#1}}%
+     \leftmargin\labelwidth
+     \advance\leftmargin\labelsep
+     \@openbib@code
+     \usecounter{enumiv}%
+     \let\p@enumiv\@empty
+     \renewcommand\theenumiv{\@arabic\c@enumiv}%
+     \setlength{\itemsep}{0pt}%
+     \setlength{\parsep}{0pt}}%
+   \sloppy
+   \clubpenalty4000
+   \@clubpenalty \clubpenalty
+   \widowpenalty4000%
+   \sfcode`\.=\@m}
+  {\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+   \endlist}
+\makeatother
+
+% --- 报告信息：正式填写时优先修改这里 ---
+\newcommand{\reporttitle}{从土壤中分离培养微生物及一株土壤细菌 X 的鉴定}
+\newcommand{\coursename}{《微生物学实验》}
+\newcommand{\studentname}{蒋贤迪}
+\newcommand{\studentid}{xxxxxxxxxx}
+\newcommand{\majorname}{生物科学}
+\newcommand{\partnername}{xxx}
+\newcommand{\teachername}{应盛华}
+
+
+% --- 常用占位格式 ---
+\newcommand{\placeholder}[1]{\textcolor{red}{#1}}
+\newcommand{\blankline}{\placeholder{【待填写】}}
+% 对由照片或现有材料预设、仍需人工复核的描述使用斜体标记。
+\newcommand{\unverified}[1]{\textit{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcommand{\labeledimage}[3][]{%
+    \begin{tikzpicture}
+        \node[anchor=south west,inner sep=0] (image) at (0,0)
+            {\includegraphics[#1]{#2}};
+        \begin{scope}[x={(image.south east)},y={(image.north west)}]
+            \node[anchor=north west,inner sep=2pt,font=\bfseries\large,
+                  fill=white,fill opacity=0.75,text opacity=1] at (0.01,0.99) {#3};
+        \end{scope}
+    \end{tikzpicture}%
+}
+
+\begin{document}
+
+\zhfs\zihao{-4}
+
+\thispagestyle{empty}
+\begin{spacing}{1.05}
+\begin{center}
+  \vspace*{0.9cm}
+  {\zhsong\bfseries\zihao{-2}浙江大学 2025--2026 学年 \underline{\hspace{1.4em}春夏\hspace{1.4em}} 学期\par}
+  \vspace{0.7em}
+  {\zhsong\bfseries\zihao{-2}\coursename 实验报告\par}
+\end{center}
+
+\vspace{1.5cm}
+\noindent
+\begingroup
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lp{3.0cm}lp{2.8cm}lp{2.6cm}@{}}
+学生姓名：& \studentname & 专业：& \majorname & 学号：& \studentid \\[1.0em]
+课程名称：& \multicolumn{2}{l}{微生物学实验} & 课程号：& \multicolumn{2}{l}{BIO2113F} \\[1.0em]
+同组学生姓名：& \multicolumn{2}{l}{\partnername} & 指导老师：& \multicolumn{2}{l}{\teachername} \\[1.0em]
+提交日期：& \multicolumn{5}{l}{2026 年 6 月 3 日}
+\end{tabular}
+\endgroup
+
+\vspace{0.65cm}
+\noindent
+\begin{tabular}{|>{\centering\arraybackslash\zhsong\bfseries}m{2.2cm}|>{\centering\arraybackslash}m{\dimexpr\textwidth-2.2cm-4\tabcolsep-3\arrayrulewidth\relax}|}
+\hline
+成绩 & \rule{0pt}{1.0cm} \\ \hline
+评语 & \rule{0pt}{2.4cm} \\ \hline
+评阅人 & \rule{0pt}{1.0cm} \\ \hline
+\end{tabular}
+
+\vspace{0.65cm}
+\end{spacing}
+
+\clearpage
+\pagestyle{reportstyle}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\begin{center}
+  \vspace*{0.9cm}
+  {\zhsong\bfseries\zihao{-2}\reporttitle\par}
+\end{center}
+
+\vspace{1em}
+\vspace{1.3em}
+\noindent{\zhsong\bfseries 摘要}
+
+\vspace{0.8em}
+\noindent 本实验以土壤样品为材料，采用梯度稀释、平板分离和划线纯化等方法获得一株土壤细菌，编号为 Y16。随后通过菌落形态观察、革兰氏染色、甘油冷冻保藏、16S rRNA 基因序列比对和系统发育分析，对该菌株进行初步鉴定，并结合实验组生理生化检测和环境因素响应实验理解微生物表型检测方法。结果显示，Y16 在 LB 平板上可形成形态较一致的培养物，革兰氏染色呈粉红色，判定为革兰氏阴性菌。16S rRNA 反向测序序列可用于初步比对，但峰图存在双峰现象，提示序列质量仍有限；BLAST 结果显示，Y16 与 \textit{Pseudomonas} 相关类群序列相近，但序列相似度约为 \SI{90}{\percent}，不足以支持种水平鉴定。温度实验表明，Y16 在 \SI{28}{\celsius} 条件下生长较好，低温和高温均抑制其生长。实验组生理生化检测显示，所测菌株不能明显水解淀粉，石蕊牛奶试验表现为胨化，硝化和反硝化检测均出现亚硝酸盐相关阳性反应，过氧化氢酶阳性，氧化酶弱阳性，氨化试验阳性偏弱；实验组药剂敏感性结果显示，碘酒、醋酸及部分抗生素对实验组菌株具有不同程度的抑制作用。综合结果表明，Y16 可能属于假单胞菌相关类群，但仍需更高质量的测序和更多直接针对 Y16 的表型证据进一步确认其分类地位。
+
+\vspace{2.2em}
+\noindent{\zhsong\bfseries 关键词：}
+
+\vspace{0.8em}
+\noindent 土壤微生物，细菌，革兰氏染色，16S rRNA，生理生化鉴定
+
+\clearpage
+
+\begin{center}
+  \vspace*{0.9cm}
+  {\bfseries\zihao{-2}Isolation and Characterization of Soil Microorganisms and a Soil Bacterium X\par}
+\end{center}
+
+\vspace{1em}
+\vspace{1.3em}
+\noindent{\bfseries Abstract}
+
+\vspace{0.8em}
+\noindent In this experiment, a soil sample was used as the starting material to isolate a soil bacterium, designated Y16, through serial dilution, plate culture and streak purification. The isolate was then characterized by colony observation, Gram staining, glycerol preservation, 16S rRNA gene sequence comparison and phylogenetic analysis, while group-level biochemical tests and environmental response assays were used to understand phenotypic testing methods. Y16 formed relatively consistent growth on LB agar and appeared pink after Gram staining, indicating that it was Gram-negative. The reverse 16S rRNA sequencing result provided a preliminary sequence for comparison, but double peaks in the chromatogram indicated limited sequence quality. BLAST analysis showed that Y16 was related to \textit{Pseudomonas}-associated taxa, whereas the sequence identity was approximately \SI{90}{\percent}, which was insufficient for species-level identification. The temperature assay showed that Y16 grew better at \SI{28}{\celsius}, whereas low and high temperatures inhibited its growth. Group-level biochemical tests showed no obvious starch hydrolysis zone, peptonization in litmus milk, nitrite-related positive reactions in nitrification and denitrification tests, positive catalase activity, weak oxidase activity and a weakly positive ammonification reaction. Group-level chemical and antibiotic assays further showed different degrees of inhibition by iodine, acetic acid and several antibiotics. Together, these results suggest that Y16 may belong to a \textit{Pseudomonas}-related group, but higher-quality sequencing and additional phenotypic evidence directly obtained from Y16 are required for more reliable taxonomic identification.
+
+\vspace{2.2em}
+\noindent{\bfseries Keywords:}
+
+\vspace{0.8em}
+\noindent soil microorganisms, bacterium, Gram staining, 16S rRNA, biochemical characterization
+
+\clearpage
+\begin{spacing}{1.3}
+\tableofcontents
+\end{spacing}
+\clearpage
+
+\section{前言}
+
+\subsection{土壤微生物与分离培养}
+
+土壤是微生物种类和数量极为丰富的自然生境，其中细菌、真菌和放线菌参与有机质分解、元素循环和植物根际互作等过程。通过从土壤中分离培养微生物，可以直观认识不同微生物类群的培养特征，并进一步理解纯培养、菌种保藏和菌株鉴定在微生物学研究中的基础作用。
+
+\subsection{未知细菌的综合鉴定思路}
+
+未知细菌鉴定通常结合菌落形态、显微形态、染色反应、生理生化特征和分子序列证据。表型指标能够反映培养特征、细胞结构和代谢能力，但受培养条件和观察误差影响，单独使用时判定力有限\upcite{madigan,bergey}。16S rRNA 基因序列可通过数据库比对和系统发育分析初步判断待测菌株的分类位置，但测序质量、序列长度和近缘类群相似性同样会影响解释\upcite{bergey}。
+
+因此，本实验将分离培养、形态学观察、分子鉴定和表型功能检测作为相互补充的证据来源（图 \ref{fig:evidence_framework}）。该框架用于说明报告的证据组织方式，具体结果和判断依据将在后文分项呈现。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imgs/fig2.png}
+    \caption{未知土壤细菌综合鉴定的证据框架。}
+    \label{fig:evidence_framework}
+\end{figure}
+
+\subsection{环境因素和药剂敏感性检测的意义}
+
+除分类鉴定外，环境因素和药剂敏感性也能补充说明微生物的基本生物学特征。温度影响细胞代谢和增殖速度，紫外线可造成 DNA 损伤并影响菌落形成，化学药剂和抗生素则可用于比较不同菌株在抑制因子下的敏感性。相关结果可作为理解微生物表型检测和环境响应的补充证据。
+
+\subsection{本实验目的}
+
+本实验围绕一株从土壤样品中分离得到的细菌 X（后续编号为 Y16）展开。实验内容包括培养基配制、土壤微生物分离、细菌 X 纯化和转接、菌种保藏、革兰氏染色、16S rRNA 基因鉴定、温度影响实验，以及实验组生理生化和药剂敏感性检测。通过连续实验获得 Y16 的培养特征、染色结果、分子鉴定和温度响应信息，并结合实验组表型检测结果理解未知菌株鉴定的证据组织方式。
+
+\section{实验材料}
+
+本实验所用样品、培养基、试剂材料及主要仪器工具见表 \ref{tab:materials_all}。
+
+\begingroup
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{5pt}
+\begin{longtable}{@{}C{0.12\textwidth}C{0.18\textwidth}C{0.35\textwidth}C{0.25\textwidth}@{}}
+    \caption{实验材料汇总}
+    \label{tab:materials_all} \\
+    \toprule
+    \textbf{实验} & \textbf{样品} & \textbf{培养基、试剂与材料} & \textbf{主要仪器与工具} \\
+    \midrule
+    \endfirsthead
+
+    \toprule
+    \textbf{实验} & \textbf{样品} & \textbf{培养基、试剂与材料} & \textbf{主要仪器与工具} \\
+    \midrule
+    \endhead
+
+    \midrule
+    \multicolumn{4}{r}{续下页} \\
+    \endfoot
+
+    \bottomrule
+    \endlastfoot
+
+    \textbf{实验一：培养基配制}
+    & 无
+    & PDA 培养基原料：去皮马铃薯、蔗糖或葡萄糖、琼脂、双蒸水；包扎材料
+    & 电子天平、烧杯、量筒、三角瓶、磁力搅拌器、高压灭菌锅 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验二：样品处理与微生物分离培养}
+    & 新鲜土壤样品
+    & 无菌水；马铃薯蔗糖培养基；淀粉琼脂培养基；牛肉膏蛋白胨琼脂培养基；\SI{5000}{U/mL} 链霉素液；\SI{0.5}{\percent} 重铬酸钾液；\SI{50}{\percent} 甘油；无菌 EP 管、无菌培养皿、无菌吸头、标签纸
+    & 样品研磨机、分析天平、移液器、无菌三角玻棒、接种环、酒精灯、水浴锅、培养箱、高压灭菌锅 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验三：细菌 X 分离纯化}
+    & 实验二细菌分离平板中的目标菌落
+    & LB 固体培养基；无菌培养皿；封口膜
+    & 接种环、酒精灯、培养箱 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验四：细菌 X 转接培养}
+    & 实验三纯化平板中的细菌 X 培养物
+    & LB 液体培养基；无菌试管
+    & 接种环、酒精灯、培养箱 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验五：细菌 X 保藏与革兰氏染色}
+    & 细菌 X 的 LB 液体培养物；革兰氏染色标准对照菌
+    & \SI{50}{\percent} 甘油冻存管；LB 液体培养基；载玻片；蒸馏水；结晶紫染液；碘液；\SI{95}{\percent} 乙醇；番红染色液；镜头油；擦镜纸；吸水纸
+    & 微量移液器、无菌枪头、酒精灯、接种环、显微镜、\SI{-80}{\celsius} 冰箱 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验六：分子鉴定与系统发育分析}
+    & 细菌 X 的 LB 液体培养物
+    & DNA 提取试剂盒及配套试剂；PCR Mix 酶；超纯水；27F/1492R 引物；PCR 小管；无菌 EP 管；无菌枪头
+    & 台式离心机、移液器、PCR 仪、测序服务、NCBI BLAST、MEGA \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验七：生理生化检测}
+    & 实验组未知菌；对照菌
+    & 淀粉水解培养基；石蕊牛奶培养基；硝化细菌培养基；反硝化细菌培养基；碘液；格利斯试剂；二苯胺试剂；奈氏试剂；过氧化氢溶液；氧化酶检测试剂；无菌滤纸；API-ZYM 试剂条
+    & 试管、培养皿、载玻片、接种环、移液器、比色碟、培养箱 \\
+    \addlinespace[0.45em]
+    \midrule
+
+    \textbf{实验八：环境条件对微生物生长的影响}
+    & Y16；实验组菌株；金黄色葡萄球菌对照菌
+    & LB 固体培养基；无菌水；无菌圆形滤纸；无菌五角星黑纸；碘酒；醋酸；石炭酸；抗生素纸片；空白纸片
+    & 无菌培养皿、无菌三角玻棒、镊子、紫外灯、培养箱 \\
+\end{longtable}
+\endgroup
+
+\newpage
+
+\section{实验步骤}
+
+本实验以土壤样品为出发材料，经分离培养、纯化、转接、保藏、染色观察和分子鉴定对细菌 X 进行初步分析，并结合实验组生理生化检测和环境因素实验理解微生物表型检测方法。
+
+\subsection{PDA 培养基配制}
+
+本组配制马铃薯蔗糖琼脂（PDA）固体培养基，用于土壤真菌分离培养。PDA 培养基配方见表 \ref{tab:pda_recipe}。
+
+\begin{table}[H]
+    \centering
+    \caption{PDA 培养基配方（\SI{1000}{mL}）}
+    \begin{tabular}{lll}
+        \toprule
+        \textbf{成分} & \textbf{用量} & \textbf{说明} \\
+        \midrule
+        去皮马铃薯 & \SI{200}{g} & 煮汁后用于培养基配制 \\
+        蔗糖或葡萄糖 & \SI{5}{g} & 碳源 \\
+        琼脂 & \SI{20}{g} & 凝固剂 \\
+        双蒸水 & 定容至 \SI{1000}{mL} & 溶剂 \\
+        pH & 自然 & 不额外调节 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:pda_recipe}
+\end{table}
+
+\begin{enumerate}[label=\arabic*.]
+    \item 按表 \ref{tab:pda_recipe} 准备马铃薯、蔗糖或葡萄糖、琼脂和双蒸水，并完成培养基配制。
+    \item 将配制后的 PDA 固体培养基分装至锥形瓶中，并进行包扎。
+    \item 将分装后的培养基进行高压蒸汽灭菌，灭菌后作为倒平板和土壤真菌分离培养材料。
+\end{enumerate}
+
+\subsection{土壤样品处理与微生物分离培养}
+
+实验二从土壤样品中分离培养不同类型微生物，并从细菌平板中选择细菌 X。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 取新鲜土壤样品制备土壤稀释悬液。将土壤样品分装至样品研磨管，每管加入无菌水和小钢珠，经自动研磨后获得 $10^{-1}$ 土壤稀释悬液，静置后取上清备用。
+    \item 进行连续梯度稀释。取 $10^{-1}$ 土壤稀释悬液加入含无菌水的 EP 管中混匀，依次制备 $10^{-2}$、$10^{-3}$、$10^{-4}$、$10^{-5}$、$10^{-6}$ 土壤稀释液。
+    \item 分离土壤真菌。按稀释平板法，将适宜稀释度的土壤稀释液与链霉素液加入无菌培养皿，再倒入约 \SI{50}{\celsius} 保温的马铃薯蔗糖培养基，混匀凝固后倒置培养。
+    \item 分离土壤放线菌。按平板涂抹法，在含重铬酸钾的淀粉琼脂培养基平板上加入适宜稀释度的土壤稀释液，用无菌三角玻棒涂布均匀后倒置培养。
+    \item 分离土壤细菌。按平板划线法，将适宜稀释度的土壤稀释液接种于牛肉膏蛋白胨琼脂培养基平板上，采用连续划线或分区划线方式进行分离培养。
+    \item 培养后选择菌落分布较清楚的平板进行观察和拍照，其中结果照片对应真菌 $10^{-3}$ 平板、细菌和放线菌 $10^{-4}$ 平板；从细菌分离平板中根据菌落外观和可挑取性选择目标菌落，记为细菌 X。
+    \item 制作无菌 \SI{50}{\percent} 甘油备用。配制 \SI{50}{\percent} 甘油并分装至甘油管，随后在 \SI{121}{\celsius} 灭菌 \SI{15}{min}，供菌种保藏使用。
+\end{enumerate}
+
+\subsection{细菌 X 的分离纯化}
+
+根据前一周平板上的菌落特征挑取目标菌落，并采用四区划线法对细菌 X 进行转接纯化。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 准备并倒制纯化用固体平板，其中细菌 X 的纯化使用细菌培养平板。
+    \item 在无菌操作条件下灼烧接种环，冷却后从实验二细菌分离平板中挑取预先选定的细菌 X 目标菌落。
+    \item 将挑取的细菌 X 接种至新的平板，采用四区划线法分散菌体。每次进入下一区域前灼烧接种环并冷却，最后一区划线不与初始划线相连。
+    \item 划线结束后盖上皿盖，做好标记，用封口膜封好平板，倒置放入培养箱培养，以获得形态较一致的细菌 X 培养物。
+\end{enumerate}
+
+\subsection{细菌 X 的转接培养}
+
+将上一周纯化平板中的细菌 X 培养物转接至 LB 液体培养基中，为保藏、染色和分子鉴定提供菌液。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 从上一周自己的纯化平板中挑取形态较一致的细菌 X 菌体或菌落区域。
+    \item 将细菌 X 转接至 3 支 LB 液体试管中。
+    \item 按无菌操作要求完成转接和培养，所得 LB 液体培养物用于保藏、染色和分子鉴定。
+\end{enumerate}
+
+\subsection{细菌 X 的保藏与革兰氏染色}
+
+对细菌 X 进行甘油冷冻保藏，并通过革兰氏染色观察菌体染色特征。
+
+\subsubsection{甘油冷冻保藏}
+
+\begin{enumerate}[label=\arabic*.]
+    \item 在无菌条件下，将 LB 液体试管适当倾斜。
+    \item 用微量移液器从细菌 X 的 LB 液体培养物中吸取 \SI{500}{\micro\liter} 菌液，加入 \SI{50}{\percent} 甘油冻存管中。
+    \item 轻轻吹打混匀，旋紧冻存管盖，做好标记。
+    \item 每人制备两支冻存管，并置于 \SI{-80}{\celsius} 冰箱保存。
+    \item 同样在无菌条件下，将菌液转接至两支新鲜 LB 液体试管备用。
+\end{enumerate}
+
+\subsubsection{革兰氏染色}
+
+\begin{enumerate}[label=\arabic*.]
+    \item 取细菌 X 培养物制备涂片，依次完成干燥和固定。
+    \item 用结晶紫进行初染，水洗。
+    \item 用碘液媒染约 \SI{1}{min}。
+    \item 用 \SI{95}{\percent} 乙醇脱色，直至流出的乙醇基本无紫色，随后立即水洗。
+    \item 用番红染色液复染约 \SI{1}{min}，水洗后用吸水纸吸干。
+    \item 在油镜下观察细菌 X 的染色颜色和菌体形态，并据此判断其革兰氏染色类型。
+\end{enumerate}
+
+\subsection{细菌 X 的分子鉴定与系统发育分析}
+
+实验六以实验四获得的 LB 液体培养菌液为材料，通过 DNA 提取、16S rRNA 基因 PCR 扩增、测序和序列分析鉴定细菌 X。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 取实验四中培养的细菌 X LB 液体试管，吸取 \SI{1.5}{mL} 菌液至无菌 EP 管中。
+    \item 将菌液以 \SI{8000}{rpm} 离心 \SI{10}{min}，去除上清并收集菌体细胞。
+    \item 使用 DNA 提取试剂盒提取细菌 X 的 DNA，所得 DNA 用作 PCR 扩增模板。
+    \item 采用 27F/1492R 引物对 16S rRNA 基因进行 PCR 扩增，PCR 体系见表 \ref{tab:pcr_system}，PCR 扩增程序见表 \ref{tab:pcr_program}。
+    \item PCR 结束后填写送测单，将 16S rRNA 基因扩增产物送至测序公司测序。
+    \item 获得测序结果后，使用 16S rRNA 序列进行数据库比对分析。
+    \item 选取相关参考序列，在 MEGA 中进行系统发育分析和建树，用于辅助判断细菌 X 的分类位置。
+\end{enumerate}
+
+\begin{table}[H]
+    \centering
+    \begin{minipage}[t]{0.43\textwidth}
+        \centering
+        \captionof{table}{16S rRNA 基因 PCR 扩增体系}
+        \begin{tabular}{lc}
+            \toprule
+            \textbf{组分} & \textbf{体积/用量} \\
+            \midrule
+            H$_2$O & \SI{9.5}{\micro\liter} \\
+            引物 1 & \SI{1}{\micro\liter} \\
+            引物 2 & \SI{1}{\micro\liter} \\
+            DNA 模板 & \SI{1}{\micro\liter} \\
+            Mix Taq & \SI{12.5}{\micro\liter} \\
+            \midrule
+            总体积 & \SI{25}{\micro\liter} \\
+            \bottomrule
+        \end{tabular}
+        \label{tab:pcr_system}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.52\textwidth}
+        \centering
+        \captionof{table}{16S rRNA 基因 PCR 扩增程序}
+        \begin{tabular}{lcc}
+            \toprule
+            \textbf{步骤} & \textbf{温度} & \textbf{时间} \\
+            \midrule
+            预变性 & \SI{94}{\celsius} & \SI{4}{min} \\
+            变性 & \SI{94}{\celsius} & \SI{1}{min} \\
+            复性 & \SI{55}{\celsius} & \SI{1}{min} \\
+            延伸 & \SI{72}{\celsius} & \SI{1.5}{min} \\
+            循环数 & \multicolumn{2}{c}{30 个循环} \\
+            终延伸 & \SI{72}{\celsius} & \SI{10}{min} \\
+            \bottomrule
+        \end{tabular}
+        \label{tab:pcr_program}
+    \end{minipage}
+\end{table}
+
+\subsection{实验组菌株的生理生化检测}
+
+通过生理生化检测分析实验组菌株对不同物质的分解利用能力和部分酶活性。该部分结果来自实验组或大组选取的未知菌及对照菌，不全部等同于 Y16 的直接检测结果。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 淀粉水解实验：将待测菌接种于淀粉水解培养基，培养后用碘液染色，观察透明圈有无及大小。
+    \item 石蕊牛奶试验：接种后培养，观察培养液颜色、凝固和胨化等变化。
+    \item 硝化作用检测：取培养液与格利斯试剂或二苯胺试剂反应，观察颜色变化。
+    \item 反硝化作用检测：观察培养液和杜氏小管气体情况，并结合格利斯试剂、奈氏试剂反应判断。
+    \item 氨化作用检测：在牛肉膏蛋白胨培养液中接入细菌培养物，取石蕊试纸条悬挂于试管中，使其下端离液面约 \SI{2}{cm}，上端用试管塞夹紧；于 \SI{37}{\celsius} 培养 \SI{24}{h} 后观察试纸颜色变化。
+    \item 过氧化氢酶活性检测：将菌体与过氧化氢接触，观察气泡产生情况。
+    \item 氧化酶活性检测：将菌体涂于无菌滤纸后加入相应试剂，观察颜色变化。
+    \item API-ZYM 实验：依据试剂条显色情况记录酶活性强度，并用于辅助分析菌株特征。
+\end{enumerate}
+
+\subsection{环境条件对微生物生长的影响}
+
+通过不同理化条件处理，分析环境因素对微生物生长的影响。其中温度实验对应 Y16；紫外线实验使用金黄色葡萄球菌平板，化学药剂和抗生素实验记录实验组菌株及金黄色葡萄球菌对照结果，不全部等同于 Y16 的直接检测结果。
+
+\begin{enumerate}[label=\arabic*.]
+    \item 温度影响实验：取原菌液及 $10^{-1}$、$10^{-2}$、$10^{-3}$、$10^{-4}$、$10^{-5}$ 梯度稀释液，分别点种于 LB 平板，并置于 \SI{4}{\celsius}、\SI{28}{\celsius}、\SI{60}{\celsius} 培养，一周后观察菌落形成情况。
+    \item 紫外线影响实验：将菌悬液涂布于 4 个 LB 平板，其中 1、2 号平板放置无菌五角星黑纸，4 个平板均打开皿盖置于紫外灯下照射 \SI{15}{min}；照射后取下五角星黑纸，1、3 号平板包裹黑纸培养，2、4 号平板置于光照下培养，一周后观察菌落生长情况。
+    \item 化学药剂影响实验：取本组菌液均匀涂布于 3 个 LB 平板，并以金黄色葡萄球菌作为对照同法涂布 3 个平板；在平板表面放置分别滴加碘酒、醋酸、石炭酸等药剂的小圆形滤纸片和空白纸片，于 \SI{28}{\celsius} 培养 \SI{48}{h} 后观察抑菌圈。
+    \item 抗生素影响实验：取本组菌液均匀涂布于 3 个 LB 平板，并以金黄色葡萄球菌作为对照同法涂布 3 个平板；将 10 种抗生素纸片和空白纸片置于平板表面，于 \SI{28}{\celsius} 培养 \SI{48}{h} 后观察抑菌圈大小。
+\end{enumerate}
+
+\newpage
+
+\section{实验结果和讨论}
+
+细菌 X（Y16）的分离鉴定流程和主要结果概括见图 \ref{fig:y16_summary}。后续各小节按照实验流程依次呈现培养基配制、土壤微生物分离、Y16 纯化、标准菌显微形态观察、保藏与染色、分子鉴定、实验组生理生化检测和环境因素响应结果。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{imgs/fig.png}
+    \caption{细菌 X（Y16）的分离鉴定流程及关键结果概览。}
+    \label{fig:y16_summary}
+\end{figure}
+
+\subsection{培养基配制与土壤微生物分离结果}
+
+本组完成 PDA 固体培养基的配制、分装和灭菌。PDA 培养基用于后续土壤真菌分离培养，配制过程中应保证马铃薯滤液、糖源和琼脂充分混合，并在灭菌后备用。
+
+经土壤样品梯度稀释和选择性分离培养后，细菌、真菌和放线菌平板均出现可观察菌落（图 \ref{fig:exp2_isolation}）。其中，细菌菌落多呈圆形或近圆形；真菌平板可见菌丝状生长；放线菌平板可见质地相对致密、边缘较不规则的菌落。图中红色圆圈标出了从实验二分离平板中挑取、并用于实验三划线分离的代表性菌落；其中细菌平板所选菌落作为后续鉴定主线菌株，并编号为 Y16。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验二/实验三细菌.png}{A}
+        \caption{细菌}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验二/实验三真菌.png}{B}
+        \caption{真菌}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验二/实验三放线菌.png}{C}
+        \caption{放线菌}
+    \end{subfigure}
+    \caption{土壤样品中不同微生物类群的分离培养及实验三挑取菌落来源。红色圆圈标示后续用于划线分离的目标菌落；真菌平板稀释度为 $10^{-3}$，细菌和放线菌平板稀释度为 $10^{-4}$。}
+    \label{fig:exp2_isolation}
+\end{figure}
+
+\subsection{细菌 X 的分离纯化与菌落特征}
+
+从实验二细菌平板挑取目标菌落后，采用划线分离法进行纯化。纯化培养后，平板上可见有菌苔（图 \ref{fig:exp3_purification}）。Y16 外观整体较为一致，无明显分散单菌落，颜色偏乳白至浅黄色，边缘较整齐，表面较湿润、略有光泽。该结果说明目标菌落经再次划线后形成了形态较一致的培养物，可用于后续转接培养和鉴定实验；但由于未见清晰分散的单菌落，纯化程度仍需结合后续染色和重复划线进一步确认。
+
+\begin{figure}[H]
+    \centering
+    \labeledimage[width=0.38\textwidth]{参考/结果/实验三/细菌.png}{A}
+    \caption{细菌 X（Y16）的划线纯化结果。}
+    \label{fig:exp3_purification}
+\end{figure}
+
+\subsection{标准菌显微形态观察}
+
+实验四将纯化平板中的 Y16 培养物转接至 LB 液体培养基中。后续革兰氏染色、甘油保藏和 16S rRNA 基因测序均以该菌液为材料，说明转接培养获得了可用于后续实验的细菌培养物。与此同时，在显微镜下观察了三类标准细菌形态，包括杆菌、球菌和螺旋菌（图 \ref{fig:exp4_standard_morphology}）。这些标准菌图像提供了显微形态判读的参照，有助于将后续革兰氏染色照片中 Y16 的菌体形态与典型细菌形态进行比较。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验四/杆菌.jpg}{A}
+        \caption{杆菌}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验四/球菌.jpg}{B}
+        \caption{球菌}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.31\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验四/螺旋菌.jpg}{C}
+        \caption{螺旋菌}
+    \end{subfigure}
+    \caption{显微镜下观察到的三类标准细菌形态。}
+    \label{fig:exp4_standard_morphology}
+\end{figure}
+
+\subsection{细菌 X 的保藏与革兰氏染色结果}
+
+Y16 经甘油混合后置于 \SI{-80}{\celsius} 冰箱保存，保藏管外观见图 \ref{fig:preservation}。甘油冷冻保藏可降低低温条件下冰晶对细胞的损伤，适用于后续菌株复苏和重复实验。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验五/保藏结果1.png}{A}
+        \caption{保藏结果 1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.42\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验五/保藏结果2.png}{B}
+        \caption{保藏结果 2}
+    \end{subfigure}
+    \caption{细菌 X（Y16）的甘油冷冻保藏结果。}
+    \label{fig:preservation}
+\end{figure}
+
+革兰氏染色结果显示，Y16 菌体经番红复染后呈粉红色（图 \ref{fig:gram_stain}）。标准对照中杆菌呈粉红色、球菌呈紫色，说明染色过程具有可比性。由此判断，Y16 为革兰氏阴性菌。结合实验四观察到的标准细菌形态，Y16 在染色照片中的单个菌体轮廓较小，局部呈弯曲或近圆形，初步判断其形态可能接近弧形或球形；但受染色视野、细胞排列和图像清晰度影响，该判断仍应作为形态学初步线索，而不宜单独作为分类依据。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验五/粉红色——X菌.jpg}{A}
+        \caption{Y16}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验五/粉红色——标准菌杆菌.png}{B}
+        \caption{标准杆菌}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验五/紫色——标准菌球菌.jpg}{C}
+        \caption{标准球菌}
+    \end{subfigure}
+    \caption{细菌 X（Y16）及标准菌的革兰氏染色结果。}
+    \label{fig:gram_stain}
+\end{figure}
+
+\subsection{细菌 X 的 16S rRNA 序列比对结果}
+
+测序获得的 Y16 反向序列长度为 907 bp。由于测序峰图出现双峰，说明该序列仍存在一定质量限制，后续比对结果应作为初步分类线索而非最终鉴定依据。将该序列用于 BLAST 比对后，前 10 个显著比对结果主要集中在 \textit{Pseudomonas} 相关类群（表 \ref{tab:blast_top}，图 \ref{fig:blast_result}）。其中，最高比对结果的 query cover 为 \SI{92}{\percent}，identity 为 \SI{90.80}{\percent}；其余结果 identity 多在 \SIrange{90.19}{90.76}{\percent} 之间。该相似度低于通常用于近缘种判断的较高阈值，因此只能作为属级或类群水平的初步线索，不能据此直接鉴定到种。BLAST 比对用于快速寻找局部相似序列，其结果需要结合覆盖度、相似度和系统发育关系综合判断\upcite{altschul}。
+
+\begin{table}[H]
+    \centering
+    \caption{Y16 16S rRNA 序列 BLAST 前 10 个比对结果}
+    \small
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{llll}
+        \toprule
+        \textbf{相近序列或物种} & \textbf{Query cover} & \textbf{Identity} & \textbf{登录号} \\
+        \midrule
+        Bacterium CDSHGTNB-4 & \SI{92}{\percent} & \SI{90.80}{\percent} & KT715651.1 \\
+        \textit{Pseudomonas} sp. strain MSHZN5-4 & \SI{92}{\percent} & \SI{90.76}{\percent} & PX931843.1 \\
+        \textit{Pseudomonas parafulva} strain FGW & \SI{91}{\percent} & \SI{90.70}{\percent} & OK090950.1 \\
+        \textit{Pseudomonas putida} strain ATCC 17642 & \SI{91}{\percent} & \SI{90.70}{\percent} & AF094744.1 \\
+        \textit{Pseudomonas plecoglossicida} strain P7 & \SI{93}{\percent} & \SI{90.38}{\percent} & MK544073.1 \\
+        \textit{Pseudomonas putida} strain DC3 & \SI{91}{\percent} & \SI{90.70}{\percent} & MH762176.1 \\
+        \textit{Pseudomonas plecoglossicida} strain M12 & \SI{92}{\percent} & \SI{90.52}{\percent} & MC977688.1 \\
+        \textit{Pseudomonas putida} strain LK 51 & \SI{93}{\percent} & \SI{90.19}{\percent} & KF261578.1 \\
+        \textit{Pseudomonas} sp. strain MSLYN10-2 & \SI{92}{\percent} & \SI{90.44}{\percent} & PX931866.1 \\
+        \textit{Pseudomonas plecoglossicida} strain MF104 & \SI{91}{\percent} & \SI{90.58}{\percent} & LC066144.1 \\
+        \bottomrule
+    \end{tabular}
+    }
+    \label{tab:blast_top}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \labeledimage[width=0.92\textwidth]{参考/结果/实验六/BLAST表前10行.png}{A}
+    \caption{Y16 16S rRNA 序列 BLAST 比对结果截图。}
+    \label{fig:blast_result}
+\end{figure}
+
+\subsection{细菌 X 的系统发育分析}
+
+基于 BLAST 比对结果选取相关参考序列，并使用 MEGA 构建系统发育树\upcite{kumar}。系统发育树显示，Y16 与多株 \textit{Pseudomonas} 相关序列处于相近分支（图 \ref{fig:phylo_tree}）。其中，图 \ref{fig:phylo_tree}B 为输入完整学名后得到的标注版本，例如 \textit{Pseudomonas putida}、\textit{Pseudomonas plecoglossicida} 和 \textit{Pseudomonas} sp. 相关菌株。该处理并不改变序列比对关系，而是使参考序列来源更容易识别。该结果与 BLAST 比对中 \textit{Pseudomonas} 类群占多数的现象一致，提示 Y16 可能与假单胞菌相关类群具有较近亲缘关系。
+
+需要注意的是，本次测序仅使用单条反向序列，峰图存在双峰，且 BLAST 相似度约为 \SI{90}{\percent}。该结果可能受到模板纯度、测序质量、序列截短、反向序列未充分修剪或数据库覆盖度等因素影响。因此，系统发育树适合作为分类位置的辅助证据，但不宜作为种水平鉴定的唯一依据。若需进一步明确 Y16 的分类地位，应获得更高质量的正反向拼接序列，并结合更多分子标记或全基因组水平分析。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验六/MEGA系统发育树.png}{A}
+        \caption{MEGA 系统发育树}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验六/精确系统发育树.png}{B}
+        \caption{精确系统发育树}
+    \end{subfigure}
+    \caption{Y16 与相关参考序列的系统发育分析结果。}
+    \label{fig:phylo_tree}
+\end{figure}
+
+\subsection{实验组菌株的生理生化检测结果}
+
+实验组菌株的生理生化检测结果见表 \ref{tab:biochemical_results}。结果显示，所测菌株在淀粉水解平板上未形成明显透明圈，提示其淀粉水解能力不明显；石蕊牛奶试验表现为胨化，说明其可能具有一定蛋白质分解能力（图 \ref{fig:starch_result}）。硝化检测中，格里斯试剂反应呈微弱红色，提示有 NO$_2^-$ 产生；二苯胺试剂未出现蓝色，提示未检出明显 NO$_3^-$。反硝化检测呈红色，提示反应体系中存在 NO$_2^-$（图 \ref{fig:enzyme_results}）。由于实验七部分项目按小组或大组共同完成，相关表型结果在本报告中作为实验组菌株结果呈现，不直接作为 Y16 分类鉴定的唯一依据。
+
+\begin{table}[H]
+    \centering
+    \caption{实验组菌株的生理生化检测结果}
+    \begin{tabular}{p{0.22\textwidth}p{0.42\textwidth}p{0.25\textwidth}}
+        \toprule
+        \textbf{检测项目} & \textbf{观察结果} & \textbf{判定} \\
+        \midrule
+        淀粉水解 & 碘液染色后未见明显透明圈 & 阴性 \\
+        石蕊牛奶 & 培养液表现为胨化 & 胨化阳性 \\
+        硝化作用 & 格里斯试剂微弱红色；二苯胺试剂无蓝色 & NO$_2^-$ 阳性，NO$_3^-$ 未检出 \\
+        反硝化作用 & 格里斯试剂反应呈红色 & NO$_2^-$ 阳性 \\
+        过氧化氢酶 & 加 H$_2$O$_2$ 后产生明显气泡 & 阳性 \\
+        氧化酶 & 菌体周围出现微弱紫色 & 弱阳性 \\
+        氨化作用 & 石蕊试纸微微变蓝 & 阳性偏弱 \\
+        API-ZYM & 试剂条出现不同程度显色反应 & 作为酶活谱辅助结果 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:biochemical_results}
+\end{table}
+
+过氧化氢酶检测中产生明显气泡，说明实验组所测菌株可分解过氧化氢并释放氧气。氧化酶检测中菌体周围出现少量淡紫色反应，判定为氧化酶弱阳性。氨化试验中石蕊试纸微微变蓝，提示培养过程中产生了氨气，结果为阳性偏弱。API-ZYM 试剂条结果作为实验组菌株酶活性谱的辅助观察结果，用于补充生理生化特征（图 \ref{fig:api_zym_result}）。
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.62\textwidth}
+        \centering
+        \labeledimage[width=0.7\linewidth]{参考/结果/实验七/淀粉水解/后-正面.png}{A}
+        \caption{淀粉水解}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.30\textwidth}
+        \centering
+        \labeledimage[height=0.30\textheight]{参考/结果/实验七/石蕊牛奶.png}{B}
+        \caption{石蕊牛奶}
+    \end{subfigure}
+    \caption{实验组菌株的淀粉水解和石蕊牛奶检测结果。碘液染色后未见明显透明圈，判定淀粉水解阴性；石蕊牛奶培养基出现胨化表现。}
+    \label{fig:starch_result}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/过氧化氢酶.jpg}{A}
+        \caption{过氧化氢酶}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/氧化酶活性检测.png}{B}
+        \caption{氧化酶}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/氨化纸条.png}{C}
+        \caption{氨化}
+    \end{subfigure}
+    
+    \vspace{0.6em}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/硝化-格里斯试剂.png}{D}
+        \caption{硝化-格里斯}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/硝化-二苯胺试剂.png}{E}
+        \caption{硝化-二苯胺}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验七/反硝化.png}{F}
+        \caption{反硝化}
+    \end{subfigure}
+    \caption{实验组菌株的酶活性、氨化、硝化和反硝化检测结果。过氧化氢酶反应产生明显气泡，氧化酶反应呈弱阳性；硝化和反硝化相关显色用于辅助判断含氮化合物转化情况。}
+    \label{fig:enzyme_results}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \labeledimage[width=0.7\textwidth]{参考/结果/实验七/API-ZYM对照.png}{A}
+    \caption{实验组菌株 API-ZYM 显色结果。试剂条出现不同显色反应，可作为酶活性谱的辅助观察结果。}
+    \label{fig:api_zym_result}
+\end{figure}
+
+\subsection{环境条件对微生物生长的影响}
+
+温度实验中，Y16 对应总览图中第 3 行（见图中红色方框），各稀释度从左到右依次为 $10^{-5}$、$10^{-4}$、$10^{-3}$、$10^{-2}$、$10^{-1}$ 和 $10^{0}$。从培养结果看，Y16 在 \SI{28}{\celsius} 条件下生长较明显；在 \SI{4}{\celsius} 条件下菌落形成受到抑制；在 \SI{60}{\celsius} 条件下基本未见明显生长（图 \ref{fig:temperature_result}）。该结果说明 Y16 更适于常温附近生长，低温会降低其生长速率，高温则可能造成细胞损伤或失活。
+
+\begin{figure}[H]
+    \centering
+    \labeledimage[width=0.9\textwidth]{参考/结果/实验八/温度/总览.png}{A}
+    \caption{不同温度条件下细菌 X（Y16）的生长结果。}
+    \label{fig:temperature_result}
+\end{figure}
+
+紫外线实验通过是否使用五角星遮挡和照射后的培养条件两个因素区分 4 个处理。照射后取下五角星，再分别进行黑暗培养或光照培养。不同处理的菌落结果见表 \ref{tab:uv_treatment} 和图 \ref{fig:uv_result}。该实验使用金黄色葡萄球菌平板进行，结果用于说明紫外线遮挡、黑暗培养和光照培养对菌落分布的影响；光照培养组菌落形成相对较多，提示受损细胞可能出现一定程度的光复活现象。
+
+\begin{table}[H]
+    \centering
+    \caption{紫外线照射处理方式及金黄色葡萄球菌菌落形成结果}
+    \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}m{0.12\textwidth}>{\centering\arraybackslash}m{0.18\textwidth}>{\centering\arraybackslash}m{0.18\textwidth}>{\raggedright\arraybackslash}X}
+        \toprule
+        \textbf{平板编号} & \textbf{五角星遮挡} & \textbf{培养情况} & \textbf{菌落结果} \\
+        \midrule
+        1 号 & 有 & 黑暗培养 & 遮挡区域可见明显的五角星菌苔，未遮挡区域仅有少量菌落 \\
+        2 号 & 有 & 光照培养 & 遮挡区域可见明显的五角星菌苔，未遮挡区域也有明显的菌落 \\
+        3 号 & 无 & 黑暗培养 & 平板上可见一定数量的菌落，以及2处明显的菌苔 \\
+        4 号 & 无 & 光照培养 & 平板上可见一定数量的菌落，菌苔存在但不明显 \\
+        \bottomrule
+    \end{tabularx}
+    \label{tab:uv_treatment}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验八/紫外线/1.png}{A}
+        \caption{1 号}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验八/紫外线/2.png}{B}
+        \caption{2 号}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验八/紫外线/3.png}{C}
+        \caption{3 号}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.24\textwidth}
+        \centering
+        \labeledimage[width=\linewidth]{参考/结果/实验八/紫外线/4.png}{D}
+        \caption{4 号}
+    \end{subfigure}
+    \caption{紫外线照射及不同培养条件对金黄色葡萄球菌生长的影响。}
+    \label{fig:uv_result}
+\end{figure}
+
+化学药剂对实验组菌株和金黄色葡萄球菌的抑菌结果见表 \ref{tab:chemical_inhibition} 和图 \ref{fig:chemical_inhibition}。实验组菌株对碘酒较敏感，平均抑菌圈直径为 \SI{10.80}{mm}；醋酸平均抑菌圈直径为 \SI{5.36}{mm}，接近圆形纸片直径（\SI{5}{mm}），提示抑菌作用较弱；石炭酸和空白对照未见明显抑菌圈。金黄色葡萄球菌对照中，碘酒抑菌圈较大，醋酸和石炭酸抑菌圈较小，空白纸片直径接近纸片本身，未见明确抑菌作用。照片结果与定量记录基本一致，说明不同化学药剂对两种菌的抑制强度存在差异，其中碘酒表现出更明显的抑菌效果。
+
+\begin{table}[H]
+    \centering
+    \caption{化学药剂对实验组菌株和金黄色葡萄球菌的抑菌结果}
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{处理} & \textbf{实验组菌株抑菌圈直径/mm} & \textbf{金黄色葡萄球菌抑菌圈直径/mm} \\
+        \midrule
+        碘酒 & 10.80 & 25 \\
+        醋酸 & 5.36 & 7 \\
+        石炭酸 & 无明显抑菌圈 & 7 \\
+        空白对照 & 无明显抑菌圈 & 约 6，接近纸片直径 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:chemical_inhibition}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/X/1.png}{A}
+        \caption{实验组菌株-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/X/2.png}{B}
+        \caption{实验组菌株-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/X/3.png}{C}
+        \caption{实验组菌株-3}
+    \end{subfigure}
+    
+    \vspace{0.6em}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/金黄葡萄/1.png}{D}
+        \caption{金黄色葡萄球菌-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/金黄葡萄/2.png}{E}
+        \caption{金黄色葡萄球菌-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/化学试剂/金黄葡萄/3.png}{F}
+        \caption{金黄色葡萄球菌-3}
+    \end{subfigure}
+    \caption{化学药剂对实验组菌株和金黄色葡萄球菌的抑菌结果。上排为实验组菌株，下排为金黄色葡萄球菌；不同纸片周围抑菌圈大小反映对应化学药剂的抑制强度。}
+    \label{fig:chemical_inhibition}
+\end{figure}
+
+抗生素纸片法结果显示，实验组菌株对不同抗生素的敏感性存在明显差异（表 \ref{tab:antibiotic_inhibition}）。在本实验条件下，实验组菌株对 CIP5 和 NOR10 的抑菌圈较大，表明其对喹诺酮类药物较敏感；AK30 和 GM10 出现一定抑菌圈；CZ30、P10、AM10、C30 和 STX25 未见明显抑菌圈。金黄色葡萄球菌对照对 CZ30、CIP5、C30、AK30、P10 和 AM10 表现出不同程度敏感，而对 NOR10、E15 和 GM10 未见明显抑菌圈。由于部分平板未设置空白纸片或空白记录不完整，空白对照按实际记录为“无”或未用于定量比较。纸片扩散法结果的规范判读通常需要结合标准化培养条件和判读标准\upcite{clsi}，本实验主要用于比较不同处理下抑菌圈大小。
+
+\begin{table}[H]
+    \centering
+    \caption{抗生素对实验组菌株和金黄色葡萄球菌的抑菌结果}
+    \begin{tabular}{llcc}
+        \toprule
+        \textbf{缩写} & \textbf{抗生素名称} & \textbf{实验组菌株/mm} & \textbf{金黄色葡萄球菌/mm} \\
+        \midrule
+        AK30 & 阿米卡星 & 12.5 & 16 \\
+        CZ30 & 头孢唑林 & 无明显抑菌圈 & 31 \\
+        P10 & 青霉素 & 无明显抑菌圈 & 15 \\
+        AM10 & 氨苄西林 & 无明显抑菌圈 & 15 \\
+        NOR10 & 诺氟沙星 & 17.5 & 无明显抑菌圈 \\
+        C30 & 氯霉素 & 无明显抑菌圈 & 23 \\
+        STX25 & 复方新诺明 & 无明显抑菌圈 & 约 5 \\
+        CIP5 & 环丙沙星 & 22 & 28 \\
+        E15 & 红霉素 & 6，接近纸片直径 & 无明显抑菌圈 \\
+        GM10 & 庆大霉素 & 10 & 无明显抑菌圈 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:antibiotic_inhibition}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/X菌/1.png}{A}
+        \caption{实验组菌株-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/X菌/2.png}{B}
+        \caption{实验组菌株-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/X菌/3.png}{C}
+        \caption{实验组菌株-3}
+    \end{subfigure}
+    
+    \vspace{0.6em}
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/金黄葡萄/1.png}{D}
+        \caption{金黄色葡萄球菌-1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/金黄葡萄/2.png}{E}
+        \caption{金黄色葡萄球菌-2}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \labeledimage[width=0.95\linewidth]{参考/结果/实验八/抗生素/金黄葡萄/3.png}{F}
+        \caption{金黄色葡萄球菌-3}
+    \end{subfigure}
+    \caption{抗生素纸片法检测实验组菌株和金黄色葡萄球菌抑菌结果。白色标记为各纸片对应的抗生素名称或空白对照。}
+    \label{fig:antibiotic_group}
+\end{figure}
+
+\subsection{综合讨论}
+
+从分离培养结果看，土壤样品中存在可在不同培养基上生长的细菌、真菌和放线菌，说明土壤微生物群落具有较高多样性。Y16 经划线分离后形成了形态较一致的培养物，并可在 LB 液体培养基中扩增，为后续保藏和鉴定提供了材料；但纯化平板未形成清晰分散的单菌落，因此纯化程度仍需谨慎判断。
+
+革兰氏染色显示 Y16 为革兰氏阴性菌，结合 16S rRNA 序列比对和系统发育树结果，Y16 可能与 \textit{Pseudomonas} 相关类群相近。假单胞菌类群通常包括多种环境来源细菌，常见于土壤、水体和植物根际环境。温度实验显示 Y16 在 \SI{28}{\celsius} 条件下生长较明显，而低温和高温均抑制其生长；实验组生理生化、化学药剂和抗生素结果可作为理解微生物表型检测和药剂敏感性差异的补充材料，但不应直接等同于 Y16 的完整表型谱。
+
+但本实验仍存在局限。首先，16S rRNA 测序峰图出现双峰，且序列比对相似度仅约 \SI{90}{\percent}，分类证据不足，不能进行种水平鉴定。其次，实验七以及实验八中除温度实验外的部分结果来自实验组或大组设置，并非全部直接来源于 Y16，因此只能作为表型检测方法和药剂敏感性比较的补充材料。再次，部分表型结果以肉眼观察和照片记录为主，定量程度有限；API-ZYM 结果也缺少各孔显色强度的标准化记录。后续若需获得更可靠的鉴定结论，应补充高质量正反向测序、直接针对 Y16 的重复生理生化实验、标准化药敏试验和更完整的酶活谱判读。
+
+\section{实验总结与实验心得}
+
+\subsection{实验总结}
+
+本实验完成了从土壤样品中分离培养微生物并对一株细菌 X（Y16）进行初步鉴定的全过程。通过培养基配制和土壤样品处理，获得了细菌、真菌和放线菌的分离培养结果；通过划线纯化和转接培养，获得了可用于后续实验的 Y16 培养物，但纯化平板未见清晰分散的单菌落；通过甘油冻存完成菌种保藏；通过革兰氏染色判断 Y16 为革兰氏阴性菌；通过 16S rRNA 基因比对和系统发育分析，初步推测 Y16 与 \textit{Pseudomonas} 相关类群相近，但该判断受到测序双峰和序列相似度偏低的限制；通过温度实验观察到 Y16 在不同温度下的生长差异，并通过实验组生理生化和药剂敏感性结果补充理解微生物表型检测方法。
+
+\subsection{实验心得}
+
+本次大实验的特点是周期较长，前后实验之间具有明显连续性。早期平板分离和目标菌落选择会直接影响后续纯化、染色、测序和生理生化检测结果，因此无菌操作、标记和照片记录都十分重要。通过整理全过程结果，可以更清楚地理解微生物鉴定并不是依赖单一实验结论，而是需要把培养特征、染色反应、分子序列和生理生化表型综合起来分析。
+
+\subsection{对微生物学实验的建议}
+
+建议在课程实验中提供更明确的结果记录表，尤其是抗生素纸片编号和摆放位置应在实验现场及时记录。部分纸片编号在照片中不易辨认，我于后期整理时容易依赖排除法回推。课程安排上，部分实验步骤和结果观察内容较密集，容易出现拖堂的问题；可适当预留结果拍照、编号核对和数据汇总时间。
+
+\newpage
+
+\section{参考文献}
+
+\begin{thebibliography}{99}
+\bibitem{madigan}
+Madigan M T, Bender K S, Buckley D H, Sattley W M, Stahl D A. Brock Biology of Microorganisms[M]. 16th ed. New York: Pearson, 2021.
+
+\bibitem{bergey}
+Whitman W B, DeVos P, Dedysh S, et al., eds. Bergey's Manual of Systematics of Archaea and Bacteria[M]. Hoboken: John Wiley \& Sons, 2015.
+
+\bibitem{altschul}
+Altschul S F, Gish W, Miller W, Myers E W, Lipman D J. Basic local alignment search tool[J]. Journal of Molecular Biology, 1990, 215(3): 403--410. doi: 10.1016/S0022-2836(05)80360-2.
+
+\bibitem{kumar}
+Kumar S, Stecher G, Li M, Knyaz C, Tamura K. MEGA X: molecular evolutionary genetics analysis across computing platforms[J]. Molecular Biology and Evolution, 2018, 35(6): 1547--1549. doi: 10.1093/molbev/msy096.
+
+\bibitem{clsi}
+Clinical and Laboratory Standards Institute. Performance Standards for Antimicrobial Susceptibility Testing[S]. 34th ed. CLSI supplement M100-Ed34. Wayne: Clinical and Laboratory Standards Institute, 2024.
+
+\end{thebibliography}
+
+\end{document}
+

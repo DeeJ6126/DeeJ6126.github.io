@@ -1,0 +1,94 @@
+courses:
+  - slug: anndata
+    notes:
+      - source: source/course-notes/single-cell/study_notes/AnnData/AnnData.md
+        output: anndata.md
+        title: AnnData 学习笔记
+        order: 1
+  - slug: r
+    notes:
+      - source: source/course-notes/single-cell/study_notes/R/项目1：投骰子.Rmd
+        output: project-1-dice.md
+        title: 项目1：投骰子
+        order: 1
+      - source: source/course-notes/single-cell/study_notes/R/项目2：扑克牌.Rmd
+        output: project-2-cards.md
+        title: 项目2：扑克牌
+        order: 2
+      - source: source/course-notes/single-cell/study_notes/R/项目3：老虎机.Rmd
+        output: project-3-slots.md
+        title: 项目3：老虎机
+        order: 3
+  - slug: scanpy
+    notes:
+      - source: source/course-notes/single-cell/study_notes/Scanpy/预处理与聚类.md
+        output: preprocessing-clustering.md
+        title: 预处理与聚类
+        order: 1
+      - source: source/course-notes/single-cell/study_notes/Scanpy/整合数据.md
+        output: integration.md
+        title: 整合数据
+        order: 2
+  - slug: zoology
+    notes:
+      - source: source/course-notes/zoology/脊椎动物：名词解释.md
+        output: vertebrate-terms.md
+        title: 脊椎动物：名词解释
+        order: 19
+        shareUrl: https://share.mubu.com/doc/q7qqkTg79
+      - source: source/course-notes/zoology/脊椎动物：选择判断.md
+        output: vertebrate-quiz.md
+        title: 脊椎动物：选择判断
+        order: 20
+        shareUrl: https://share.mubu.com/doc/1KBwLpFlHIu
+      - source: source/course-notes/zoology/脊椎动物：简答论述.md
+        output: vertebrate-essays.md
+        title: 脊椎动物：简答论述
+        order: 21
+        shareUrl: https://share.mubu.com/doc/1G6dGQVUzIu
+  - slug: microbiology
+    notes:
+      - source: source/course-notes/microbiology/历年卷答案.md
+        output: past-exam-answers.md
+        title: 历年卷答案
+        order: 1
+      - source: source/course-notes/microbiology/历年卷答案（精简）.md
+        output: past-exam-answers-condensed.md
+        title: 历年卷答案（精简）
+        order: 2
+  - slug: dive-into-deep-learning
+    notes:
+      - source: source/course-notes/d2l/note/ch3.md
+        output: chapter-03.md
+        title: 第 3 章：线性神经网络
+        order: 1
+      - source: source/course-notes/d2l/note/ch4.md
+        output: chapter-04.md
+        title: 第 4 章：多层感知机
+        order: 2
+      - source: source/course-notes/d2l/note/ch5.md
+        output: chapter-05.md
+        title: 第 5 章：深度学习计算
+        order: 3
+      - source: source/course-notes/d2l/note/ch6&7_CNN.md
+        output: chapter-06-07-cnn.md
+        title: 第 6–7 章：卷积神经网络
+        order: 4
+      - source: source/course-notes/d2l/note/ch10_Attention.md
+        output: chapter-10-attention.md
+        title: 第 10 章：注意力机制
+        order: 5
+      - source: source/course-notes/d2l/note/ch11_优化算法.md
+        output: chapter-11-optimization.md
+        title: 第 11 章：优化算法
+        order: 6
+      - source: source/course-notes/d2l/note/ch14&15_NLP.md
+        output: chapter-14-15-nlp.md
+        title: 第 14–15 章：自然语言处理
+        order: 7
+  - slug: deep-learning-introduction
+    notes:
+      - source: source/course-notes/d2l/note/生成模型.md
+        output: generative-models.md
+        title: 生成模型
+        order: 1

@@ -1,0 +1,121 @@
+.live2d-mascot {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+.live2d-mascot [hidden], .live2d-mascot[hidden] { display: none !important; }
+.whale-pet-stage { position: absolute; inset: 0; pointer-events: none; }
+.whale-pet-stage > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.whale-pet-shadow { fill: rgba(23, 51, 108, .12); }
+.whale-pet-particles .p-heart { stroke: #ee6a8a; }
+.whale-pet-particles .p-dust { stroke: var(--muted); }
+.whale-pet-particles .tearf { fill: var(--cyan); }
+.whale-pet-particles .eye { stroke: var(--blue); }
+.whale-pet-hit {
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  clip-path: ellipse(46% 50% at 50% 50%);
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+}
+.whale-pet-hit:focus-visible { background: rgba(18, 101, 243, .07); outline: 2px solid var(--blue); outline-offset: -3px; }
+.live2d-mascot-bubble {
+  position: absolute;
+  max-width: 220px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.live2d-mascot-bubble::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 4px);
+  top: 100%;
+  width: 8px;
+  height: 8px;
+  background: var(--paper);
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transform: rotate(-45deg);
+}
+.whale-pet-toggle {
+  position: absolute;
+  right: 20px;
+  bottom: 16px;
+  width: max-content;
+  height: 28px;
+  border: 1px solid var(--line);
+  padding: 4px 9px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 12px Arial, 'Microsoft YaHei', sans-serif;
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s;
+}
+.whale-pet-hit:hover ~ .whale-pet-toggle, .whale-pet-toggle:hover,
+.whale-pet-toggle:focus-visible, .whale-pet-toggle[aria-expanded='true'],
+.live2d-mascot[data-pet-state='hidden'] .whale-pet-toggle,
+.live2d-mascot[data-pet-state='error'] .whale-pet-toggle { opacity: 1; pointer-events: auto; }
+.live2d-mascot[data-pet-state='loading'] .whale-pet-toggle { visibility: hidden; }
+.whale-pet-menu {
+  position: absolute;
+  right: 20px;
+  bottom: 24px;
+  width: 304px;
+  max-height: calc(100vh - 108px);
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+  pointer-events: auto;
+  box-shadow: 4px 4px 0 rgba(23, 51, 108, .08);
+}
+.whale-pet-menu header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.whale-pet-menu header strong { font-size: 15px; }
+.whale-pet-menu button, .whale-pet-menu select { border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: var(--paper); font: inherit; }
+.whale-pet-menu button { cursor: pointer; padding: 6px 8px; }
+.whale-pet-menu header button { border: 0; font-size: 20px; padding: 0 4px; line-height: 1; }
+.whale-pet-menu button:hover { border-color: var(--blue); color: var(--blue); }
+.whale-pet-menu button:focus-visible, .whale-pet-menu select:focus-visible, .whale-pet-toggle:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.whale-pet-menu label { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0; }
+.whale-pet-menu select { width: 144px; padding: 5px; }
+.whale-pet-hint { margin: 12px 0; color: var(--muted); line-height: 1.7; }
+.whale-pet-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 16px; }
+.whale-pet-status { min-height: 17px; margin: 12px 0 6px; color: var(--muted); }
+.whale-pet-menu footer { border-top: 1px solid var(--line); padding-top: 12px; }
+.whale-pet-menu footer span { display: block; margin-top: 8px; color: var(--muted); font-size: 11px; }
+html.mascot-dragging, html.mascot-dragging body, html.mascot-dragging body * { -webkit-user-select: none; user-select: none; }
+html.mascot-dragging, html.mascot-dragging .whale-pet-hit { cursor: grabbing; }
+@media (max-width: 919px), (prefers-reduced-motion: reduce) { .live2d-mascot { display: none; } }
+
+/* The collapsed pet is a small round DeepSeek badge, including on a fresh visit. */
+.whale-pet-toggle.is-collapsed {
+  right: 20px; bottom: 20px; width: 48px; height: 48px;
+  display: grid; place-items: center; padding: 8px;
+  border: 0; border-radius: 50%; background: #4d6bfe; opacity: 1;
+  box-shadow: 0 2px 8px rgba(23,51,108,.15);
+}
+.whale-pet-toggle.is-collapsed img { width: 32px; height: 32px; filter: brightness(0) invert(1); }
+.whale-pet-toggle.is-collapsed:hover { background: var(--blue); }
+.whale-pet-footer-controls { display: grid; grid-template-columns: auto minmax(76px,1fr) auto; gap: 10px; align-items: center; }
+.whale-pet-menu .whale-pet-size { display: grid; gap: 4px; margin: 0; justify-content: stretch; min-width: 0; }
+.whale-pet-menu .whale-pet-size span { margin: 0; font-size: 10px; display: flex; justify-content: space-between; }
+.whale-pet-size input { width: 100%; min-width: 0; height: 14px; margin: 0; accent-color: var(--blue); cursor: pointer; }
+.whale-pet-record { position: fixed; left: 0; top: 0; width: 96px; height: 96px; pointer-events: none; image-rendering: pixelated; will-change: transform, opacity; }
+.whale-pet-menu button:disabled { opacity: .5; cursor: wait; }
+.whale-pet-note-anchor { position: absolute; pointer-events: none; transform-origin: 0 0; }
+.whale-pet-music-note { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; image-rendering: pixelated; }
+.live2d-mascot[data-pet-singing='true'] .whale-pet-particles > g { display: none; }

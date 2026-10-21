@@ -1,0 +1,36 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import '../../styles/papers.css';
+
+export async function getStaticPaths() {
+  return (await getCollection('papers')).map((paper) => ({ params: { slug: paper.id }, props: { paper } }));
+}
+interface Props { paper: CollectionEntry<'papers'>; }
+const { paper } = Astro.props;
+const { Content, headings } = await render(paper);
+const majorDepth = Math.min(...headings.map((heading) => heading.depth));
+const sections = headings.filter((heading) => heading.depth === majorDepth);
+---
+<SiteLayout title={`${paper.data.title} | 论文笔记 | Dee's Blog`} description={paper.data.summary} active="papers" cursorTrail={false}>
+  <aside class="paper-rail paper-toc" aria-label="笔记目录">
+    <a class="paper-back" href="/papers/" data-motion="section" data-motion-target-page="papers">← 论文笔记</a>
+    <span class="eyebrow">CONTENTS</span>
+    <nav>{sections.map((heading, index) => <a href={`#${heading.slug}`}><small>{String(index + 1).padStart(2, '0')}</small><span>{heading.text}</span></a>)}</nav>
+  </aside>
+  <main class="paper-page paper-detail">
+    <header class="paper-note-heading">
+      <div class="paper-context"><span>PAPER NOTES</span><time datetime={paper.data.readDate}>阅读于 {paper.data.readDate}</time></div>
+      <h1>{paper.data.title}</h1>
+      <p class="paper-note-summary">{paper.data.summary}</p>
+      {(paper.data.paperTitle || paper.data.authors || paper.data.venue || paper.data.year || paper.data.url) && <div class="paper-citation">
+        {paper.data.paperTitle && <strong>{paper.data.paperTitle}</strong>}
+        {(paper.data.authors || paper.data.venue || paper.data.year) && <p>{[paper.data.authors, paper.data.venue, paper.data.year].filter(Boolean).join(' · ')}</p>}
+        {paper.data.url && <a href={paper.data.url} target="_blank" rel="noreferrer">阅读原文 ↗</a>}
+      </div>}
+      <ul class="paper-tags" aria-label="主题">{paper.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+    </header>
+    <article class="paper-prose"><Content /></article>
+    <footer class="paper-note-footer"><a href="/papers/" data-motion="section" data-motion-target-page="papers">← 返回论文笔记</a><span>Dee's Blog</span></footer>
+  </main>
+</SiteLayout>

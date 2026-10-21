@@ -1,0 +1,40 @@
+---
+import { getImage } from 'astro:assets';
+import brandLogo from '../assets/favicon-dee-bird.png';
+
+interface Props { active?: 'courses' | 'projects' | 'papers' | 'about'; }
+const { active = 'courses' } = Astro.props;
+const brandIcon = await getImage({ src: brandLogo, width: 80, height: 80, format: 'png' });
+---
+<header class="site-header">
+  <a class="site-brand" href="/" data-motion="section" data-motion-target-page="courses">
+    <img src={brandIcon.src} alt="" width="40" height="40" decoding="async" />
+    <span>Dee's Blog</span>
+  </a>
+  <nav aria-label="主导航">
+    <a class:list={{ active: active === 'courses' }} href="/" data-motion="section" data-motion-target-page="courses" data-motion-page-link="courses">课程笔记</a>
+    <a class:list={{ active: active === 'projects' }} href="/projects/" data-motion="section" data-motion-target-page="projects" data-motion-page-link="projects">项目经历</a>
+    <a class:list={{ active: active === 'papers' }} href="/papers/" data-motion="section" data-motion-target-page="papers" data-motion-page-link="papers">论文笔记</a>
+    <a class:list={{ active: active === 'about' }} href="/about/" data-motion="section" data-motion-target-page="about" data-motion-page-link="about">关于</a>
+  </nav>
+  <div class="header-action"><slot name="action" /></div>
+</header>
+
+<style>
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 10px;
+    width: fit-content;
+    white-space: nowrap;
+  }
+  .site-brand img {
+    display: block;
+    flex: none;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+</style>

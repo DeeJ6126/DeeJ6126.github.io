@@ -1,0 +1,1355 @@
+\documentclass[10pt]{config}
+% 本实验报告采用 署名-相同方式共享 4.0 国际许可协议 (CC BY-SA 4.0)
+\setlength{\parskip}{\baselineskip} % 设置段落间距为一个基本行距
+\major{生物科学}
+\name{蒋贤迪}
+\partner{} % 签名栏
+% \title{}
+\stuid{3240105782}
+\date{2025.12.17}
+\lab{生物实验中心-312}
+\course{生态学基础及实验}
+\instructor{蒋明凯}
+\grades{}
+\expname{生态系统过程模型原理及操作} % 实验名字
+\exptype{干实验} % 实验类型
+
+\usepackage{listings}
+\usepackage{amsmath} % 用于数学公式
+\usepackage[table]{xcolor} % 用于设置单元格颜色
+\usepackage{mhchem} % 用于 \ce{} 化学式命令
+\usepackage{graphicx} % 用于插入图片
+\usepackage{tikz}
+\usepackage{booktabs} % 用于更好的表格线条
+\usepackage{multirow} % 用于多行合并
+\usepackage{array}    % 增强表格功能
+\usepackage{subcaption}
+\usepackage{float}  % 用于 [H] 强制定位
+\usepackage{tikz}   % 用于在图片上标注 A/B
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subcaption}
+
+\begin{document}
+
+
+% \maketitlepage % 封面
+% \maketoc % 目录
+\makeheader % 首页头部
+
+
+\section{实验目的和要求}
+
+\subsection{实验目的}
+
+\begin{itemize}
+    \item 学习生态系统过程模型的基本原理
+    \item 掌握生态系统过程模型GDAY的基本操作方法
+\end{itemize}
+
+\subsection{实验要求}
+
+字数不少于1200字，实验报告包括：
+
+\begin{enumerate}
+    \item 模型介绍
+    \item 实验方法 
+    \item 结果描述
+    \item 讨论
+\end{enumerate}
+
+其中，结果部分不少于5副图/表，包括简要图例。
+
+\newpage
+
+\section{实验内容和原理}
+
+\subsection{生态系统过程模型简介}
+
+\subsubsection{过程代表性}
+
+生态系统模型根据其侧重的核心生态学过程不同，可分为多种类型。从关注元素循环的生物地球化学模型，到关注植被动态的林隙模型，不同种类的模型在核心要素和应用场景上存在显著差异。各类主要模型的定义、核心要素及典型实例如表 \ref{tab:model_process} 所示。
+
+\vspace{0.5em}
+
+\begin{table}[h]
+    \centering
+    \caption{生态系统过程模型的分类及其核心要素}
+    \small % 稍微缩小字号以适应页面宽度
+    \renewcommand{\arraystretch}{1.3} % 增加行高，使表格更美观
+    \begin{tabular}{p{3.5cm} p{7cm} m{4.5cm}}
+        \toprule
+        \textbf{模型种类} & \textbf{核心要素} & \textbf{模型例子} \\
+        \midrule
+        生物地球化学循环模型 & 模拟生物地球化学循环（C、N、P） & TEM, CASA, BIOME-BGC, CENTURY, GDAY \\
+        林隙模型 (Gap model) & 单株树、种群动态、群落组成 & JABOWA, FORET, GDAY \\
+        生态系统种群结构模型 & 与林隙模型类似，但基于网格或地块 & ED \\
+        全球动态植被模型 & 生物地球化学循环、群落组成、全球生物地理 & IBIS, LPJ, SDGVM, SEIB-DGVM \\
+        陆面模式 & 用于天气和气候模拟的全球地表模型，关注水文气象过程与大气的生物地球物理耦合 & CLM, JULES, CABLE, JSBACH \\
+        植物冠层模型 & 多层冠层尺度模型，注重耦合叶片生理过程和冠层物理 & MAESPA, CUPID, CANOAK \\
+        生态水文模型 & 与陆面模式类似，拥有水文的横向流动连通性 & RHESSys \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:model_process}
+\end{table}
+
+\subsubsection{空间代表性}
+
+除过程机制外，模型所代表的空间尺度也是其重要的分类依据。生态学过程跨越了从微观到宏观的多个层级，模型也相应地被设计用于模拟从单一器官（如叶片）到整个生物圈的不同空间尺度。根据空间代表性的不同，常见模型可分为器官模型、单株模型、群落模型直至全球模型，具体分类及实例如表 \ref{tab:model_spatial} 所示。
+
+\vspace{0.5em}
+
+\begin{table}[h]
+    \centering
+    \caption{不同空间尺度下的生态模型分类及实例}
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{p{4.5cm} m{10cm}}
+        \toprule
+        \textbf{空间尺度/模型类型} & \textbf{典型模型实例} \\
+        \midrule
+        器官模型（叶片或冠层） & Farquhar's model, FOREST-BGC, MAESTRO, BIOMASS \\
+        单株生理生态模型 & ECOPHYS, TREGRO, TREE-BGC \\
+        群落模型 & JABOWA, FORET, ZELIG, LINKAGE \\
+        林分或生态系统模型 & GDAY, PnET, CENTURY, TRIPLEX \\
+        景观模型 & FIRE-BGC, LANDIS \\
+        全球模型 & BIOME3, MAPSS, IBIS \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:model_spatial}
+\end{table}
+
+
+% --- subsubsection 3: 经验模型 ---
+    \subsubsection{经验模型}
+\begin{minipage}{0.55\textwidth}
+
+\hspace{2em}经验模型的典型代表是第一个全球净生产力 (NPP) 模型——MIAMI 模型 (Lieth, 1975)。该模型具有以下特征：
+    \begin{itemize}
+        \item \textbf{数据基础}：量化了 52 个站点的 NPP 与站点年均温和年均降水的关系。
+        \item \textbf{计算公式}：
+        $$NPP_{T}=\frac{3000}{1+e^{1.315-0.119T}}$$
+        $$NPP_{P}=3000*(1-e^{-0.000664P})$$
+        \item \textbf{预测能力}：预测了全球陆地净生产力 ($63 \times 10^{15} g~C~yr^{-1}$)。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.38\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=\linewidth]{实验内容与原理/生态系统过程模型简介/经验模型.png}
+\end{minipage}
+
+\vspace{0.5em}
+
+% --- subsubsection 2: 过程模型 ---
+    \subsubsection{过程模型}
+\begin{minipage}{0.55\textwidth}
+\hspace{2em}过程模型描述了生态系统中的主要库 (pool) 和通量 (flux) 以及调节这些变量的因素。它提供了基于基本自然规律和经验关系的预测能力，其核心在于基于过程对生态系统动态及其与环境关系进行理解，主要回答以下问题：
+    \begin{itemize}
+        \item 光合作用产生的能量？
+        \item 能量或物质如何流动？
+        \item 营养元素在系统中的回收速度有多快？
+        \item 生态系统作为一个整体是如何运作的？
+        \item 系统是如何构造的，它是如何运作的？
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.38\textwidth}
+    \vspace{0em}
+    \centering
+    \includegraphics[width=\linewidth]{实验内容与原理/生态系统过程模型简介/过程模型.png}
+\end{minipage}
+
+\vspace{0.5em}
+
+    \subsubsection{地球系统模型}
+\begin{minipage}{0.55\textwidth}
+\hspace{2em}地球系统模型使用数学公式来模拟驱动地球大气层、水圈、生物圈和地圈的物理、化学和生物过程。其主要特征如下：
+    \begin{itemize}
+        \item \textbf{组成结构}：典型的地球系统模型由大气、海洋、海冰、陆地和冰川的耦合模型组成。
+        \item \textbf{土地模块}：以其生态系统、流域、人和环境变化的社会经济驱动因素为代表。
+        \item \textbf{功能目标}：全面量化人类和生态系统影响、适应和缓解全球环境变化的过程。
+    \end{itemize}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.38\textwidth}
+    \vspace{0em} % 用户要求的垂直间距调整
+    \centering
+    \includegraphics[width=\linewidth]{实验内容与原理/生态系统过程模型简介/地球系统模型.png}
+\end{minipage}
+
+\subsection{生态系统的定量描述}
+
+\subsubsection{模型的核心要素}
+任何生态系统过程模型，无论其复杂程度如何，都由一组核心要素构成。这些要素定义了模型的边界、内部状态以及与外界环境的交互方式。根据 Bonan (2019) 的总结，生态系统模型的主要组成要素及其定义如表 \ref{tab:model_elements} 所示。
+
+\begin{table}[h]
+    \centering
+    \caption{生态系统过程模型的核心要素定义}
+    \label{tab:model_elements}
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{p{3cm} p{11cm}}
+        \toprule
+        \textbf{要素} & \textbf{定义} \\
+        \midrule
+        系统边界 & 界定系统内容；将系统内部的过程与系统外部的过程分开 \\
+        状态变量 & 作为时间导数出现在预测方程左侧的时变量（如生物量库大小） \\
+        模型结构 & 用于制定模型变量和过程的方程；变量和过程之间的相互作用和联系 \\
+        参数 & 过程参数化中使用的常数（如最大光合速率） \\
+        输入变量 & 演化模型状态所需的数量（如气象驱动数据） \\
+        初始条件 & 模型启动需要初始化的状态变量 \\
+        模型输出 & 模型模拟的数量；状态变量以及通量和其他诊断变量 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsubsection{模型发展的重要挑战}
+
+尽管生态模型已取得了长足发展，但在准确预测未来全球变化响应时仍面临诸多挑战：
+\begin{enumerate}
+    \item \textbf{过程的代表性与普适性}：如何在模型中不断添加新的生态过程（如磷循环、微生物机制），同时保持模型的普适性。
+    \item \textbf{时空尺度问题}：如何将叶片尺度（秒/厘米）的观测数据推演到全球尺度（年/公里）的预测。
+    \item \textbf{复杂反馈关系}：例如在 $CO_2$ 升高背景下，植物的气孔响应、养分限制与土壤反馈之间的复杂互作。
+    \item \textbf{不确定性}：包括模型内部结构的不确定性（如参数敏感性）和外部环境（如气候情景）的不确定性，以及“异参同效”（Equifinality）带来的验证难题。
+\end{enumerate}
+
+\subsection{教学模型————GDAY}
+
+\subsubsection{模型介绍}
+
+GDAY (Generic Decomposition And Yield) 模型是一个基于过程的林分尺度生态系统模型，由 Comins 和 McMurtrie (1993) 最初开发。该模型通过耦合林分生长模型与 CENTURY 土壤有机质分解模型，能够模拟生态系统中的碳 (C)、氮 (N)、磷 (P) 和水循环动态。
+
+该模型具有以下主要特征：
+\begin{itemize}
+    \item \textbf{时间步长}：支持日步长 (Daily) 或亚日步长 (Sub-daily, 30分钟) 运行。在亚日步长下，模型采用双叶模型 (Two-leaf approximation) 计算光合作用。
+    \item \textbf{核心过程}：集成了 Farquhar 光合作用模型、基于 PIPE 理论的碳分配机制、以及 CENTURY 模型的土壤碳氮磷周转过程。
+    \item \textbf{应用场景}：广泛用于评估环境变化（如大气 $CO_2$ 浓度升高、氮沉降增加）对森林生产力、水利用效率及养分循环的长期影响。
+\end{itemize}
+
+\subsubsection{模型结构}
+
+GDAY 模型的内部结构描述了物质在植被与土壤不同库之间的流动与转化，如图 \ref{fig:gday_structure} 所示。
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{实验内容与原理/GDAY/模型图.png}
+    \caption{GDAY 模型框架与碳氮磷循环路径示意图（图源GDAY-CNP的README.md）}
+    \label{fig:gday_structure}
+\end{figure}
+
+\vspace{1em}
+
+其核心组成部分及通量路径如下：
+
+\begin{itemize}
+    \item \textbf{VEGETATION (植被)}：包含四个主要的生物量库：叶 (Foliage)、木 (Wood)、粗根 (Coarse Root) 和细根 (Fine Root)。模型模拟光合作用产生的碳 ($GPP$) 在这些器官间的分配、生长以及随后的凋落过程。
+    
+    \item \textbf{SOIL (土壤)}：主要指土壤有机质 (Soil Organic Matter) 部分。依据 CENTURY 模型，划分为三个周转速率不同的库：活性库 (Active)、慢速库 (Slow) 和惰性库 (Passive)，模拟凋落物分解及有机质的矿化与固定。
+    
+    \item \textbf{SOIL MINERAL NITROGEN (土壤矿质氮)}：代表土壤中可供植物吸收利用的无机氮库。它接收来自大气沉降、生物固氮及有机质矿化的氮，同时通过植物吸收和淋溶流失。
+    
+    \item \textbf{SOIL PHOSPHORUS OF DIFFERENT BIOAVAILABILITY (不同生物有效性的土壤磷)}：精细刻画了磷的地球化学循环。包含母质磷 (Parent Material P)、易利用磷 (Labile P)、吸附态磷 (Sorbed P)、强吸附态磷 (Strongly Sorbed P) 和闭蓄态磷 (Occluded P)。
+    
+    \item \textbf{通量图例说明 (Legend)}：图中不同颜色的箭头和边框代表不同的物质流向：
+    \begin{itemize}
+        \item \textbf{CNP (黑色)}：代表以固定化学计量比流动的有机物质（包含碳、氮、磷），如生物量生长和凋落物形成。
+        \item \textbf{C (绿色)}：代表纯碳通量，主要是光合作用 ($CO_2$ 固定) 和呼吸作用 ($CO_2$ 释放)。
+        \item \textbf{N (紫色)}：代表氮素通量，包括氮沉降、固氮、矿化、固定、淋溶和植物吸收等过程。
+        \item \textbf{P (橙色)}：代表磷素通量，包括磷的生物化学矿化、吸附/解吸以及风化输入等过程。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{模型文件结构}
+GDAY 模型的核心代码库采用模块化的文件结构，将源代码、头文件、参数文件和辅助脚本严格分离。根据课件描述，其主要文件结构如表 \ref{tab:model_file_structure} 所示。
+
+\begin{table}[h]
+    \centering
+    \caption{GDAY 模型核心文件结构及说明}
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \begin{tabular}{p{0.2\textwidth} p{0.25\textwidth} p{0.45\textwidth}}
+        \toprule
+        \textbf{目录类别} & \textbf{文件夹/路径} & \textbf{包含文件及功能说明} \\
+        \midrule
+        \textbf{源代码} & \texttt{code/src} & 包含GDAY模型源代码，如 \texttt{gday.c}, \texttt{canopy.c}, \texttt{soils.c} 等 \\
+        \textbf{头文件} & \texttt{code/src/include} & 包含 \texttt{gday.h}, \texttt{canopy.h} 等头文件，定义数据结构与函数声明 \\
+        \textbf{参数文件} & \texttt{code/params} & 存放启动模型所需的基本参数文件，如\texttt{best\_start.cfg} \\
+        \textbf{运行代码} & \texttt{code/scripts} & 包含启动模型的运行代码，如\texttt{adjust\_gday\_param\_file.py} \\
+        \textbf{描述性文件} & \texttt{code/doc} & 存放 \texttt{outline.png} ，如图\label{fig:gday_structure}所示 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:model_file_structure}
+\end{table}
+
+
+\subsubsection{par.cfg文件}
+\texttt{par.cfg} 是控制模型行为的核心配置文件，主要包含以下部分：
+\begin{itemize}
+    \item \textbf{[files]}：设置文件路径。
+    \item \textbf{[params]}：模型模拟所需的相关参数，即调控植物生理、生长、生态系统生物地球化学循环过程的相关参数.
+    \item \textbf{[state]}：模型的状态变量，主要是碳氮磷库信息，用以初始化模型
+    \item \textbf{[control]}：控制模型模块的参数，比如是否输出数据，是否打开spin-up，应用哪个具体功能模块等
+    \begin{itemize}
+        \item \texttt{spin\_up}：是否开启预热平衡模拟。
+        \item \texttt{alloc\_model}：碳分配模式（固定比例 Fixed 或 异速生长 Allometric）。
+      \item texttt{fixleafnc}：是否固定叶片碳氮比。
+    \end{itemize}
+    \item \textbf{[print]}：设置需要输出的变量列表。
+\end{itemize}
+
+\subsubsection{R语言文件包}
+为了简化操作流程，本实验通过一套 R 语言文件包来管理 GDAY 模型的运行。各文件及其功能说明如表 \ref{tab:r_package_structure} 所示。
+
+\begin{table}[h]
+    \centering
+    \caption{GDAY 模型 R 语言文件包结构说明}
+    \small
+    \renewcommand{\arraystretch}{1.5} % 增加行高，提升阅读体验
+    \begin{tabular}{p{0.22\textwidth} p{0.18\textwidth} p{0.5\textwidth}}
+        \toprule
+        \textbf{文件/文件夹名} & \textbf{主要功能} & \textbf{说明} \\
+        \midrule
+        \textbf{Run\_programs.R} & 主控制脚本 & 包含Windows版和Mac版 \\
+        \textbf{Functions} & 功能函数库 & 包含R语言环境下对模型进行预处理(pre-processing)、后处理(post-processing)的脚本 \\
+        \textbf{data} & 数据文件夹 & 存放模型所需的原始气象驱动数据 \\
+        \textbf{GDAY} & 模型仓库 & 包含 GDAY 的源代码和预先编译好的可执行程序 \\
+        \textbf{output} & 输出文件夹 & 用于存放后处理脚本生成的最终分析结果和图表 \\
+        \textbf{R} & 环境配置 & 包含 R 语言环境的相关设置文件 \\
+        \midrule
+        \multirow{3}{*}{\textbf{simulations}} & \multirow{3}{*}{模拟文件夹} & \texttt{PTP.exe}：GDAY 在 Windows 环境下的可执行文件 \\
+         & & \texttt{par.cfg}：控制与模型参数文件 \\
+         & & \texttt{EUC\_met\_*.csv}：处理好的气象驱动数据文件 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:r_package_structure}
+\end{table}
+
+
+
+\subsubsection{功能模块}
+GDAY 的核心源代码分布在多个 C 语言文件中。根据代码功能逻辑，可将其划分为核心生态生理过程与辅助数据支持两大类，具体文件功能说明如表 \ref{tab:code_modules_two} 所示。
+
+\begin{table}[h]
+    \centering
+    \small 
+    \renewcommand{\arraystretch}{1.7} 
+    
+    % --- 左侧表格：核心控制与数据IO ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \vspace{0em}
+        \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} p{0.5\linewidth} p{0.45\linewidth}}
+            \toprule
+            \textbf{文件名} & \textbf{功能说明} \\
+            \midrule
+            gday.c & 核心主程序 \\
+            Makefile & 生成可执行文件 \\
+            initialise\_model.c & 模型初始化 \\
+            read\_param\_file.c & 读取模型所需参数 \\
+            read\_met\_file.c & 读取气象驱动数据 \\
+            utilities.c & 模型辅助代码 \\
+            nrutil.c & 数值计算与稳定性 \\
+            write\_output\_file.c & 生成输出文件 \\
+            \bottomrule
+        \end{tabular*}
+    \end{minipage}
+    \hfill
+    % --- 右侧表格：生态生理与水文过程 ---
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \vspace{0em}
+        \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} p{0.5\linewidth} p{0.45\linewidth}}
+            \toprule
+            \textbf{文件名} & \textbf{功能说明} \\
+            \midrule
+            write\_output\_file.c & 生成输出文件 \\
+            photosynthesis.c & 光合作用计算 \\
+            plant\_growth.c & 植物生长与碳分配 \\
+            litter\_production.c & 凋落物产生计算 \\
+            soils.c & 土壤相关代码 \\
+            constants.h & 模型常数  \\
+            structures.h & 模型参数的定义 \\
+            \bottomrule
+        \end{tabular*}
+    \end{minipage}
+    \label{tab:code_modules_two}
+\end{table}
+
+\subsection{实验参数讲解}
+
+\subsubsection{data\_model\_intercomparison}
+
+本部分主要对模型输出结果与观测数据对比分析中涉及的关键生态系统参数进行定义与生态学意义解析。这些参数反映了生态系统的碳库大小、碳流动速率以及植物的生长策略。
+
+\begin{itemize}
+    \item \textbf{主要生态系统碳库 (Major Ecosystem Carbon Pools)}
+    
+    该组参数反映碳在生态系统不同组分中的存量（单位为 $g~C~m^{-2}$），是衡量生态系统长期固碳能力的基础。
+    \begin{itemize}
+        \item \textbf{CCR (Carbon Coarse Root)}：粗根生物量碳库，指植物粗根（结构根）部分的碳储量。%粗根主要负责支撑植株和输导水分养分，是地下生物量的重要组成部分。
+        \item \textbf{CFR (Carbon Fine Root)}：细根生物量碳库，指植物细根（吸收根）部分的碳储量。%细根是植物吸收水分和矿质营养的关键器官，虽然生物量占比可能较小，但周转迅速，是土壤有机碳输入的重要来源。
+        \item \textbf{CL (Carbon Leaf)}：叶片生物量碳库，指植物冠层叶片的碳储量。%叶片是光合作用的主要场所，该碳库的大小直接决定了叶面积指数 (LAI) 和生态系统的潜在光合能力。
+        \item \textbf{CSOIL (Carbon Soil)}：土壤碳库，指土壤中存在的有机碳总量。%包括微生物生物量、腐殖质以及处于不同分解阶段的有机质，是陆地生态系统中最大的碳库，受凋落物输入和异养呼吸输出的共同调节。
+        \item \textbf{CW (Carbon Wood)}：木质部碳库，指树干、树枝等木质组织的碳储量。%作为森林生态系统中最大的植被碳库，它主要用于构建植物的支撑结构和输导组织，体现了植物长期的碳积累能力。
+    \end{itemize}
+
+    \item \textbf{碳分配系数 (Allocation Coefficients)}
+    
+    该组参数（无量纲，范围 0-1）反映了植物将光合产物 (NPP) 分配给不同器官的策略，体现了植物对环境限制因子的响应。
+    \begin{itemize}
+        \item \textbf{leaf}：光合产物分配给叶片的比例。%分配给叶片越多，意味着植物倾向于最大化光捕获能力，通常发生在光竞争激烈或水分充足时。
+        \item \textbf{root}：光合产物分配给细根的比例。%当土壤水分或养分（如氮）受限时，模型通常会增加此比例，以促进根系生长，加强资源获取（功能平衡假说）。
+        \item \textbf{wood}：光合产物分配给茎干（木质部）的比例。%主要用于构建支撑结构和输导组织，体现了植物的长期生长投资。
+        \item \textbf{exudation}：光合产物分配给根系分泌物的比例。%指光合产物以有机物质（如糖类、有机酸）形式分泌到根际土壤中的比例。这部分碳虽不积累为植物结构生物量，但能激发土壤微生物活性，促进土壤养分矿化与吸收（激发效应）。
+    \end{itemize}
+
+    \item \textbf{主要碳通量 (Major Carbon Fluxes)}
+    
+    该组参数描述了碳在生态系统与大气之间、以及系统内部流动的速率（单位通常为 $g~C~m^{-2}~yr^{-1}$），反映了生态系统的代谢活力。
+    \begin{itemize}
+        \item \textbf{GPP (Gross Primary Productivity)}：总初级生产力。指单位时间内生物（主要是绿色植物）通过光合作用所固定的有机碳量，又称总第一性生产。
+        \item \textbf{NPP (Net Primary Productivity)}：净初级生产力。植被所固定的有机碳中扣除本身呼吸消耗的部分，也称净第一性生产力，用公式表示为： $NPP = GPP - R_a$，式中，$R_a$为自养生物本身呼吸所消耗的同化产物。
+        \item \textbf{RAU (Autotrophic Respiration)}：自养呼吸。指植物根、茎、叶等器官为维持生命活动（如维持呼吸、生长呼吸）所消耗的碳。
+        \item \textbf{NEP (Net Ecosystem Productivity)}：净生态系统生产力。计算公式为 $NEP = NPP - R_h$，其中$R_h$为异养生物呼吸消耗量。它衡量了整个生态系统是作为碳汇（正值，吸收碳）还是碳源（负值，排放碳）。
+    \end{itemize}
+\end{itemize}
+
+\newpage
+
+\subsubsection{$CO_2$\_responses}
+
+本部分针对 $CO_2$ 响应分析图表（\texttt{CO2\_responses}）中涉及的关键变量及统计指标进行定义与解释。
+
+\begin{itemize}
+    \item \textbf{LAI (Leaf Area Index)} \\
+    \textbf{中文名称}：叶面积指数 \\
+    \textbf{定义}：单位土地面积上植物叶片总面积（单面）的比值（单位：$m^2~leaf~m^{-2}~ground$）。 \\
+    \textbf{模型含义}：由叶片碳库 (\texttt{shoot}) 通过比叶面积 (SLA) 转换而来。 \\
+    \textbf{生态意义}：衡量植被茂密程度的核心指标，直接决定光截获能力。 \\
+    \textbf{代码源码}：\texttt{plant\_growth.c} 中的 \texttt{carbon\_allocation} 函数。具体代码见附录。
+
+\hspace{1em}
+
+    \item \textbf{Shoot} \\
+    \textbf{中文名称}：叶片生物量碳库 (Foliage Biomass Carbon) \\
+    \textbf{特别说明}：特指\textbf{叶片 (Leaf)} 的碳储量，\textbf{不包含}树枝和茎干。 \\
+    \textbf{单位}：$g~C~m^{-2}$。 \\
+    \textbf{生态意义}：光合作用的“工厂”，属于周转较快的活性碳库。 \\
+    \textbf{代码源码}：\texttt{plant\_growth.c} 中的 \texttt{update\_plant\_state} 函数。
+
+\begin{lstlisting}[language=C]
+    s->shoot += f->cpleaf - f->deadleaves - f->ceaten
+\end{lstlisting}
+
+\hspace{1em}
+
+    \item \textbf{Stem} \\
+    \textbf{中文名称}：茎干生物量碳库 (Wood/Stem Biomass Carbon) \\
+    \textbf{定义}：指树干及木质部的碳储量。 \\
+    \textbf{模型含义}：长周期碳库，用于构建支撑结构。 \\
+    \textbf{生态意义}：代表森林生态系统的\textbf{长期固碳能力}。 \\
+    \textbf{代码源码}：\texttt{plant\_growth.c} 中的 \texttt{update\_plant\_state} 函数。
+
+\begin{lstlisting}[language=C]
+    s->stem += f->cpstem - f->deadstems
+\end{lstlisting}
+
+\hspace{1em}
+
+\item \textbf{ET (Evapotranspiration)} \\
+\textbf{中文名称}：生态系统蒸散发 \\
+\textbf{定义}：生态系统水分输出的总和，由植物蒸腾 ($T$)、土壤蒸发 ($E_{soil}$) 和冠层截留蒸发 ($E_{canopy}$) 三部分组成，计算公式为$ET = T + E_{soil} + E_{canopy}$ \\
+\textbf{生态意义}：反映生态系统的水分消耗状况。在 $eCO_2$ 下，植物往往通过降低气孔导度减少蒸腾，从而提高水分利用效率 (WUE)。 \\
+\textbf{代码源码}：\texttt{water\_balance.c} 中的 \texttt{update\_water\_storage\_recalwb} 函数。
+
+
+\begin{lstlisting}[language=C]
+    f->et = f->transpiration + f->soil_evap + f->canopy_evap;
+\end{lstlisting}
+\end{itemize}
+\newpage
+
+\section{实验材料与设备}
+
+本实验在安装有 R 语言环境的个人计算机上进行，使用 GDAY 生态系统过程模型（包含 C 语言源代码、编译后的可执行文件 PTP.exe、参数配置文件 par.cfg 及气象驱动数据）完成模拟与分析。
+
+\section{操作方法和实验步骤}
+
+本实验在 Windows 操作系统下进行，通过 R 语言脚本 (\texttt{Run\_programs\_Windows.R}) 调用并控制 GDAY 模型完成全流程模拟。实验步骤严格遵循脚本逻辑，分为前期准备、正式模拟和结果分析三个阶段。
+
+\subsection{前期准备与数据预处理}
+\begin{enumerate}
+    \item \textbf{环境配置}：清理 R 工作环境，加载自定义函数库脚本 \texttt{R/prepare\_R.R}，并指定文件输出路径为 \texttt{simulations} 文件夹。
+    \item \textbf{程序部署}：调用 \texttt{copy\_gday\_executable\_to\_simulation\_folder} 函数，将 Windows 版本的 GDAY 可执行文件复制到模拟工作台。
+    \item \textbf{气象数据生成}：
+    \begin{itemize}
+        \item 调用 \texttt{create\_daily\_met\_for\_GDAY} 函数，读取 \texttt{data/forcing} 下的原始数据，准备气象数据。
+        \item 执行 \texttt{check\_GDAY\_met\_data\_consistency} 检查数据一致性。
+        \item 降水处理：直接调用 \texttt{change\_rainfall} 函数，基于原始数据生成降水减半后的气象文件，并存储于目标文件夹。
+    \end{itemize}
+    \item \textbf{参数初始化}：调用 \texttt{update\_par\_cfg\_for\_spinup} 函数修改 \texttt{par.cfg} 配置文件，设置输入气象文件为 \texttt{EUC\_met\_spinup.csv}，开启 \texttt{spin\_up = TRUE}，并指定自旋方法为 \texttt{BRUTE}，为预热模拟做准备。
+\end{enumerate}
+
+\subsection{正式模拟：Spin-up 与 实验一（标准情景）}
+\begin{enumerate}
+    \item \textbf{模型预热 (Spin-up)}：
+    设置工作路径为 \texttt{simulations}，通过系统命令调用 \texttt{PTP.exe -s -p par.cfg} 运行模型。此步骤模拟工业革命前的平衡状态，并输出 \texttt{model\_spinup.cfg} 作为后续模拟的初始状态。
+    \item \textbf{环境 $CO_2$ (a$CO_2$) 模拟}：
+    调用 \texttt{update\_par\_cfg\_for\_aCO2} 函数更新配置，关闭 Spin-up 模式，指定气象文件为 \texttt{EUC\_met\_aCO2.csv}。运行 \texttt{PTP.exe -p par.cfg}，生成模拟结果 \texttt{simulation\_aCO2.csv}。
+    \item \textbf{升高 $CO_2$ (e$CO_2$) 模拟}：
+    调用 \texttt{update\_par\_cfg\_for\_eCO2} 函数，指定气象文件为 \texttt{EUC\_met\_eCO2.csv}。再次运行模型，生成模拟结果 \texttt{simulation\_eCO2.csv}。
+    \item \textbf{标准情景结果分析}：
+    模拟完成后，恢复工作环境路径 (\texttt{setwd(base\_dir)})，并调用后处理函数对标准情景进行详细评估：
+    \begin{itemize}
+        \item \textbf{质量平衡检查}：调用 \texttt{mass\_balance\_check}，验证生态系统内的碳、氮、水闭合情况。
+        \item \textbf{$CO_2$ 响应幅度}：调用 \texttt{co2\_response\_check}，计算标准情景下的 $CO_2$ 施肥效应。
+        \item \textbf{数据验证}：调用 \texttt{data\_model\_intercomparison}，将模拟结果与实测数据进行比对。
+    \end{itemize}
+\end{enumerate}
+
+\subsection{实验二：降水减半情景模拟}
+利用预处理阶段生成的修正降水气象数据，重新评估生态系统响应：
+\begin{enumerate}
+    \item \textbf{设置工作路径}：定义基础路径与模拟文件夹路径，并将 R 工作目录切换至 \texttt{simulations} 文件夹以准备运行。
+    \item \textbf{a$CO_2$ 模拟}：调用 \texttt{update\_par\_cfg\_for\_aCO2}，指定气象文件为 \texttt{EUC\_met\_aCO2\_rev\_rain.csv}，输出文件命名为 \texttt{simulation\_aCO2\_rev\_rain.csv}。运行模型。
+    \item \textbf{e$CO_2$ 模拟}：调用 \texttt{update\_par\_cfg\_for\_eCO2}，指定气象文件为 \texttt{EUC\_met\_eCO2\_rev\_rain.csv}，输出文件命名为 \texttt{simulation\_eCO2\_rev\_rain.csv}。运行模型。
+    \item \textbf{结果分析}：恢复工作环境路径至主目录，并调用 \texttt{co2\_response\_check} 函数。特别指定参数 \texttt{scenario="\_rev\_rain"}，专门分析降水改变情景下的 $CO_2$ 响应幅度。
+\end{enumerate}
+
+\subsection{实验三：固定叶片 C:N 比情景模拟}
+\begin{enumerate}
+    \item \textbf{设置工作路径}：同样将 R 工作目录切换至 \texttt{simulations} 文件夹。
+    \item \textbf{a$CO_2$ 模拟}：调用 \texttt{update\_par\_cfg\_for\_aCO2}，恢复使用标准气象文件 \texttt{EUC\_met\_aCO2.csv}，但新增参数 \texttt{fixleafnc = TRUE} 以强制固定叶片碳氮比。输出文件为 \texttt{simulation\_aCO2\_fixleafnc.csv}。运行模型。
+    \item \textbf{e$CO_2$ 模拟}：调用 \texttt{update\_par\_cfg\_for\_eCO2}，同样设置 \texttt{fixleafnc = TRUE}，输出文件为 \texttt{simulation\_eCO2\_fixleafnc.csv}。运行模型。
+    \item \textbf{结果分析}：恢复工作环境路径，并调用 \texttt{co2\_response\_check} 函数。特别指定参数 \texttt{scenario="\_fixleafnc"}，分析固定叶片碳氮比情景下的 $CO_2$ 响应幅度。
+\end{enumerate}
+
+\subsection{课后作业}
+
+\begin{enumerate}
+    \item 在默认参数情境下，结合模型输出结果定量描述大气$CO_2$浓度升高对生态系统植被碳库的影响，并计算2012-2016年叶片碳库的$CO_2$施肥效应
+    \item 探究在降水量下降一倍情境下，生态系统植被碳库（分为环境$CO_2$浓度和$CO_2$升高处理）是如何改变的
+    \item 探究在叶片碳氮比固定情境下，生态系统植被碳库如何响应大气$CO_2$升高处理
+\end{enumerate}
+
+\section{实验结果与分析}
+
+\subsection{数据提取与量化方法}
+
+为了从 GDAY 模型输出的逐日时间序列数据中提取关键指标，本实验编写了 R 语言自动化脚本进行数据清洗与统计分析，相关代码见附录。处理流程如下：
+
+\begin{enumerate}
+    \item \textbf{时间窗口筛选}：选取模拟实验的最后 5 年（2012-2016年）作为分析窗口，以评估 $CO_2$ 浓度升高后的稳定响应。
+    \item \textbf{统计指标计算}：
+    \begin{itemize}
+        \item \textbf{通量变量 (Flux)}：对于总初级生产力 (GPP) 和蒸散发 (ET)，先计算每年的累积总量，再求 5 年平均值。
+        \item \textbf{状态变量 (Pool)}：对于叶面积指数 (LAI) 和茎干生物量 (Stem)，直接计算该时间段内的日均值。
+    \end{itemize}
+    \item \textbf{单位换算与效应计算}：将模型输出的碳量单位由 $t~C~ha^{-1}$ 转换为 $g~C~m^{-2}$ (乘以 100)，并计算 $CO_2$ 施肥效应：
+    $$ \text{Fertilization Effect (\%)} = \frac{eCO_2 - aCO_2}{aCO_2} \times 100\% $$
+\end{enumerate}
+
+基于上述方法，三个实验情景下的关键生态系统变量统计结果如表 \ref{tab:summary_stats} 所示。该表格为后续定量分析提供了基础数据支撑。
+
+\begin{table}[h]
+    \centering
+    \caption{2012-2016年间不同实验情景下生态系统关键变量的统计均值与 $CO_2$ 施肥效应}
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{l l c c c}
+        \toprule
+        \textbf{实验情景} & \textbf{变量 (单位)} & \textbf{$aCO_2$ 均值} & \textbf{$eCO_2$ 均值} & \textbf{施肥效应 (\%)} \\
+        \midrule
+        \multirow{4}{*}{\textbf{Exp 1: 标准情景}} 
+          & GPP ($g~C~m^{-2}~yr^{-1}$) & 3949 & 4961 & 25.63 \\
+          & LAI ($m^2~m^{-2}$) & 12.66 & 14.81 & 16.98 \\
+          & Stem ($g~C~m^{-2}$) & 10402 & 11041 & 6.14 \\
+          & ET ($mm~yr^{-1}$) & 1005 & 991 & -1.39 \\
+        \midrule
+        \multirow{4}{*}{\textbf{Exp 2: 降水减半}} 
+          & GPP ($g~C~m^{-2}~yr^{-1}$) & 2485 & 3320 & \textbf{33.60} \\
+          & LAI ($m^2~m^{-2}$) & 8.19 & 9.96 & \textbf{21.61} \\
+          & Stem ($g~C~m^{-2}$) & 6183 & 6696 & \textbf{8.30} \\
+          & ET ($mm~yr^{-1}$) & 532 & 531 & -0.23 \\
+        \midrule
+        \multirow{4}{*}{\textbf{Exp 3: 固定 C:N}} 
+          & GPP ($g~C~m^{-2}~yr^{-1}$) & 3949 & 4961 & 25.63 \\
+          & LAI ($m^2~m^{-2}$) & 12.66 & 14.81 & 16.98 \\
+          & Stem ($g~C~m^{-2}$) & 10402 & 11041 & 6.14 \\
+          & ET ($mm~yr^{-1}$) & 1005 & 991 & -1.39 \\
+        \bottomrule
+    \end{tabular}
+   \label{tab:summary_stats}
+\end{table}
+
+在进行具体的实验情景分析前，本研究首先对模型运行结果进行了质量控制（Quality Control, QC）检查。通过验证碳循环（如 GPP、NPP 与呼吸通量的平衡）与水循环（降水、蒸散发与土壤储水量的平衡）的质量守恒情况，确认模型在模拟期间未出现异常的物质流失或增加（详细检测结果见附录图 \ref{fig:appendix_qc}）。结果表明模型运行稳定，数据质量可靠，可用于后续的定量分析。
+
+\newpage
+
+\subsection{实验一：标准情景}
+
+在默认参数情境下，本部分首先验证模型对生态系统基准状态的模拟能力，随后分析大气 $CO_2$ 浓度升高对生态系统的具体影响。
+
+% --- 必须确保导言区使用了 tikz 包 ---
+% \usepackage{tikz} 
+
+\subsubsection{模型基准状态与机制验证}
+
+为了确保分析的可靠性，我们将模型在环境 $CO_2$ 下的模拟结果与实测数据进行了对比（图 \ref{fig:exp1_validation}），图中 Sim 代表模型模拟值，Obs 代表实测值。。
+
+\begin{figure}[H]
+    \centering
+    % --- 子图 A: 碳库 ---
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/intercomparison_major_ecosystem_carbon_pools.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{碳库对比 (Pools)}
+    \end{minipage}
+    \hfill
+    % --- 子图 B: 通量 ---
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/intercomparison_major_carbon_fluxes.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{通量对比 (Fluxes)}
+    \end{minipage}
+    \hfill
+    % --- 子图 C: 分配 ---
+    \begin{minipage}[t]{0.32\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/intercomparison_Allocation_coefficient.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{C}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{分配系数 (Allocation)}
+    \end{minipage}
+    \label{fig:exp1_validation}
+    \caption{模型在环境 $CO_2$ 下的基准状态验证：(A)主要生态系统碳库，(B)主要碳通量，(C)碳分配系数。}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{碳库拟合（图 A）}：
+    \begin{itemize}
+    \item 对于植被碳库中最大的组分——茎干 (CW)，实测值 (Obs) 约为 5000 $g~C~m^{-2}$，而模型模拟值 (Sim) 约为 10402 $g~C~m^{-2}$ 模型结果显著高于实测值，差异倍数约为2倍。同时，土壤碳库 (CSOIL) 的模拟值（约27000 $g~C~m^{-2}$）也远高于实测值（约 2000 $g~C~m^{-2}$）。
+    \item 分析原因：这种显著的差异表明，默认参数下的 Spin-up 过程使模型达到了一种理论上的高碳平衡态，而现实中的生态系统可能受限于树龄、化学污染等因素，尚未积累如此多的生物量。
+    \end{itemize}
+
+    \item \textbf{通量对比（图 B）}：
+    \begin{itemize}
+    \item 模型模拟的总初级生产力 (GPP) 为 3949 $g~C~m^{-2}~yr^{-1}$ ，而实测值约为 1500 $g~C~m^{-2}~yr^{-1}$，模型结果显著高于实测值。类似的，生态系统呼吸 (RAU) 的模拟值也高于实测值。
+    \item 分析原因：通量的高估直接解释了为何图 A 中的生物量积累会被高估，因为碳输入的源头 (GPP) 设定偏高。
+    \end{itemize}
+    
+    \item \textbf{分配策略（图 C）}：
+    \begin{itemize}
+    \item 在光合产物的分配上，实测数据显示植物将约50\%的碳分配给叶片 (leaf)，但模型仅分配了约30\%，同时茎秆（wood）的分配显著高于实际值，约为实际的2倍。
+    \item 分析原因：这说明模型采取了更倾向于茎干的分配策略，而不是叶片。这种分配机制的偏差会进一步影响模型对未来 $LAI$ 和光合作用的预测。
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{大气 $CO_2$ 浓度升高对生态系统的影响}
+
+\noindent
+\textbf{(i) 总初级生产力 (GPP)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_a_e_gpp.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_diff_for_GPP.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 增加幅度 (\%)}
+    \end{minipage}
+    \caption{光合碳获取对 $eCO_2$ 的响应}
+    \label{fig:resp_gpp}
+\end{figure}
+
+如图 \ref{fig:resp_gpp} A 所示，$eCO_2$ 处理（红线）下的 GPP 常常高于环境 $CO_2$ 组。根据图 B 的统计，在 2012-2016 年间，GPP 的增加幅度（施肥效应）主要集中在 $10 \sim 50 \%$ 的区间内，平均增幅约为 25.6\% % 修改：补充了CSV计算的平均值25.63%
+，且在每一年中间都有一个明显的低谷，大约10\%。这表明高浓度 $CO_2$ 解除了 Rubisco 酶的限制，直接促进了碳同化速率。
+
+\noindent
+\textbf{(ii) 叶片碳库与叶面积指数 (LAI)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_a_e_lai.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_diff_for_LAI.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 增加幅度 (\%)}
+    \end{minipage}
+    \caption{冠层结构（叶碳库）对 $eCO_2$ 的响应}
+    \label{fig:resp_lai}
+\end{figure}
+
+图 \ref{fig:resp_lai} A显示，$eCO_2$ 下的 LAI 始终高于 $aCO_2$ 处理，平均增加幅度约为 17.0\% % 修改：补充了CSV计算的平均值16.98%
+。再看图 \ref{fig:resp_lai} B，该图展示出了2012-2016 年间叶片碳库的 $CO_2$ 施肥效应。从2012年到2014年，增肥效应总体上不断上升，但在之后逐渐出现波动甚至减少，但在到达2016年后又回到了和2014年相近的水平。这意味着光合产物的增加不仅用于呼吸消耗，还成功转化为了冠层结构的扩增，只不过随着时间的增长，该扩增作用并不稳定，可能受到其他限制因素的影响。
+\vspace{0.5em}
+
+\noindent
+\textbf{(iii) 蒸散发 (ET)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_a_e_et.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_diff_for_ET.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 变化幅度 (\%)}
+    \end{minipage}
+    \caption{水分利用对 $eCO_2$ 的响应}
+    \label{fig:resp_et}
+\end{figure}
+
+与其他变量不同，$eCO_2$ 与 $aCO_2$ 处理下的 ET 无明显差异（见图 \ref{fig:resp_et}），平均差异仅为 -1.4\% % 修改：补充了CSV计算的平均值-1.39%
+。从图A中可以看出，红色和蓝色数据点并未出现明显的差异，而图B也展示出了ET的变化幅度是时正时负的。$CO_2$的增肥效应总体表现为在一年的周期中，先小幅度增加到约20\%，再降低到约-20\%，然后又回升到70\%，又下降到约-35\%，最后回到约0\%。这种现象表明，尽管叶面积增加了，但由于植物气孔的调节作用，整体蒸散发并未显著增加,且波动较大。
+\vspace{0.5em}
+
+\noindent
+\textbf{(iv) 茎干 (Stem)}
+
+茎干是长期碳汇的主要载体。如图 \ref{fig:resp_biomass}A 所示，$eCO_2$的茎干生物量始终高于$aCO_2$，而图B显示施肥效应随时间推移大致呈线性上升趋势。至 2016 年末，茎干碳库在 $eCO_2$ 下比对照组增加了约 6.1\%。这证明了 $CO_2$ 施肥效应具有累积性，额外的碳被有效固定在了长周转周期的木质部中。
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_a_e_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{茎干生物量动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp1/CO2_responses_diff_for_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{茎干增加幅度 (\%)}
+    \end{minipage}
+    \caption{茎干碳库对 $eCO_2$ 的累积响应}
+    \label{fig:resp_biomass}
+\end{figure}
+
+
+\subsection{实验二：降水减半情景}
+
+本实验旨在探究降水减少 50\%的情况下，生态系统植被碳库如何改变。重点分析在干旱胁迫下，生态系统的绝对生产力是否下降，以及 $eCO_2$ 是否通过提高水分利用效率表现出更强的施肥效应。
+
+% --- 确保使用 TikZ ---
+% \usepackage{tikz}
+
+
+\noindent
+\textbf{(i) 总初级生产力 (GPP)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/a_e_gpp.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 时间动态 (干旱)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/diff_for_GPP.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 增加幅度 (\%)}
+    \end{minipage}
+    \caption{降水减半情景下，GPP 对 $eCO_2$ 的响应}
+    \label{fig:exp2_gpp}
+\end{figure}
+
+根据图 \ref{fig:exp2_gpp} 并结合实验一结果分析：
+\begin{itemize}
+    \item \textbf{干旱胁迫效应（与实验一对比）}：受水分限制影响，实验二中 $aCO_2$ 处理下的 GPP 年均值仅为 2485 $g~C~m^{-2}~yr^{-1}$，相比实验一的标准情景（3949 $g~C~m^{-2}~yr^{-1}$）下降了约 37\%。表明降水减半严重抑制了生态系统的光合生产力。
+    \item \textbf{相对施肥效应增强}：观察图 B，在干旱条件下，$eCO_2$ 带来的 GPP 增加幅度（施肥效应）平均达到了 \textbf{33.6\%}。
+    \item \textbf{结论}：与实验一（平均增幅 25.6\%）相比，干旱情景下的 $CO_2$ 施肥效应显著\textbf{增强}。这说明 $eCO_2$ 在水分受限时对植物的促进作用更为关键，体现了高浓度 $CO_2$ 对干旱胁迫的缓解作用。
+\end{itemize}
+
+
+\noindent
+\textbf{(ii) 叶片碳库与叶面积指数 (LAI)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/a_e_lai.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 时间动态 (干旱)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/diff_for_LAI.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 增加幅度 (\%)}
+    \end{minipage}
+    \caption{降水减半情景下，LAI 对 $eCO_2$ 的响应}
+    \label{fig:exp2_lai}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{结构受损}：对比图 \ref{fig:exp2_lai} A 与实验一，干旱导致 $aCO_2$ 下的 LAI 均值从实验一的 12.66 下降到了 8.19。这符合植物在缺水时通过减少叶面积来降低蒸腾耗水的生存策略。
+    \item \textbf{恢复能力}：图 B 显示，在 $eCO_2$ 作用下，LAI 的相对增加幅度约为 \textbf{21.6\%}，高于实验一的 17.0\%。这表明虽然干旱限制了总叶面积，但高浓度 $CO_2$ 依然支持植物维持相对更多的冠层结构。
+\end{itemize}
+
+
+\noindent
+\textbf{(iii) 蒸散发 (ET)}
+
+本环节是解释实验二结果的关键机制：
+\begin{itemize}
+    \item 如图 \ref{fig:exp2_et} A 所示，由于水分供应减半，ET 的年均值降至 532 $mm~yr^{-1}$（实验一约为 1005 $mm~yr^{-1}$），绝对值大幅下降。
+    \item 观察图 B ($eCO_2$ 效应)，ET 的变化幅度表现为微弱的负值（-0.2\%）。
+    \item \textbf{机制分析}：虽然 GPP 大幅增加了 33.6\%，但水分消耗 (ET) 几乎没有增加。这意味着水分利用效率 (WUE = GPP/ET)得到了极大提升。在干旱情景下，$eCO_2$ 诱导的气孔关闭成为了植物生存的关键机制，使其用同样甚至更少的水换取了更多的碳。
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/a_e_et.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 时间动态 (干旱)}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/diff_for_ET.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 变化幅度 (\%)}
+    \end{minipage}
+    \caption{降水减半情景下，ET 对 $eCO_2$ 的响应}
+    \label{fig:exp2_et}
+\end{figure}
+
+\noindent
+\textbf{(iv) 茎干 (Stem)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/a_e_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{茎干生物量动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.45\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=\linewidth]{outputfig/Exp2/diff_for_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{茎干增加幅度 (\%)}
+    \end{minipage}
+    \caption{降水减半情景下，茎干碳库对 $eCO_2$ 的响应}
+    \label{fig:exp2_biomass}
+\end{figure}
+
+\begin{itemize}
+    \item \textbf{积累受阻}：图 A 显示，受干旱限制，茎干生物量的年均值约为 6183 $g~C~m^{-2}$，显著低于实验一（10402 $g~C~m^{-2}$），表明生长速度严重放缓。
+    \item \textbf{施肥效应}：图 B 显示，2016 年末茎干碳库的 $CO_2$ 施肥效应约为 \textbf{8.3\%}。对比实验一的数值（6.1\%），干旱情景下的相对增幅更高。这有力地证明了大气 $CO_2$ 浓度升高能显著缓解干旱对森林生长的负面影响，使植被在水分受限环境中仍能保持一定的碳积累能力。
+\end{itemize}
+
+\subsection{实验三：固定叶片 C:N 比情景}
+
+\subsubsection{实验结果描述}
+在 R 脚本中设定 \texttt{fixleafnc = TRUE} 并运行模型后，我们发现实验三的所有输出结果与实验一完全一致，没有任何数值上的差异。
+
+“固定”C:N比前后产生相同结果这一反直觉的现象促使我们深入探究模型的底层运行机制。通过代码溯源与数据验证，我们证实了这是由于生态系统处于极端氮限制状态，导致实验一中的“可变 C:N 比”实际上已被锁定在生理下边界上。
+
+\subsubsection{机理探究}
+
+为了解释这一现象，我们结合了 C 语言源代码、参数配置文件及模拟输出数据进行了详细排查（图 \ref{fig:nc_investigation}）。
+
+        \textbf{(i) 理论边界 (Boundary)}：
+
+        检查模型基础配置文件 \texttt{base\_start\_with\_P.cfg}，发现参数 \texttt{nf\_min}（叶片最小氮浓度）被设定为：
+        \texttt{nf\_min} = 0.005
+        这对应着叶片 C:N 比的生理上限为 200 ($1/0.005$)。
+
+        同时，检查另一基础配置文件\texttt{par.cfg}，发现参数\texttt{ncmaxfold}和\texttt{ncmaxfyoung}被设定为0.04，这对应着叶片 C:N 比的生理下限为 25 ($1/0.04$)
+
+        \textbf{(ii) 代码限制}：
+
+        查阅源代码 \texttt{plant\_growth.c} 中的 \texttt{calculate\_growth\_stress\_limitation} 函数，模型定义了如下逻辑：当叶片氮浓度 (\texttt{shootnc}) 降至 \texttt{nf\_min} 以下时，氮限制因子 (\texttt{nlim}) 将变为 0，从而强制停止生长。具体代码是：
+        
+        \begin{lstlisting}[language=C]
+    if (s->shootnc < p->nf_min) {
+        nlim = 0.0;
+    }
+        \end{lstlisting}
+        而在同一代码的\texttt{update\_plant\_state}函数中，也以相似的逻辑确定了上边界，不过在本次实验中该函数未发挥作用。
+
+        \textbf{(iii) 数据验证 (Data Verification)}：
+        
+        为了确定是上边界还是下边界，我编写了 R 验证脚本，提取实验一输出文件中的叶片氮含量 (\texttt{shootn}) 与碳含量 (\texttt{shoot})，计算其实际比值。如图所示，在 2012-2016 年间，实验一的叶片 N:C 比并非自由波动，而是始终被“锁定”在 \textbf{0.005} 的直线上。
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{figures/NC_Ratio.png}
+        \caption{实验一模拟期间叶片 N:C 比的时间序列验证图。红虚线代表参数文件设定的下边界 (0.005)。}
+        \label{fig:nc_investigation}
+\end{figure}
+
+\vspace{0.5em}
+\noindent
+\textbf{结论}：
+
+对比实验三与实验一的结果可知，在未设定固定 C:N 比时，模型在模拟时，C:N比是在一个设定边界里变化的。既然我们在实验三中固定了 C:N 比后结果没有发生变化，验证结果表明，在实验一的模拟中，叶片N:C比已持续处于参数设定的下限值。因此，固定C:N比并未改变模型的运行状态，导致两实验结果一致。
+如图 \ref{fig:nc_investigation} 的验证所示，这一边界即为 \texttt{nf\_min = 0.005}。由于氮的限制，实验一中的变量被迫触及并停留在了这一生理下限；因此，当实验三固定C:N比时，实际上只是延续了这一已存在的边界状态，从而导致两种情景下的模拟结果完全一致。
+
+\textit{注：由于实验三的生态系统响应图表与实验一完全相同，为了实验报告的美观，相关输出图片在附录中展示，仅在正文展示 C:N 比的验证结果。验证用 R 代码详见附录。}
+
+\section{附录}
+
+\subsection{实验三相关图片}
+\label{appendix:exp3_figs}
+
+% === 第一部分：前三排（LAI, GPP, ET） ===
+\begin{figure}[H]
+    \centering
+    % === 第一排：LAI (叶面积指数) ===
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_a_e_lai.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{A}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_diff_for_LAI.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{B}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{LAI 施肥效应 (\%)}
+    \end{minipage}
+
+    \vspace{1em}
+
+    % === 第二排：GPP (总初级生产力) ===
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_a_e_gpp.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{C}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_diff_for_GPP.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{D}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{GPP 施肥效应 (\%)}
+    \end{minipage}
+
+    \vspace{1em}
+
+    % === 第三排：ET (蒸散发) ===
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_a_e_et.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{E}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 时间动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_diff_for_ET.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{F}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{ET 施肥效应 (\%)}
+    \end{minipage}
+
+    % 这里给主标题，并标记 Label
+    \caption{实验三（固定叶片 C:N 比情景）关键生态系统变量对 $eCO_2$ 的响应。}
+    \label{fig:exp3_full_results}
+\end{figure}
+
+% === 第二部分：第四排（Stem），强制换页 ===
+\begin{figure}[H]
+    \ContinuedFloat % <--- 关键命令：保持图号不变（例如显示为 图 5 (续)）
+    \centering
+    
+    % === 第四排：Stem (茎干生物量) ===
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_a_e_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{G}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{Stem 生物量动态}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\linewidth]{outputfig/Exp1/CO2_responses_diff_for_stem.png}};
+            \begin{scope}[x={(image.south east)},y={(image.north west)}]
+                \node[align=center, above right] at (0,1) {\textbf{H}};
+            \end{scope}
+        \end{tikzpicture}
+        \caption*{Stem 施肥效应 (\%)}
+    \end{minipage}
+
+    % 续图的标题
+    \caption[]{实验三（固定叶片 C:N 比情景）关键生态系统变量对 $eCO_2$ 的响应。}
+\end{figure}
+
+
+\subsection{模型运行质量控制检查}
+
+% === 第一部分：碳循环检查 1 & 2（无主标题） ===
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{outputfig/QC_C_variable/I(auto_resp + cpleaf + cpbranch + cpstem + cproot + cpcroot).png}
+        \caption*{碳通量平衡检查 A}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{outputfig/QC_C_variable/I(cpleaf + cpbranch + cpstem + cproot + cpcroot).png}
+        \caption*{碳通量平衡检查 B}
+    \end{minipage}
+    
+    % 关键点1：使用 \phantomcaption 生成图号但不显示文字
+    \phantomcaption 
+\end{figure}
+
+% === 第二部分：碳循环检查 3 & 4（无主标题） ===
+\begin{figure}[H]
+    \ContinuedFloat % 关键点2：接续上一张图
+    \centering
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{outputfig/QC_C_variable/I(nep + hetero_resp + auto_resp).png}
+        \caption*{NEP与呼吸平衡检查}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{outputfig/QC_C_variable/I(npp + auto_resp).png}
+        \caption*{NPP与呼吸平衡检查}
+    \end{minipage}
+    
+    % 继续占位
+    \phantomcaption
+\end{figure}
+
+% === 第三部分：水循环检查（这里放置唯一的主标题） ===
+\begin{figure}[H]
+    \ContinuedFloat % 接续上一张图
+    \centering
+    \begin{minipage}[b]{0.45\linewidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{outputfig/QC_Water_variable.png}
+        \caption*{水循环质量守恒检查}
+    \end{minipage}
+
+    % 关键点3：在这里放置真正的标题和标签
+    \caption{模型碳、水循环质量守恒验证结果。图中残差（Residual）接近于 0 表明模型满足物质守恒定律。}
+    \label{fig:appendix_qc}
+\end{figure}
+
+\newpage
+
+\subsection{相关代码}
+
+    \begin{lstlisting}[language=C, caption=更新叶面积指数（LAI）的C代码片段]
+    if (c->deciduous_model) {
+        if (float_eq(s->shoot, 0.0)) {
+            s->lai = 0.0;
+        } else if (s->leaf_out_days[doy] > 0.0) {
+            s->lai += (f->cpleaf *
+                      (p->sla * M2_AS_HA / (KG_AS_TONNES * p->cfracts)) -
+                      (f->deadleaves + f->ceaten) * s->lai / s->shoot);
+        } else {
+            s->lai = 0.0;
+        }
+    } else {
+        /* update leaf area [m2 m-2] */
+        if (float_eq(s->shoot, 0.0)) {
+            s->lai = 0.0;
+        } else {
+            s->lai += (f->cpleaf *
+                      (p->sla * M2_AS_HA / (KG_AS_TONNES * p->cfracts)) -
+                      (f->deadleaves + f->ceaten) * s->lai / s->shoot);
+        }
+    }
+
+    if (c->fixed_lai) {
+        s->lai = p->fix_lai;
+    }
+    \end{lstlisting}
+
+
+
+\begin{lstlisting}[language=R, caption=计算关键变量统计均值与$CO_2$施肥效应的R脚本]
+
+# 检查并加载必要的包
+
+if (!require(dplyr)) install.packages("dplyr")
+library(dplyr)
+
+# 定义基础路径
+sim_dir <- "simulations"
+
+analyze_scenario <- function(scenario_name, file_aCO2, file_eCO2) {
+    
+    # 构建完整文件路径
+    path_a <- file.path(sim_dir, file_aCO2)
+    path_e <- file.path(sim_dir, file_eCO2)
+    
+    # 检查文件是否存在
+    if (!file.exists(path_a) || !file.exists(path_e)) {
+        warning(paste("文件未找到，跳过实验:", scenario_name))
+        return(NULL)
+    }
+    
+    df_a <- read.csv(path_a, header = TRUE, skip = 1)
+    df_e <- read.csv(path_e, header = TRUE, skip = 1)
+    
+    # 筛选 2012-2016 年的数据
+    # 统一列名转换为小写，防止大小写差异 (GDAY输出通常是大写的 YEAR)
+    colnames(df_a) <- tolower(colnames(df_a))
+    colnames(df_e) <- tolower(colnames(df_e))
+    
+    target_years <- 2012:2016
+    
+    df_a_sub <- df_a %>% filter(year %in% target_years)
+    df_e_sub <- df_e %>% filter(year %in% target_years)
+    
+    # 自动匹配变量名 (CW 和 Stem 的问题)
+    # 如果 CSV 里是 cw，将其复制为 stem 以便统一计算
+    if("cw" %in% colnames(df_a_sub)) { 
+        df_a_sub$stem <- df_a_sub$cw
+        df_e_sub$stem <- df_e_sub$cw 
+    }
+    
+    # 定义计算均值的辅助函数
+    calc_mean_annual <- function(data, var_name, type="sum") {
+        if (!var_name %in% colnames(data)) {
+            warning(paste("变量未找到:", var_name))
+            return(NA)
+        }
+        
+        if (type == "sum") {
+            # 通量 (Flux): 先算每年的总和，再算几年的平均
+            # 例如 GPP (g/m2/day) -> 年总和 -> 年平均
+            annual_sums <- data %>% group_by(year) %>% summarize(val = sum(!!sym(var_name), na.rm=TRUE))
+            return(mean(annual_sums$val))
+        } else {
+            # 库 (Pool): 状态变量，直接求这一段时间的平均值
+            # 例如 LAI, Stem Biomass
+            return(mean(data[[var_name]], na.rm=TRUE))
+        }
+    }
+    
+    # 1. GPP (总初级生产力) - 通量
+    gpp_a <- calc_mean_annual(df_a_sub, "gpp", "sum")
+    gpp_e <- calc_mean_annual(df_e_sub, "gpp", "sum")
+    
+    # 2. LAI (叶面积指数) - 状态量
+    lai_a <- calc_mean_annual(df_a_sub, "lai", "mean")
+    lai_e <- calc_mean_annual(df_e_sub, "lai", "mean")
+    
+    # 3. Stem (茎干生物量) - 状态量
+    stem_a <- calc_mean_annual(df_a_sub, "stem", "mean")
+    stem_e <- calc_mean_annual(df_e_sub, "stem", "mean")
+    
+    # 4. ET (蒸散发) - 通量
+    et_a <- calc_mean_annual(df_a_sub, "et", "sum")
+    et_e <- calc_mean_annual(df_e_sub, "et", "sum")
+    
+    # 构建结果数据框
+    res <- data.frame(
+        Experiment = rep(scenario_name, 4),
+        Variable = c("GPP", "LAI", "Stem", "ET"),
+        Unit = c("g C m-2 yr-1", "m2 m-2", "g C m-2", "mm yr-1"),
+        aCO2_Mean = round(c(gpp_a, lai_a, stem_a, et_a), 2),
+        eCO2_Mean = round(c(gpp_e, lai_e, stem_e, et_e), 2)
+    )
+    
+    # 计算 CO2 施肥效应 (%)
+    res$Fertilization_Effect_Pct <- round((res$eCO2_Mean - res$aCO2_Mean) / res$aCO2_Mean * 100, 2)
+    
+    return(res)
+
+}
+
+# 实验一：标准情景
+print("正在计算实验一...")
+exp1 <- analyze_scenario("Exp 1: Standard", "simulation_aCO2.csv", "simulation_eCO2.csv")
+
+# 实验二：降水减半 (Rev Rain)
+print("正在计算实验二...")
+exp2 <- analyze_scenario("Exp 2: Reduced Rain", "simulation_aCO2_rev_rain.csv", "simulation_eCO2_rev_rain.csv")
+
+# 实验三：固定 C:N (Fix Leaf NC)
+print("正在计算实验三...")
+exp3 <- analyze_scenario("Exp 3: Fixed C:N", "simulation_aCO2_fixleafnc.csv", "simulation_eCO2_fixleafnc.csv")
+
+# 合并结果
+final_table <- rbind(exp1, exp2, exp3)
+
+# 导出 CSV (建议直接打开这个文件复制数据)
+write.csv(final_table, "Experiment_Results_Calculated.csv", row.names = FALSE)
+\end{lstlisting}
+
+
+\begin{lstlisting}[language=R, caption=验证叶片N:C比率的R脚本]
+# 读取实验一数据
+df_a <- read.csv("simulations/simulation_aCO2.csv", header = TRUE, skip = 1)
+
+# 计算叶片氮碳比 (shootnc)
+# 注意：我们要避开 shoot 为 0 的情况（虽然在生长季一般不为0）
+df_a$shootnc_calc <- ifelse(df_a$shoot > 0, df_a$shootn / df_a$shoot, NA)
+
+# 筛选 2012-2016 年的数据
+df_sub <- subset(df_a, year >= 2012 & year <= 2016)
+
+# 统计分析
+cat("=== 实验一叶片氮碳比 (Shoot N:C) 统计 ===\n")
+cat("设定下边界 (nf_min): 0.005\n")
+cat("实际最小值:", min(df_sub$shootnc_calc, na.rm=TRUE), "\n")
+cat("实际平均值:", mean(df_sub$shootnc_calc, na.rm=TRUE), "\n")
+cat("实际最大值:", max(df_sub$shootnc_calc, na.rm=TRUE), "\n")
+
+# 计算对应的 C:N 比
+cat("\n=== 对应的 C:N 比 ===\n")
+cat("理论边界 C:N (1/0.005):", 1/0.005, "\n")
+cat("实际运行 C:N:", 1/mean(df_sub$shootnc_calc, na.rm=TRUE), "\n")
+
+# 绘图检查是否是一条直线
+
+plot(df_sub$shootnc_calc, type='l', main="Shoot N:C Ratio (2012-2016)", 
+     ylab="N:C Ratio", xlab="Days", ylim=c(0.004, 0.006))
+abline(h=0.005, col="red", lty=2)
+\end{lstlisting}
+
+\end{document}

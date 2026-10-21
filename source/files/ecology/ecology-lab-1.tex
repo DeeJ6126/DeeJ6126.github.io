@@ -1,0 +1,354 @@
+\documentclass[10.5pt]{config}
+% 本实验报告采用 署名-相同方式共享 4.0 国际许可协议 (CC BY-SA 4.0)
+\setlength{\parskip}{\baselineskip} % 设置段落间距为一个基本行距
+\major{生物科学}
+\name{蒋贤迪}
+\partner{} % 签名栏
+% \title{}
+\stuid{3240105782}
+\date{2025.9.24}
+\lab{生物实验中心-312}
+\course{生态学基础及实验}
+\instructor{何磊}
+\grades{}
+\expname{种群Logistic增长及其对温度响应的观测} % 实验名字
+\exptype{观测} % 实验类型
+
+
+\usepackage{amsmath} % 用于数学公式
+\usepackage[table]{xcolor} % 用于设置单元格颜色
+\usepackage{booktabs} % 用于更好的表格线条
+\usepackage{mhchem} % 用于 \ce{} 化学式命令
+\usepackage{graphicx} % 用于插入图片
+\usepackage{booktabs} % 用于加载三线表功能
+\usepackage{multirow} % 用于多行合并
+\usepackage{array}    % 增强表格功能
+\usepackage{subcaption}
+
+\begin{document}
+
+
+% \maketitlepage % 封面
+% \maketoc % 目录
+\makeheader % 首页头部
+
+
+\section{实验目的和要求}
+
+理解\textbf{环境容纳量}和\textbf{内禀增长率}的概念
+
+掌握\textbf{Logistic}增长曲线绘制的方法；
+
+了解环境因子（如温度）对种群增长的调控。
+
+\section{实验内容和原理}
+
+\subsection{基本概念回顾}
+
+\textbf{种群（Population）的概念：}
+
+特定时空内相互作用的同一物种的个体集合，是物种在自然界中存在的基本单元
+
+如：某个山村中的村民、某片草原上的狮子……
+
+\textbf{种群的基本特征：}
+
+遗传特征、年龄结构、空间分布、\textbf{个体数量}……
+
+\textbf{种群增长：}
+
+种群内\textbf{个体数量的增加}
+
+\textbf{种群动态：}
+
+种群个体数量在时间和空间分布上的变动规律
+
+\textbf{种群的增长模型：}
+
+（1）非密度制约（J型）
+
+\textbf{特点：}资源/空间不限制；个体数以几何级数或指数增长。如图1
+
+假设内禀增长率 $r$ 为恒定值，则瞬时种群增长速率为：
+\begin{equation}
+\frac{dN_t}{dt} = N_t \times r
+\end{equation}
+
+结合 $t=0$ 时，$N=N_0$，解上式微分方程，可得种群大小 $N$ 关于 $t$ 的函数：
+\begin{equation}
+N_t = N_0 \times e^{(r \times t)}
+\end{equation}
+
+进而，可知：
+\begin{equation}
+r = \frac{\ln N_t - \ln N_0}{t - t_0}
+\end{equation}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{图1.png} % 插入图片，宽度为文本宽度的80%
+    \caption{J型增长示意图，源自Ecology The Economy of Nature (9th ed.2021)}
+    \label{fig:populatio}
+\end{figure}\\
+
+(2）密度制约（S型）
+
+\textbf{特点：}资源/空间优先，密度越大，内禀增长率越小。如图2
+\begin{enumerate}
+    \item 存在环境容纳量（通常以 $K$ 表示），当 $N_t = K$ 时，$\frac{dN_t}{dt} = 0$；
+    \item 种群内禀增长率随密度上升而降低，降低的量与种群密度呈正比。
+\end{enumerate}
+
+每个个体占用 $1/K$ 的“环境容纳空间”，当 $N$ 个体占中 $N/K$ “环境容纳空间”后，可供种群继续增长的“环境剩余空间”则为 $(1 - N/K)$。
+
+    每增加 1 个个体，便对内禀增长率 $r$ 产生 $1/K$ 的抑制作用。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{图2.png} % 插入图片，宽度为文本宽度的80%
+    \caption{S型增长示意图，源自Ecology The Economy of Nature (9th ed.2021)}
+    \label{fig:s_growth_model}
+\end{figure}
+
+\section{实验材料与设备}
+
+\subsection{实验材料}
+
+\textbf{原壳小球藻（\textit{Chlorellu protothecies}）:}
+
+小球藻（Chlorella）:
+
+•~是地球上最早的生命之一，出现在20多亿年前
+
+•~绿藻门小球藻属，普生性球形单细胞绿藻
+
+•~直径3至8微米
+
+•~光和效率高，分布极广
+
+\begin{table}[htbp]
+      \centering
+        \begin{tabular}{ccc{20em}}
+        \toprule
+        编号    &   名称  &  备注  \\
+        \midrule
+        1	&	小球藻藻种 & 需要10ml\\
+        2 & 小球藻培养液 & \\
+        3 & 三角瓶 & 共6瓶\\
+        4 & 移液枪 & 分为5ml与1ml两种\\
+        5 & 分光光度计 & \\
+        6 & 光照培养箱 & 分为20℃与30℃两种\\
+        \bottomrule
+        \end{tabular}%
+        \caption{实验工具或材料}
+      \label{tab:device}%
+    \end{table}%
+
+
+\section{操作方法和实验步骤}
+
+\subsection{藻种的萌发和扩繁\textbf{（已完成）}}
+
+• 取10ml 藻种转移至三角瓶中，并加入100ml培养液，在25℃、每天光照12小时条件下培养一周
+
+• 再按照同样的方法连续转接培养3-4次，培养出足够的量
+
+\subsection{小球藻培养液的配置（FACHB3）}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+营养成分 & \ce{(NH4)2SO4} & \ce{K2HPO4.3H2O} & \ce{MgSO4.7H2O} & \ce{Ca(NO3)2} & \ce{NaHCO3} & 柠檬酸 & 柠檬酸铁 & 蒸馏水 \\
+\hline
+含量(g/L) & 0.2 & 0.1 & 0.08 & 0.02 & 0.3 & 0.005 & 0.005 &  \\
+\hline
+\rowcolor{white} % 明确设置背景为白色（虽然默认就是）
+体积（ml） & 10 & 10 & 10 & 10 & 10 & \cellcolor{orange!80}1 & \cellcolor{orange!80}1 & 948 \\
+\hline
+\end{tabular}
+\caption{培养基配方}
+\label{tab:medium}
+\end{table}
+
+\subsection{空白对照设置：}
+
+在2个250ml的三角瓶中各加入\textbf{110ml}营养液，瓶身上写日期、组名
+
+\subsection{小球藻培养设置：}
+
+在6个250ml三角瓶中各加入\textbf{10ml}藻种培养液和\textbf{100ml}培养液，\textbf{振荡均匀}，瓶身上写日期、组名
+
+\subsection{分组培养：}
+
+将6个小球藻随机分为2组，各分配一个空白对照三角瓶。两组分别置于\textbf{20}°C和\textbf{30}°C的光温培养箱中，以每日12h光照连续培养1周。
+
+\subsection{每日记录：}
+
+每天中午12：00－13：00，每组必须有1名同学对小球藻种群密度进行观测。测定每个三角瓶溶液的$OD_{650}$值。做好记录。
+
+
+\section{实验数据记录和处理}
+
+\subsection{实验数据记录}
+实验期间，每日定时使用分光光光度计测量各处理组的OD\textsubscript{650}值，共记录7天。原始数据如表 \ref{tab:temperature_data} 所示。
+
+\begin{table}[htbp]
+\centering
+\caption{温度与天数对应的测量值}
+\label{tab:temperature_data}
+\begin{tabular}{l *{6}{c}}
+\toprule
+\multirow{2}{*}{天数} & \multicolumn{3}{c}{20摄氏度} & \multicolumn{3}{c}{30摄氏度} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& T1 & T2 & T3 & T1 & T2 & T3 \\
+\midrule
+Day1 & 0.048 & 0.049 & 0.051 & 0.047 & 0.055 & 0.053 \\
+Day2 & 0.084 & 0.085 & 0.08  & 0.125 & 0.142 & 0.148 \\
+Day3 & 0.164 & 0.148 & 0.169 & 0.252 & 0.267 & 0.26  \\
+Day4 & 0.31  & 0.265 & 0.311 & 0.403 & 0.38  & 0.359 \\
+Day5 & 0.402 & 0.326 & 0.399 & 0.496 & 0.467 & 0.465 \\
+Day6 & 0.481 & 0.442 & 0.489 & 0.545 & 0.484 & 0.493 \\
+Day7 & 0.607 & 0.517 & 0.505 & 0.57  & 0.528 & 0.507 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{实验数据处理}
+本实验通过分光光度计测定小球藻培养液在 650 nm 处的吸光度（OD$_{650}$），并依据经验公式
+\begin{equation}
+    N = 2147.6 \times \text{OD}_{650} + 0.453
+\end{equation}\\
+将原始 OD 值转换为种群密度。为提高数据可靠性，对每日三个重复组的密度值取平均值，并对 20℃ 组中明显偏离的异常点（第 4 天重复 2、第 7 天重复 1）予以剔除。
+
+\begin{table}[htbp]
+\centering
+\caption{温度与天数对应的测量值}
+\label{tab:density_data}
+\begin{tabular}{l *{6}{c}}
+\toprule
+\multirow{2}{*}{天数} & \multicolumn{3}{c}{20摄氏度} & \multicolumn{3}{c}{30摄氏度} \\
+\cmidrule(lr){2-4} \cmidrule(lr){5-7}
+& T1 & T2 & T3 & T1 & T2 & T3 \\
+\midrule
+        Day1 & 103.54 & 105.69 & 109.98 & 101.40 & 118.57 & 114.28 \\
+        Day2 & 180.85 & 183.00 & 172.26 & 268.90 & 305.41 & 318.10 \\
+        Day3 & 352.66 & 318.10 & 363.49 & 541.65 & 573.51 & 558.83 \\
+        Day4 & 666.21 & 569.57 & 668.35 & 865.98 & 816.54 & 771.29 \\
+        Day5 & 863.89 & 699.98 & 857.69 & 1065.72 & 1003.06 & 1000.91 \\
+        Day6 & 1033.40 & 949.69 & 1050.88 & 1170.90 & 1039.69 & 1059.26 \\
+        Day7 & 1304.05 & 1110.51 & 1085.00 & 1224.59 & 1134.40 & 1089.31 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+基于日均密度数据，运用R语言中的nls()函数，采用非线性最小二乘法对 Logistic 增长模型:
+\begin{equation}
+N(t) = \frac{K}{1 + e^{a - rt}}
+\end{equation}
+进行拟合，其中 $K$ 为环境容纳量，$r$ 为内禀增长率，$a$ 为积分常数。拟合结果如下：
+
+\item \textbf{20℃ 条件下}：
+    \begin{equation}
+    N(t) = \frac{1288.31}{1 + e^{3.255 - 0.770t}}
+    \end{equation}
+    拟合参数：$K = 1288.31$，$r = 0.770 \, \text{day}^{-1}$，$a = 3.255$。
+    
+    \item \textbf{30℃ 条件下}：
+    \begin{equation}
+    N(t) = \frac{1163.24}{1 + e^{3.115 - 1.005t}}
+    \end{equation}
+    拟合参数：$K = 1163.24$，$r = 1.005 \, \text{day}^{-1}$，$a = 3.115$。
+
+此外，通过三点法计算 K 值的公式：
+\begin{equation}
+    K = \frac{2N_1N_2N_3 - N_2^2(N_1 + N_3)}{N_1N_3 - N_2^2}
+\end{equation}
+取第 1、4、7 天日均密度计算理论 K 值，得：
+\begin{center}
+- 20℃：$K \approx 1320$ \hspace{2cm} - 30℃：$K \approx 1180$
+\end{center}
+
+与 Logistic 拟合结果基本吻合，进一步验证了模型的可靠性。\\
+\section{实验结果与分析}
+\subsection{实验结果}
+
+基于处理后的数据，绘制的种群生长曲线如下图 \ref{fig:20C} 至 \ref{fig:combined_curve} 所示。
+
+% --- 图3 与 图4 并排展示 ---
+\begin{figure}[htbp]
+    \centering % 将整个大图居中
+
+    % --- 这是左侧的子图 (图3) ---
+    \begin{subfigure}[b]{0.43\textwidth}
+        \centering
+        % 将 "图片3的文件名.png" 替换为您的真实文件名
+        \includegraphics[width=\textwidth]{R_20C_logistic_fit.png}
+        \caption{20℃条件下种群增长曲线}
+        \label{fig:20C} % 为子图设置一个独一无二的标签
+    \end{subfigure}
+    \hfill % 这个命令会自动添加水平方向的弹性空白，将两张图推开
+    % --- 这是右侧的子图 (图4) ---
+    \begin{subfigure}[b]{0.43\textwidth}
+        \centering
+        % 将 "图片4的文件名.png" 替换为您的真实文件名
+        \includegraphics[width=\textwidth]{R_30C_logistic_fit.png}
+        \caption{30℃条件下种群增长曲线}
+        \label{fig:30c} % 为子图设置一个独一无二的标签
+    \end{subfigure}
+
+    \caption{不同温度下的种群增长曲线对比} % 整个大图的总标题
+    \label{fig:side_by_side_curves} % 整个大图的总标签
+\end{figure}
+
+\clearpage
+% --- 图5 单独一行展示 ---
+\begin{figure}[htbp]
+    \centering
+    % 将 "图片5的文件名.png" 替换为您的真实文件名
+    \includegraphics[width=0.58\textwidth]{R_combined_mean_logistic.png}
+    \caption{20℃与30℃平均增长曲线对比}
+    \label{fig:combined_curve}
+\end{figure}
+
+    \item \textbf{内禀增长率（$r$）}：30℃ 下的 $r = 1.005$ 显著高于 20℃ 下的 $r = 0.770$，表明高温显著加速了小球藻的早期增长速率。
+    \item \textbf{环境容纳量（$K$）}：20℃ 下的 $K = 1288.31$ 高于 30℃ 下的 $K = 1163.24$，说明低温环境支持更高的种群稳定密度。推测原因可能是高温加速代谢，导致营养消耗更快、代谢废物积累更迅速，从而降低了系统的长期承载能力。
+    \item \textbf{增长曲线形态}：两条曲线均呈现典型的 S 型增长，但在实验周期（7 天）内，20℃ 组尚未完全达到平台期（第 7 天密度为 1166.6，接近但略低于 K 值），而 30℃ 组在第 5–6 天已趋近 K 值。
+
+\subsection{分析}
+
+实验所得的小球藻种群增长曲线清晰地揭示了温度对种群动态的调控作用。在 30℃ 条件下，种群密度在前 3 天缓慢上升，第 3 至第 5 天进入快速增长期，第 6 天后趋于平稳，整体呈现出典型的 S 型（Logistic）增长特征。这表明种群在初期资源充足时迅速扩张，随后因密度升高导致的环境阻力（如营养耗竭、代谢废物积累）逐渐增强，最终增长速率趋近于零，稳定在环境容纳量 $K$ 附近。相比之下，20℃ 条件下的增长曲线虽也呈上升趋势，但在整个 7 天观测期内始终未出现明显的平台期，第 7 天日均密度（1166.6）仍低于其拟合的 $K = 1288.31$，说明该温度下种群仍处于指数增长向稳定期过渡的阶段，尚未达到环境承载极限。
+
+Logistic 模型拟合结果进一步量化了这一差异。30℃ 下的内禀增长率 $r = 1.005\,\text{day}^{-1}$ 显著高于 20℃ 的 $r = 0.770\,\text{day}^{-1}$，反映出高温显著加速了小球藻的细胞分裂与代谢活动，从而在短期内实现更快的种群扩张。然而，其环境容纳量 $K = 1163.24$ 却低于 20℃ 的 $K = 1288.31$，这一看似矛盾的现象恰恰体现了资源-速率权衡（trade-off）的生态学本质：高温虽提升了生理效率，但也加速了培养液中氮、磷等关键营养的消耗，并可能促进有机酸等抑制性代谢产物的积累，从而降低了系统的长期承载能力。三点法计算的理论 $K$ 值（20℃：1320；30℃：1180）与拟合结果高度一致，验证了模型的可靠性。
+
+\clearpage
+
+值得注意的是，原始数据中存在一定的离散性，尤其在 20℃ 组的第 4 天（重复 2 为 569.57，远低于另两组的 666 和 668）和第 7 天（重复 1 为 1304.05，显著高于另两组的 1110 和 1085）。这些异常点可能源于操作误差，如取样前未充分混匀或是没有刮干净瓶底的小球藻。尽管我们在拟合时已剔除这些点以提高模型精度，但它们也反映了实际生态实验中不可避免的随机误差。
+
+综合来看，本实验成功验证了 Logistic 增长模型在描述封闭系统中单种种群动态方面的适用性，并清晰展示了温度作为关键环境因子如何通过调控内禀增长率 $r$ 与环境容纳量 $K$ 来塑造不同的种群增长策略。20℃ 条件下表现为“慢增长、高承载”，而 30℃ 则呈现“快增长、低承载”的模式。这一结果不仅符合密度制约增长的基本理论，也为理解气候变化
+
+\section{思考题}
+
+\subsection{自然界中的种群是否可能无限地增长，为什么？}
+
+不可能。自然界中的种群不可能无限地增长，其根本原因在于环境资源的有限性，主要为以下三点：
+
+（1）空间与资源限制：任何生物种群都生活在特定的环境中，而这个环境所能提供的生存空间、食物、水、光照等资源都是有限的。当种群个体数量增加时，对这些资源的需求也随之增加，最终会导致资源短缺。
+
+（2）密度制约效应：随着种群密度升高，个体间的竞争加剧（如争夺食物、领地），同时代谢废物积累、疾病传播风险增加，这些都会导致死亡率上升或出生率下降，从而抑制种群的进一步增长。
+
+因此，只有在理论上假设“资源和空间无限”的理想条件下，种群才可能无限增长（即J型增长）。但在现实的自然生态系统中，这种条件不存在。
+
+\subsection{逻辑斯蒂增长模型有什么局限？}
+
+尽管Logistic模型是描述种群增长的经典模型，但它存在以下几点主要局限性：
+
+（1）环境容纳量$K$恒定假设不切实际：模型假设$K$是一个固定不变的常数。然而，在现实中,$K$值会受到气候变化、栖息地破坏、季节更替、人类活动等多种因素的影响而动态变化。
+
+（2）忽略种群内部结构：模型将种群视为一个均质的整体，忽略了年龄结构、性别比例、个体大小差异等因素。实际上，不同年龄段的个体具有不同的繁殖能力和死亡率，性别比例也会影响种群的繁殖潜力，这些在模型中均未体现。
+
+（3）对初始条件敏感：模型的预测结果对初始种群数量 $N_0$和积分常数$a$非常敏感。微小的初始值误差可能会导致长期预测结果的巨大偏差，而在实际研究中，精确确定初始状态往往十分困难。
+
+综上所述，Logistic模型是一个高度简化的理论工具，它为我们理解种群增长的基本规律提供了重要框架，但在应用于复杂多变的真实生态系统时，需要结合实际情况进行修正或扩展。
+
+\end{document}
