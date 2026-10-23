@@ -1,7 +1,7 @@
 ---
 title: scVI：单细胞生成模型精读
 summary: 从 count 数据的概率建模出发，梳理 scVI 的生成模型、潜空间和差异表达分析。
-readDate: '2026-10-20'
+readWeek: 秋6周
 cover: /papers/scvi/cover.png
 tags:
   - 单细胞

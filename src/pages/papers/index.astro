@@ -2,15 +2,16 @@
 import { getCollection } from 'astro:content';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import '../../styles/papers.css';
+import { comparePaperWeeks } from '../../lib/paper-weeks.mjs';
 
-const papers = (await getCollection('papers')).sort((a, b) => b.data.readDate.localeCompare(a.data.readDate) || a.id.localeCompare(b.id));
-const years = [...new Set(papers.map((paper) => paper.data.readDate.slice(0, 4)))];
+const papers = (await getCollection('papers')).sort((a, b) => comparePaperWeeks(a.data.readWeek, b.data.readWeek) || a.id.localeCompare(b.id));
+const seasons = [...new Set(papers.map((paper) => paper.data.readWeek[0]))];
 ---
 <SiteLayout title="论文笔记 | Dee's Blog" description="每周精读一篇论文，记录问题、方法和自己的理解。" active="papers">
-  <aside class="paper-rail" aria-label="论文笔记年份">
+  <aside class="paper-rail" aria-label="论文笔记季节">
     <span class="eyebrow">READING JOURNAL</span>
     <strong>论文笔记</strong>
-    <nav>{years.map((year) => <a href={`#year-${year}`}>{year}<small>{String(papers.filter((paper) => paper.data.readDate.startsWith(year)).length).padStart(2, '0')}</small></a>)}</nav>
+    <nav>{seasons.map((season) => <a href={`#season-${season}`}>{season}<small>{String(papers.filter((paper) => paper.data.readWeek.startsWith(season)).length).padStart(2, '0')}</small></a>)}</nav>
   </aside>
   <main class="paper-page paper-index">
     <header class="paper-index-heading">
@@ -18,13 +19,13 @@ const years = [...new Set(papers.map((paper) => paper.data.readDate.slice(0, 4))
       <h1>论文笔记</h1>
       <p>每周一篇，记录问题、方法和自己的理解。</p>
     </header>
-    {years.map((year) => <section class="paper-year" id={`year-${year}`}>
-      <header><h2>{year}</h2><span>READ · THINK · WRITE</span></header>
-      {papers.filter((paper) => paper.data.readDate.startsWith(year)).map((paper) => (
+    {seasons.map((season) => <section class="paper-season" id={`season-${season}`}>
+      <header><h2>{season}</h2><span>READ · THINK · WRITE</span></header>
+      {papers.filter((paper) => paper.data.readWeek.startsWith(season)).map((paper) => (
         <article class:list={['paper-entry', { 'has-cover': Boolean(paper.data.cover) }]}>
           {paper.data.cover && <a class="paper-entry-cover" href={`/papers/${paper.id}/`} data-motion="section" data-motion-target-page="papers" aria-label={`阅读 ${paper.data.title}`}><img src={paper.data.cover} alt={`${paper.data.title}封面`} loading="lazy" /></a>}
           <div class="paper-entry-copy">
-            <div class="paper-entry-date"><time datetime={paper.data.readDate}>{paper.data.readDate.slice(5).replace('-', ' / ')}</time><span>精读笔记</span></div>
+            <div class="paper-entry-date"><strong>{paper.data.readWeek}</strong><span>精读笔记</span></div>
             <h3><a href={`/papers/${paper.id}/`} data-motion="section" data-motion-target-page="papers">{paper.data.title}<span aria-hidden="true">↗</span></a></h3>
             {paper.data.paperTitle && <p class="paper-original-title">{paper.data.paperTitle}</p>}
             <p>{paper.data.summary}</p>

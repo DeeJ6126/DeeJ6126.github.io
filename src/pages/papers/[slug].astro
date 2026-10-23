@@ -20,7 +20,7 @@ const sections = headings.filter((heading) => heading.depth === majorDepth);
   </aside>
   <main class="paper-page paper-detail">
     <header class="paper-note-heading">
-      <div class="paper-context"><span>PAPER NOTES</span><time datetime={paper.data.readDate}>阅读于 {paper.data.readDate}</time></div>
+      <div class="paper-context"><span>PAPER NOTES</span><span>{paper.data.readWeek}</span></div>
       <h1>{paper.data.title}</h1>
       <p class="paper-note-summary">{paper.data.summary}</p>
       {(paper.data.paperTitle || paper.data.authors || paper.data.venue || paper.data.year || paper.data.url) && <div class="paper-citation">

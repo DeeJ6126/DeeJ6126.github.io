@@ -17,7 +17,7 @@ function fixture(t) {
   fs.mkdirSync(path.join(source, 'imgs'), { recursive: true });
   return { root, source, directory };
 }
-const front = { title: 'Example', summary: 'Reading note', readDate: '2026-10-20', tags: ['VAE'] };
+const front = { title: 'Example', summary: 'Reading note', readWeek: '秋6周', tags: ['VAE'] };
 
 test('imports Obsidian embeds and ordinary images with spaces, preserving formulas and the original files', (t) => {
   const { root, source } = fixture(t);
@@ -55,12 +55,24 @@ test('rejects duplicate import and invalid slugs without overwriting an existing
   assert.throws(() => savePaperNote(root, '../escape', { front, body: 'no' }), /笔记标识/);
 });
 
-test('validates dates and lists newest readings first', (t) => {
+test('validates reading weeks and lists later seasons and weeks first', (t) => {
   const { root } = fixture(t);
-  savePaperNote(root, 'first', { front: { ...front, readDate: '2026-10-13' }, body: 'first' });
+  savePaperNote(root, 'first', { front: { ...front, readWeek: '秋5周' }, body: 'first' });
   savePaperNote(root, 'second', { front, body: 'second' });
   assert.deepEqual(listPaperNotes(root).map((note) => note.slug), ['second', 'first']);
-  assert.throws(() => savePaperNote(root, 'invalid', { front: { ...front, readDate: '2026-02-30' }, body: '' }), /阅读日期/);
+  savePaperNote(root, 'winter', { front: { ...front, readWeek: '冬1周' }, body: 'winter' });
+  assert.deepEqual(listPaperNotes(root).map((note) => note.slug), ['winter', 'second', 'first']);
+  for (const season of ['秋', '冬', '春', '夏']) {
+    assert.throws(() => savePaperNote(root, 'invalid', { front: { ...front, readWeek: `${season}9周` }, body: '' }), /阅读周次/);
+  }
+  for (const readWeek of ['寒20周', '暑30周']) {
+    const note = savePaperNote(root, 'vacation', { front: { ...front, readWeek, readDate: '2026-10-20' }, body: '' });
+    assert.equal(note.front.readWeek, readWeek);
+    assert.equal(note.front.readDate, undefined);
+  }
+  for (const readWeek of ['秋0周', '寒0周', '暑1.5周', '夏01周', '秋', '']) {
+    assert.throws(() => savePaperNote(root, 'invalid', { front: { ...front, readWeek }, body: '' }), /阅读周次/);
+  }
 });
 
 test('imports a local cover and keeps the selected cover when updating the note', (t) => {

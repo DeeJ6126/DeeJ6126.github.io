@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { parsePaperWeek } from './lib/paper-weeks.mjs';
 
 const courses = defineCollection({
   loader: glob({
@@ -57,7 +58,9 @@ const papers = defineCollection({
     title: z.string(),
     summary: z.string(),
     cover: z.string().optional(),
-    readDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    readWeek: z.string().refine((value) => Boolean(parsePaperWeek(value)), {
+      message: '阅读周次请使用“秋6周”等格式；秋、冬、春、夏限 1～8 周，寒、暑为正整数周。',
+    }),
     paperTitle: z.string().optional(),
     authors: z.string().optional(),
     year: z.number().int().optional(),
