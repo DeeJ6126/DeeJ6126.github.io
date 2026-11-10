@@ -1,7 +1,7 @@
 ---
 title: MAP：机制感知扰动预测精读
 summary: 梳理 MAP 的知识图谱、多模态预训练与扰动预测流程，记录模型评估和药物筛选实验。
-readWeek: 秋6周
+readWeek: 秋7周
 cover: /papers/map/images/Pasted%20image%2020261025120957.png
 tags:
   - 单细胞
